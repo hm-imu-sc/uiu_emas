@@ -1,0 +1,32 @@
+{% load static %}
+<html>
+    <head>
+        <title>UIU EMAS</title>
+        <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/all.css' %}">
+        <link rel="stylesheet" href="{% static 'css/app_admin/index_style.css' %}">
+    </head>
+    <body>
+        <h1 class="name">UIU&nbsp&nbsp&nbspEMAS</h1>
+        <div class="all_app">
+            <div class="app_admin">
+                <a href="">
+                    <i class="fad fa-user-lock"></i>
+                    <span class="heading">Admin</span>
+                </a>
+            </div>
+            <div class="app_cse_ps">
+                <!-- <a href="cse_ps/"> -->
+                <a href="{% url 'app_cse_ps:index' %}">
+                    <i class="fad fa-drafting-compass"></i>
+                    <span class="heading">CSE Project Show</span>
+                </a>
+            </div>
+            <div class="app_club_ff">
+                <a href="{% url 'app_club_ff:index' %}">
+                    <i class="fad fa-person-sign"></i>
+                    <span class="heading">Club Forum Fest</span>
+                </a>
+            </div>
+        </div>
+    </body>
+</html>

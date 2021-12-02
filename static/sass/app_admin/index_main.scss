@@ -1,0 +1,74 @@
+@font-face {
+    font-family: gwendolyn-regular;
+    src: url('../../fonts/font_faces/Gwendolyn-Regular.ttf');
+}
+
+@font-face {
+    font-family: gwendolyn-bold;
+    src: url('../../fonts/font_faces/Gwendolyn-Bold.ttf');
+}
+
+@font-face {
+    font-family: smooch-regular;
+    src: url('../../fonts/font_faces/Smooch-Regular.ttf');
+}
+
+* {
+    text-decoration: none;
+    color: aqua;
+    background-color: black;
+    font-family: gwendolyn-bold;
+    margin: 0;
+    padding: 0;
+}
+
+.name {
+    font-family: smooch-regular;
+    font-size: 90px;
+    margin: 40px auto 0;
+    width: 500px;
+}
+
+.all_app {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    // border: 1px solid aqua;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    height: 50%;
+    width: 80%;
+
+    div {
+        // border: 1px solid aqua;
+        margin: 5% 60px 0;
+        // height: 30%;
+
+        a {
+            border: 2px solid gray;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            padding: 30px;
+            // color: gray;
+
+            span {
+                font-size: 50px;
+                // color: gray;
+            }
+            i {
+                font-size: 90px;
+                // color: gray;
+            }
+
+            &:hover {
+                border-color: aqua;
+            }
+        }
+    }
+}
