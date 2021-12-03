@@ -16,6 +16,7 @@
 	// 	"description": "Log output to console"
 	// }
 	"for": {
+		"scope": "html",
 		"prefix": "for",
 		"body": [
 			"{% for $1 in $1s %}",
@@ -24,6 +25,7 @@
 		]
 	},
 	"if": {
+		"scope": "html",
 		"prefix": "if",
 		"body": [
 			"{% if %1 %}",
@@ -32,6 +34,7 @@
 		]
 	},
 	"elif": {
+		"scope": "html",
 		"prefix": "elif",
 		"body": [
 			"{% elif $1 %}",
@@ -39,6 +42,7 @@
 		]
 	},
 	"else": {
+		"scope": "html",
 		"prefix": "else",
 		"body": [
 			"{% elif %}",
@@ -46,6 +50,7 @@
 		]
 	},
 	"block": {
+		"scope": "html",
 		"prefix": "block",
 		"body": [
 			"{% block $1 %}",
@@ -54,19 +59,80 @@
 		]
 	},
 	"url": {
+		"scope": "html",
 		"prefix": "url",
 		"body": "{% url '$1:$2' %}"
 	},
 	"static": {
+		"scope": "html",
 		"prefix": "static",
 		"body": "{% static $0 %}"
 	},
 	"static_var": {
+		"scope": "html",
 		"prefix": "{{",
 		"body": "{{ $0 }}"
 	},
 	"logic_or_controls": {
+		"scope": "html",
 		"prefix": "{%",
 		"body": "{% $0 %}"
+	},
+	"template_basic": {
+		"scope": "html",
+		"prefix": "template_basic",
+		"body": [
+			"<!DOCTYPE html>",
+			"{% load static %}",
+			"<html lang=\"en\">",
+			"\t<head>",
+			"\t\t<meta charset=\"UTF-8\">",
+			"\t\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">",
+			"\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+			"\t\t<link rel=\"stylesheet\" href=\"{% static 'fonts/font-awesome/css/all.css' %}\">",
+			"\t\t<link rel=\"stylesheet\" href=\"{% static 'css/app_$1/$TM_FILENAME_BASE.css' %}\">",
+			"\t\t<title>Document</title>",
+			"\t</head>",
+			"\t<body>",
+			"\t\t",
+			"\t\t$0",
+			"\t\t",
+			"\t\t<script src=\"{% static 'js/common/jquery-3.6.0.min.js' %}\"></script>",
+			"\t\t<script src=\"{% static 'js/app_$1/$TM_FILENAME_BASE.js' %}\"></script>",
+			"\t</body>",
+			"</html>",		
+		]
+	},
+	"sass_common": {
+		"scope": "scss",
+		"prefix": "sass_common",
+		"body": [
+			"@font-face {",
+			"\tfont-family: gwendolyn-regular;",
+			"\tsrc: url('../../fonts/font_faces/Gwendolyn-Regular.ttf');",
+			"}",
+			"",
+			"@font-face {",
+			"\tfont-family: gwendolyn-bold;",
+			"\tsrc: url('../../fonts/font_faces/Gwendolyn-Bold.ttf');",
+			"}",
+			"",
+			"@font-face {",
+			"\tfont-family: smooch-regular;",
+			"\tsrc: url('../../fonts/font_faces/Smooch-Regular.ttf');",
+			"}",
+			"",
+			"* {",
+			"\ttext-decoration: none;",
+			"\tcolor: aqua;",
+			"\tbackground-color: black;",
+			"\tfont-family: gwendolyn-bold;",
+			"\tfont-size: 20px;",
+			"\tmargin: 0;",
+			"\tpadding: 0;",
+			"}",
+			"",
+			"$0",		
+		]
 	}
 }

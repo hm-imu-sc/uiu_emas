@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/all.css' %}">
+        <link rel="stylesheet" href="{% static 'css/app_general/student_registration.css' %}">
+        <title>Document</title>
+    </head>
+    <body>
+        
+        <h1>Registration</h1>
+        
+        <form action="{% url 'app_general:student_registration' %}" method="POST" enctype="multipart/form-data">
+            
+        </form>
+
+        <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
+        <script src="{% static 'js/app_general/student_registration.js' %}"></script>
+    </body>
+</html>

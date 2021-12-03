@@ -1,11 +1,36 @@
+<!DOCTYPE html>
 {% load static %}
-<html>
+<html lang="en">
     <head>
-        <title>General</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/all.css' %}">
-        <link rel="stylesheet" href="{% static 'css/app_general/index_style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/app_general/index.css' %}">
+        <title>Document</title>
     </head>
     <body>
-        <h1>General App</h1>
+        
+        <div class="registration_links">
+            <a href="{% url 'app_general:student_registration_page' %}">
+                <i class="fad fa-user-graduate"></i>
+                <span>Join as student</span>
+            </a>
+        
+            <a href="{% url 'app_general:student_registration_page' %}">
+                <i class="fad fa-university"></i>
+                <span>Join as teacher</span>
+            </a>
+        </div>
+
+        <div class="login_link">
+            <a href="{% url 'app_general:login_page' %}">
+                <i class="fad fa-sign-in"></i>
+                <span>Login</span>
+            </a>
+        </div>
+
+        <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
+        <script src="{% static 'js/app_general/index.js' %}"></script>
     </body>
 </html>

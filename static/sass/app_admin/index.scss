@@ -18,6 +18,7 @@
     color: aqua;
     background-color: black;
     font-family: gwendolyn-bold;
+    font-size: 20px;
     margin: 0;
     padding: 0;
 }
@@ -25,8 +26,15 @@
 .name {
     font-family: smooch-regular;
     font-size: 90px;
+    color: rgba(0, 255, 255, 0.8);
     margin: 40px auto 0;
     width: 500px;
+    
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .all_app {
@@ -34,7 +42,6 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    // border: 1px solid aqua;
     top: 0;
     bottom: 0;
     right: 0;
@@ -44,12 +51,10 @@
     width: 90%;
 
     div {
-        // border: 1px solid aqua;
         margin: 5% 60px 0;
-        // height: 30%;
 
         a {
-            border: 2px solid gray;
+            border: 2px solid rgba(0, 255, 255, 0.5);
             border-radius: 10px;
             display: flex;
             flex-direction: column;
@@ -59,15 +64,23 @@
 
             span {
                 font-size: 50px;
-                // color: gray;
+                color: rgba(0, 255, 255, 0.5);
             }
             i {
                 font-size: 90px;
-                // color: gray;
+                color: rgba(0, 255, 255, 0.5);
             }
 
             &:hover {
                 border-color: aqua;
+            }
+
+            &:hover span {
+                color: aqua;
+            }
+
+            &:hover i {
+                color: aqua;
             }
         }
     }
