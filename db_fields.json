@@ -1,11 +1,9 @@
 {
     "students": ["id", "time_created", "time_updated", "trash", "status", "student_id", "name", "uiu_email", "dob", "department", "photo", "password_hash", "phone_number"],
-    "teachers": ["id", "time_created", "time_updated", "trash", "status"],
-    "sections": ["id", "time_created", "time_updated", "trash", "status"],
-    "recruits": ["id", "time_created", "time_updated", "trash", "status", "student_id"],
+    "teachers": ["id", "time_created", "time_updated", "trash", "status", "employee_id", "uiu_email", "dob", "department", "photo", "password_hash", "phone_number"],
+    "sections": ["id", "time_created", "time_updated", "trash", "status", "name", "course_code", "course_name", "teacher_id", "trimester"],
+    "recruits": ["id", "time_created", "time_updated", "trash", "status", "student_id", "student_id", "club_id"],
     "project_videos": ["id", "time_created", "time_updated", "trash", "status"],
-    "project_members": ["id", "time_created", "time_updated", "trash", "status", "student_id"],
-    "projects": ["id", "time_created", "time_updated", "trash", "status"],
     "prizes": ["id", "time_created", "time_updated", "trash", "status", "student_id", "project_id", "prize"],
     "feed_posts": ["id", "time_created", "time_updated", "trash", "status", "club_id", "image_path", "caption"],
     "events": ["id", "time_created", "time_updated", "trash", "status", "club_id", "title", "cover_photo_path", "description"],
@@ -13,5 +11,7 @@
     "cff_comments": ["id", "time_created", "time_updated", "trash", "status", "club_id", "user_id", "user_type", "comment"],
     "clubs": ["id", "time_created", "time_updated", "trash", "status", "name", "club_id", "email", "creation_date", "department", "logo_path", "cff_registration_status", "password_hash"],
     "cff_registrations": ["id", "time_created", "time_updated", "trash", "status", "student_id", "club_id", "t_shirt_size", "approval", "year"],
-    "booths": ["id", "time_created", "time_updated", "trash", "status", "club_id", "intro_video","club_description", "recruiting"]
+    "booths": ["id", "time_created", "time_updated", "trash", "status", "club_id", "intro_video","club_description", "recruiting"],
+    "project_members": ["id", "time_created", "time_updated", "trash", "status", "project_id", "student_id"],
+    "projects": ["id", "time_created", "time_updated", "trash", "status", "title", "section_id", "short_description", "intro_video", "report", "trimester"]
 }
