@@ -17,11 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from app_cse_ps import urls as app_cse_ps_urls
 from app_club_ff import urls as app_club_ff_urls
-from app_admin import urls as admin_urls
+from app_admin import urls as app_admin_urls
+from app_general import urls as app_general_urls
 
 urlpatterns = [
-    path('', include(admin_urls)),
+    path('', include(app_admin_urls)),
     path('admin/', admin.site.urls),
     path('cse_ps/', include(app_cse_ps_urls), name="cse_ps"),
     path('club_ff/', include(app_club_ff_urls), name="club_ff"),
+    path('general/', include(app_general_urls), name="general"),
 ]

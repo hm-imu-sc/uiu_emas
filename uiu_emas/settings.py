@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app_cse_ps',
     'app_club_ff',
-    'app_admin'
+    'app_admin',
+    'app_general',
 ]
 
 MIDDLEWARE = [
