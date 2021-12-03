@@ -8,19 +8,17 @@ from django.conf import settings
 import json
 from .exceptions import DBFieldsFileNotFound
 
-cursor = connection.cursor()
-
 class MySql:
     
-    # database = None
+    database = None
 
     def __init__(self):
-        pass
+        self.__cursor = connection.cursor()
 
-    # def db(self):
-    #     if self.database is None:
-    #         self.database = MySql()
-    #     return self.database
+    def db():
+        if MySql.database is None:
+            MySql.database = MySql()
+        return MySql.database
 
     def get(self, table_name, field_names = ["*"], conditions = None, condition_connector = "and", other_clauses=[]):
 
@@ -123,8 +121,8 @@ class MySql:
         return condition
 
     def __query(self, query):
-        cursor.execute(query)
-        return cursor.fetchall()
+        self.__cursor.execute(query)
+        return self.__cursor.fetchall()
 
     def __get_fields(self, table_name):
         file = None
