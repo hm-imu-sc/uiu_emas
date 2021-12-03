@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 03, 2021 at 04:56 AM
+-- Generation Time: Dec 03, 2021 at 06:49 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.7
 
@@ -37,6 +37,24 @@ CREATE TABLE `booths` (
   `intro_video` varchar(255) NOT NULL,
   `club_description` text NOT NULL,
   `recruiting` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cff_comments`
+--
+
+CREATE TABLE `cff_comments` (
+  `id` int(255) NOT NULL,
+  `time_created` datetime NOT NULL DEFAULT current_timestamp(),
+  `time_updated` datetime NOT NULL DEFAULT current_timestamp(),
+  `trash` tinyint(1) NOT NULL DEFAULT 0,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `club_id` varchar(255) NOT NULL,
+  `user_id` varchar(255) NOT NULL,
+  `user_type` varchar(255) NOT NULL,
+  `comment` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -293,6 +311,13 @@ ALTER TABLE `booths`
   ADD UNIQUE KEY `club_id` (`club_id`);
 
 --
+-- Indexes for table `cff_comments`
+--
+ALTER TABLE `cff_comments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cff_comments_club_id` (`club_id`);
+
+--
 -- Indexes for table `cff_registrations`
 --
 ALTER TABLE `cff_registrations`
@@ -403,6 +428,12 @@ ALTER TABLE `booths`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `cff_comments`
+--
+ALTER TABLE `cff_comments`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `cff_registrations`
 --
 ALTER TABLE `cff_registrations`
@@ -483,6 +514,12 @@ ALTER TABLE `teachers`
 --
 ALTER TABLE `booths`
   ADD CONSTRAINT `booths_club_id` FOREIGN KEY (`club_id`) REFERENCES `clubs` (`club_id`);
+
+--
+-- Constraints for table `cff_comments`
+--
+ALTER TABLE `cff_comments`
+  ADD CONSTRAINT `cff_comments_club_id` FOREIGN KEY (`club_id`) REFERENCES `clubs` (`club_id`);
 
 --
 -- Constraints for table `cff_registrations`

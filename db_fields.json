@@ -1,0 +1,17 @@
+{
+    "students": ["id", "time_created", "time_updated", "trash", "status", "student_id", "name", "uiu_email", "dob", "department", "photo", "password_hash", "phone_number"],
+    "teachers": ["id", "time_created", "time_updated", "trash", "status"],
+    "sections": ["id", "time_created", "time_updated", "trash", "status"],
+    "recruits": ["id", "time_created", "time_updated", "trash", "status", "student_id"],
+    "project_videos": ["id", "time_created", "time_updated", "trash", "status"],
+    "project_members": ["id", "time_created", "time_updated", "trash", "status", "student_id"],
+    "projects": ["id", "time_created", "time_updated", "trash", "status"],
+    "prizes": ["id", "time_created", "time_updated", "trash", "status", "student_id"],
+    "feed_posts": ["id", "time_created", "time_updated", "trash", "status"],
+    "events": ["id", "time_created", "time_updated", "trash", "status"],
+    "comments": ["id", "time_created", "time_updated", "trash", "status"],
+    "cff_comments": ["id", "time_created", "time_updated", "trash", "status"],
+    "clubs": ["id", "time_created", "time_updated", "trash", "status"],
+    "cff_registrations": ["id", "time_created", "time_updated", "trash", "status", "student_id"],
+    "booths": ["id", "time_created", "time_updated", "trash", "status"]
+}
