@@ -1,5 +1,5 @@
 import os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'minecraft_crafting_assistant.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'uiu_emas.settings')
 import django
 django.setup()
 
