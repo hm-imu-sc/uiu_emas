@@ -1,6 +1,6 @@
 {
     "students": ["id", "time_created", "time_updated", "trash", "status", "student_id", "name", "uiu_email", "dob", "department", "photo", "password_hash", "phone_number"],
-    "teachers": ["id", "time_created", "time_updated", "trash", "status", "employee_id", "uiu_email", "dob", "department", "photo", "password_hash", "phone_number"],
+    "teachers": ["id", "time_created", "time_updated", "trash", "status", "employee_id", "name", "uiu_email", "dob", "department", "photo", "password_hash", "phone_number"],
     "sections": ["id", "time_created", "time_updated", "trash", "status", "name", "course_code", "course_name", "teacher_id", "trimester"],
     "recruits": ["id", "time_created", "time_updated", "trash", "status", "student_id", "student_id", "club_id"],
     "project_videos": ["id", "time_created", "time_updated", "trash", "status"],

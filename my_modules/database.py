@@ -39,6 +39,8 @@ class MySql:
         for claus in other_clauses:
             query += f" {claus}"
 
+        print(query)
+
         data_tuple = self.__query(query)
 
         return self.__fetch_dict(table_name, data_tuple)
@@ -107,6 +109,9 @@ class MySql:
 
     def query(self, query):
         return self.__query(query)
+
+    def fetch_dict(self, table_name, data_tuple):
+        return self.__fetch_dict(table_name, data_tuple)
 
     def __prepare_conditions(self, conditions, condition_connector):
         condition_fields = list(conditions.keys())
