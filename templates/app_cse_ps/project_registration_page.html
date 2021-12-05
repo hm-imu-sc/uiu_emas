@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/all.css' %}">
+        <link rel="stylesheet" href="{% static 'css/app_general/project_registration_page.css' %}">
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>Project Registration</h1>
+        <form action="{% url 'app_cse_ps:project_registration' %}" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="project_title">
+              <label for="project_title">Project Title: </label>
+              <input type="text" name="project_title" id="project_title">
+          </div>
+
+          <div class="course">
+            <label for="course">Course: </label>
+            <select name="course">
+              {% for course in data %}
+                <option value="{{ course.id }}">{{ course.course_code}} ({{ course.name }}) : {{ course.course_name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="short_description">
+            <label for="short_description">Short Description: </label>
+            <textarea name="short_description" rows="4" cols="80"></textarea>
+          </div>
+
+          <div class="project_members">
+            <label for="project_members">Student IDs of Project Members (Comma Separated): </label>
+            <textarea name="name" rows="5" cols="80"></textarea>
+          </div>
+
+          <input type="submit" value="Submit">
+
+        </form>
+
+        <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
+        <script src="{% static 'js/app_general/project_registration_page.js' %}"></script>
+    </body>
+</html>

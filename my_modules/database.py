@@ -9,7 +9,7 @@ import json
 from .exceptions import DBFieldsFileNotFound
 
 class MySql:
-    
+
     database = None
 
     def __init__(self):
