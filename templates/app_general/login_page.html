@@ -12,7 +12,10 @@
     <body>
         
         <h1>login_page</h1>
-        
+
+        <a href="#">Student Dashboard</a>
+        <a href="{% url 'app_general:teacher_dashboard_page' %}">Teacher Dashboard</a>
+
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
         <script src="{% static 'js/app_/login_page.js' %}"></script>
     </body>

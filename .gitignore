@@ -1,4 +1,5 @@
 downloads
+.idea
 __pycache__
 migration
 migrations
