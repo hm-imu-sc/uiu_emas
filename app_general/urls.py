@@ -9,5 +9,5 @@ urlpatterns = [
     path("student_registration/", views.StudentRegistration.as_view(), name="student_registration"),
     path("login_page/", views.LoginPage.as_view(), name="login_page"),
     path("teacher_dashboard_page/", views.TeacherDashboardPage.as_view(), name="teacher_dashboard_page"),
-    path("project_details_page/", views.ProjectDetailsPage.as_view(), name= "project_details_page")
+    path("project_details_page/<project_id>/", views.ProjectDetailsPage.as_view(), name= "project_details_page")
 ]

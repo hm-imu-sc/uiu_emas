@@ -81,17 +81,20 @@ class TeacherDashboardPage(TemplateView):
         sections = self.database.get('sections', conditions = {
             "teacher_id": teacher_id
         })
-        
-        conditions = {}
+        conditions = "("
 
-        for section in sections:
-            conditions['section_id'] = section['id']
+        for i in range(len(sections)):
+            conditions += f" section_id = {sections[i]['id']} "
+            if i + 1 < len(sections):
+                conditions += "or"
 
-        projects = self.database.get('projects', conditions = conditions)
+        conditions += f") and status = 0 "
+
+        projects = self.database.fetch_dict("projects", self.database.query(f"select * from projects where {conditions}"))
 
         context['projects'] = projects
 
-        teacher_name = self.database.get('teachers', conditions = {"employee_id": teacher_id})["name"]
+        teacher_name = self.database.get('teachers', conditions = {"employee_id": teacher_id})[0]["name"]
 
         context['teacher_name'] = teacher_name
         
