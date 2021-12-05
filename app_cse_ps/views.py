@@ -25,4 +25,19 @@ class ProjectRegistrationPage(TemplateView):
         return context
 
 class ProjectRegistration(DBAction):
-    pass
+    def action(self, request, **kwargs):
+        self.redirect_url = "app_cse_ps:index"
+        post_data = dict(**request.POST)
+
+        project_title = post_data["project_title"][0]
+        section_id =  post_data["course"][0]
+        short_description = post_data["short_description"][0]
+        project_members = post_data["project_members"][0]
+
+        project_members = project_members.strip().split(',')
+
+        self.database.query(f'INSERT INTO projects(title, section_id, short_description, trimester) VALUES ("{project_title}", "{section_id}", "{short_description}", "213")')
+        project_id = self.database.query(f'SELECT id from projects where title = "{project_title}" and short_description = "{short_description}"')[0][0]
+        for member in project_members:
+            self.database.query(f'INSERT into project_members(project_id, student_id) VALUE ("{project_id}", "{member.strip()}")')
+        return
