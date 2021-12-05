@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from my_modules.base_views import DBAction
 from django.views.generic import TemplateView
+from my_modules.database import MySql
 
 # Create your views here.
 
@@ -67,3 +68,34 @@ class LoginPage(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         return super().get_context_data(*args, **kwargs)
+
+class TeacherDashboardPage(TemplateView):
+    database = MySql.db()
+
+    template_name = "app_general/teacher_dashboard_page.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context =  super().get_context_data(*args, **kwargs)
+
+        teacher_id = 'SS'
+        sections = self.database.get('sections', conditions = {
+            "teacher_id": teacher_id
+        })
+        
+        conditions = {}
+
+        for section in sections:
+            conditions['section_id'] = section['id']
+
+        projects = self.database.get('projects', conditions = conditions)
+
+        context['projects'] = projects
+
+        teacher_name = self.database.get('teachers', conditions = {"employee_id": teacher_id})["name"]
+
+        context['teacher_name'] = teacher_name
+        
+        return context
+
+class ProjectDetailsPage(TemplateView):
+    pass
