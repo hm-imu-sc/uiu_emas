@@ -102,3 +102,16 @@ class TeacherDashboardPage(TemplateView):
 
 class ProjectDetailsPage(TemplateView):
     pass
+
+class BoothSetupPage(TemplateView):
+
+    template_name = 'app_general/booth_setup_page.html'
+    database = MySql.db()
+
+    def get_context_data(self,*args,**kwargs):
+        self.boothid=1 # insert boothid here
+        context = super().get_context_data(*args, **kwargs)
+        booth_details = self.database.query(f'')
+
+
+
