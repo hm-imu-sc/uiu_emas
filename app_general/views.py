@@ -123,6 +123,16 @@ class ProjectDetailsPage(TemplateView):
         section = course_details_tuple[0][1]
         course_name = course_details_tuple[0][2]
 
+        #project members
+        query = f'SELECT student_id FROM project_members WHERE project_id = {int(project_id)}'
+        project_members_tuple = self.database.query(query)
+
+        project_members_list = []
+
+        for member in project_members_tuple:
+            project_members_list.append(member[0])
         
+
+
 
         return context
