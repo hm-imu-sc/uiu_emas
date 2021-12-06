@@ -112,7 +112,7 @@ class ProjectDetailsPage(TemplateView):
         #project details
         query = f'SELECT title, short_description, section_id FROM projects WHERE id = {int(project_id)}'
         project_details_tuple = self.database.query(query)
-        project_tile = project_details_tuple[0][0]
+        project_title = project_details_tuple[0][0]
         project_short_description = project_details_tuple[0][1]
         section_id = project_details_tuple[0][2]
 
@@ -138,9 +138,14 @@ class ProjectDetailsPage(TemplateView):
             query = f'SELECT name FROM students WHERE student_id = {str(member)}'
             member_name = self.database.query(query)[0][0]
             project_members_name_list.append(member_name)
-        
 
 
+        context["title"] = project_title
+        context["description"] = short_description
+        context["course"] = f'{course_code} ({section}): {course_name}'
+        context["members"] = []
 
+        for i in range(len(project_members_list)):
+            context["members"].append({'id':project_members_list[i], 'name':project_members_name_list[i]})
 
         return context
