@@ -116,6 +116,13 @@ class ProjectDetailsPage(TemplateView):
         project_short_description = project_details_tuple[0][1]
         section_id = project_details_tuple[0][2]
 
+        #course details
+        query = f'SELECT course_code, name, course_name FROM sections WHERE id = {int(section_id)}'
+        course_details_tuple = self.database.query(query)
+        course_code = course_details_tuple[0][0]
+        section = course_details_tuple[0][1]
+        course_name = course_details_tuple[0][2]
+
         
 
         return context
