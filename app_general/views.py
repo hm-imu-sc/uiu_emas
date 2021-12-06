@@ -131,7 +131,15 @@ class ProjectDetailsPage(TemplateView):
 
         for member in project_members_tuple:
             project_members_list.append(member[0])
+
+        #project members details
+        project_members_name_list = []
+        for member in project_members_list:
+            query = f'SELECT name FROM students WHERE student_id = {str(member)}'
+            member_name = self.database.query(query)[0][0]
+            project_members_name_list.append(member_name)
         
+
 
 
 
