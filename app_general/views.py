@@ -120,32 +120,34 @@ class BoothSetupPage(TemplateView):
 class BoothSetup(DBAction):
     def action(self, request, **kwargs):
         proj_id=request.POST['proj_id']
+        self.redirect_url = f"app_general:index"
 
         #intro video upload
         intro_video = request.FILES['intro_video']
         fs=FileSystemStorage()
-        intro_path=f'video/app_general/{proj_id}_intro_video'
+        intro_path=f'video/app_general/{proj_id}_intro_video.mp4'
         fs.save(intro_path,intro_video)
 
         #demo video
         demo_videos = request.FILES.getlist('demo_videos')
+        files = dict(request.FILES)
         video_paths=[]
         i=0
+        print(len(demo_videos))
         for video in demo_videos:
-            video_path=f'video/app_general/{proj_id}_demo_video{i}'
+            video_path=f'video/app_general/{proj_id}_demo_video{i}.mp4'
             fs.save(video_path,video)
             video_paths.append(video_path)
             i+=1
 
         #report
         report = request.FILES['intro_video']
-        report_path=f'pdf/app_general/{proj_id}_report'
+        report_path=f'pdf/app_general/{proj_id}_report.pdf'
         fs.save(report_path, report)
+        self.database.query(f'UPDATE projects SET intro_video="{intro_path}",report="{report_path}" WHERE id="{proj_id}"')
 
-        self.database.query(f'UPDATE projects SET intro_video={intro_path},report={report_path} WHERE id={proj_id}')
         for path in video_paths:
-            self.database.query(f'INSERT INTO project_videos (project_id,path) VALUES (proj_id,path)')
-
+            self.database.query(f'INSERT INTO project_videos (project_id,path) VALUES ("{proj_id}","{path}")')
 
         return
 
