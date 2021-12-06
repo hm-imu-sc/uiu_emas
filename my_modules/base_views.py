@@ -15,7 +15,7 @@ class DBRead(TemplateView):
 
 
 class DBAction(View):
-    
+
     database = MySql.db()
 
     def __init__(self):
@@ -23,10 +23,11 @@ class DBAction(View):
 
     def action(self, request, **kwargs):
         pass
-    
+
     def post(self, request, **kwargs):
         self.action(request, **kwargs)
         return redirect(self.redirect_url)
 
     def get(self, request, **kwargs):
+        self.action(request, **kwargs)
         return redirect(self.redirect_url)

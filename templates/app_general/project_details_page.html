@@ -24,14 +24,6 @@
         <title>Project Details Page</title>
     </head>
     <body>
-
-        <!-- <h1>Dashboard: {{teacher_name}}</h1>
-
-        {% for project in projects %}
-            <a href="{% url 'app_general:project_details_page' project.id %}">{{ project.title }}</a>
-        {% endfor %}
-         -->
-
          <h1> {{title}} </h1>
          Course : {{ course }} <br>
          <div class="short_description">
@@ -56,7 +48,7 @@
            </table>
          </div>
 
-         <a href="#">Approve</a>
+         <a href="{% url 'app_general:project_approve' id%}">Approve</a>
 
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
         <script src="{% static 'js/app_general/teacher_dashboard_page.js' %}"></script>

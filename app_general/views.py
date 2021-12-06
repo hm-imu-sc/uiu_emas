@@ -77,7 +77,7 @@ class TeacherDashboardPage(TemplateView):
     def get_context_data(self, *args, **kwargs):
         context =  super().get_context_data(*args, **kwargs)
 
-        teacher_id = 'SHqA'
+        teacher_id = 'SS'
         sections = self.database.get('sections', conditions = {
             "teacher_id": teacher_id
         })
@@ -149,3 +149,11 @@ class ProjectDetailsPage(TemplateView):
             context["members"].append({'id':project_members_list[i], 'name':project_members_name_list[i]})
 
         return context
+
+class ProjectApprove(DBAction):
+    def action(self, request, **kwargs):
+        self.redirect_url = "app_general:teacher_dashboard_page"
+        project_id = kwargs["project_id"]
+        query = f'UPDATE projects SET status = 1 WHERE id = {int(project_id)}'
+        self.database.query(query)
+        return
