@@ -32,18 +32,19 @@
     text-decoration: none;
     color: aqua;
     background-color: black;
-    font-family: gwendolyn-bold;
+    font-family: satisfy;
     font-size: 20px;
     margin: 0;
     padding: 0;
 }
 
-.name {
+.title {
     font-family: satisfy;
+    // font-family: smooch-regular;
     font-size: 90px;
     color: rgba(0, 255, 255, 0.8);
     margin: 40px auto 0;
-    width: 500px;
+    width: 784px;
     
     -moz-user-select: none;
     -khtml-user-select: none;
@@ -52,51 +53,47 @@
     user-select: none;
 }
 
-.all_app {
-    position: absolute;
+.options {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    margin: auto;
-    height: 50%;
-    width: 90%;
 
-    div {
-        margin: 5% 60px 0;
+    a {
+        display: flex;
+        flex-direction: column;
+        margin: 80px 100px 0;
+        border: 2px solid aqua;
+        border-radius: 10px;
+        padding: 20px;
+        width: 10%;
 
-        a {
-            border: 2px solid rgba(0, 255, 255, 0.5);
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
+        span, i {
+            font-size: 20px;
             text-align: center;
-            padding: 30px;
-            // color: gray;
+        }
 
-            span {
-                font-size: 50px;
-                color: rgba(0, 255, 255, 0.5);
-            }
-            i {
-                font-size: 90px;
-                color: rgba(0, 255, 255, 0.5);
-            }
+        span {
+            font-family: general-bold;;
+            margin-top: 30px;
+        }
 
-            &:hover {
-                border-color: aqua;
-            }
+        i {
+            font-size: 90px;
+        }
 
-            &:hover span {
-                color: aqua;
-            }
+        &:hover {
+            border-radius: 20px;
+            background-color: aqua;
+        }
 
-            &:hover i {
-                color: aqua;
-            }
+        &:hover span {
+            background-color: aqua;
+            color: black;
+        }
+
+        &:hover i {
+            background-color: aqua;
+            color: black;
         }
     }
 }

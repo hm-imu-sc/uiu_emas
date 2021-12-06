@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from my_modules.base_views import DBAction
+from my_modules.base_views import DBAction, DBRead
 from django.views.generic import TemplateView
 from my_modules.database import MySql
 # Create your views here.
@@ -41,3 +41,59 @@ class ProjectRegistration(DBAction):
         for member in project_members:
             self.database.query(f'INSERT into project_members(project_id, student_id) VALUE ("{project_id}", "{member.strip()}")')
         return
+
+class CourseListPage(DBRead):
+
+    template_name = "app_cse_ps/course_list_page.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["courses"] = [
+            # {
+            #     "name": "Object Oriented Programming Laboratory",
+            #     "code": "CSI TST",
+            #     "num_sections": 4,
+            #     "num_projects": 13
+            # }
+        ]
+
+        courses = self.database.get_distinct("sections", ["course_code", "course_name"])
+
+        for course in courses:
+            num_sections = self.database.count("sections", {
+                "course_code": course["course_code"], 
+            })
+
+            section_ids = self.database.get("sections", ["id"], conditions = {
+                "course_code": course["course_code"]
+            })
+
+            query = "select count(*) from projects where "
+
+            for i in range(len(section_ids)):
+                query += f"section_id={section_ids[i]['id']}"
+                if i+1 < len(section_ids):
+                    query += " or "
+
+            # print(query)
+
+            num_projects = self.database.query(query)[0][0]
+
+            context["courses"].append({
+                "name": course["course_name"],
+                "code": course["course_code"],
+                "num_sections": num_sections,
+                "num_projects": num_projects,
+            })
+
+        return context
+
+class BoothListPage(TemplateView):
+
+    template_name = "app_cse_ps/booth_list_page.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["course_code"] = kwargs["course_code"]
+        return context
+    

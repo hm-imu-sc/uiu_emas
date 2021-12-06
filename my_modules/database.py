@@ -39,11 +39,12 @@ class MySql:
         for claus in other_clauses:
             query += f" {claus}"
 
-        print(query)
-
         data_tuple = self.__query(query)
 
-        return self.__fetch_dict(table_name, data_tuple)
+        if field_names[0] == "*":
+            return self.__fetch_dict(data_tuple, table_name=table_name)
+        else:
+            return self.__fetch_dict(data_tuple, field_names)
 
     def exists(self, table_name, conditions, condition_connector="and"):
         return True if self.count(table_name, conditions, condition_connector) else False
@@ -60,6 +61,21 @@ class MySql:
         if conditions is not None:
             query = f"{query} where {self.__prepare_conditions(conditions, condition_connector)}"
         return self.__query(query)[0][0]
+
+    def get_distinct(self, table_name, field_names, conditions=None, condition_connector="and"):
+        query = "select distinct "
+
+        for i in range(len(field_names)):
+            query += field_names[i]
+            if i+1 < len(field_names):
+                query += ", "
+        
+        query = f"{query} from {table_name}"
+
+        if conditions is not None:
+            query = f"{query} where {self.__prepare_conditions(conditions, condition_connector)}"
+
+        return self.__fetch_dict(self.__query(query), field_names)
 
     def insert(self, table_name, rows):
 
@@ -111,7 +127,7 @@ class MySql:
         return self.__query(query)
 
     def fetch_dict(self, table_name, data_tuple):
-        return self.__fetch_dict(table_name, data_tuple)
+        return self.__fetch_dict(data_tuple, table_name=table_name)
 
     def __prepare_conditions(self, conditions, condition_connector):
         condition_fields = list(conditions.keys())
@@ -140,11 +156,11 @@ class MySql:
         tables = json.load(file)
         return tables[table_name]
 
-    def __fetch_dict(self, table_name, data_tuple):
-        table_fields = self.__get_fields(table_name)
-
+    def __fetch_dict(self, data_tuple, field_names=None, table_name=None):
+        
+        table_fields = self.__get_fields(table_name) if field_names is None else field_names
         all_data = []
-
+ 
         for data in data_tuple:
             all_data.append({})
             for i in range(len(data)):

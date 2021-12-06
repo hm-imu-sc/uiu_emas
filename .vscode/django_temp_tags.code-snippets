@@ -16,7 +16,7 @@
 	// 	"description": "Log output to console"
 	// }
 	"for": {
-		"scope": "html",
+		"scope": "html,django-html",
 		"prefix": "for",
 		"body": [
 			"{% for $1 in $1s %}",
@@ -25,7 +25,7 @@
 		]
 	},
 	"if": {
-		"scope": "html",
+		"scope": "html,django-html",
 		"prefix": "if",
 		"body": [
 			"{% if %1 %}",
@@ -34,7 +34,7 @@
 		]
 	},
 	"elif": {
-		"scope": "html",
+		"scope": "html,django-html",
 		"prefix": "elif",
 		"body": [
 			"{% elif $1 %}",
@@ -42,7 +42,7 @@
 		]
 	},
 	"else": {
-		"scope": "html",
+		"scope": "html,django-html",
 		"prefix": "else",
 		"body": [
 			"{% elif %}",
@@ -50,7 +50,7 @@
 		]
 	},
 	"block": {
-		"scope": "html",
+		"scope": "html,django-html",
 		"prefix": "block",
 		"body": [
 			"{% block $1 %}",
@@ -59,27 +59,27 @@
 		]
 	},
 	"url": {
-		"scope": "html",
+		"scope": "html,django-html",
 		"prefix": "url",
 		"body": "{% url '$1:$2' %}"
 	},
 	"static": {
-		"scope": "html",
+		"scope": "html,django-html",
 		"prefix": "static",
 		"body": "{% static $0 %}"
 	},
 	"static_var": {
-		"scope": "html",
+		"scope": "html,django-html",
 		"prefix": "{{",
 		"body": "{{ $0 }}"
 	},
 	"logic_or_controls": {
-		"scope": "html",
+		"scope": "html,django-html",
 		"prefix": "{%",
 		"body": "{% $0 %}"
 	},
 	"template_basic": {
-		"scope": "html",
+		"scope": "html,django-html",
 		"prefix": "template_basic",
 		"body": [
 			"<!DOCTYPE html>",

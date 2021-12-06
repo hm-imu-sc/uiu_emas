@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/all.css' %}">
+        <link rel="stylesheet" href="{% static 'css/app_cse_ps/course_list_page.css' %}">
+        <title>Document</title>
+    </head>
+    <body>
+        
+        <h1 class="title">UIU CSE Project Show</h1>
+        
+        <h3 class="instructions"><i class="fad fa-asterisk"></i>Select a course to explore its projects</h3>
+
+        <div class="courses">
+            {% for course in courses %}
+                <a href="{% url 'app_cse_ps:booth_list_page' course.code %}">
+                    <span>{{ course.name }}</span>
+                    <span>{{ course.code }} | Number of Sections: {{ course.num_sections }} | Number of Projects: {{ course.num_projects }}</span>
+                </a>
+            {% endfor %}
+        </div>
+
+        <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
+        <script src="{% static 'js/app_cse_ps/course_list_page.js' %}"></script>
+    </body>
+</html>
