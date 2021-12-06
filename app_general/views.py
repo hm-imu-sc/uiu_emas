@@ -1,10 +1,35 @@
 from django.shortcuts import render
-from my_modules.base_views import DBAction
+from my_modules.base_views import DBAction, DBRead
 from django.views.generic import TemplateView
 from my_modules.database import MySql
 from django.core.files.storage import FileSystemStorage
 
 # Create your views here.
+
+class TestPage(DBRead):
+
+    template_name = "app_general/test_page.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["test"] = "This is a Test Page"
+        return context
+    
+class Test(DBAction):
+    
+    def action(self, request, **kwargs):
+        self.redirect_url = "app_general:test_page"
+
+        # print(request.FILES)
+
+        files = dict(request.FILES)
+        for f in files["f_1"]:
+            print(f)
+
+        # print(f)
+
+        # fs = FileSystemStorage()
+        # fs.save(f"reports/app_general/report.pdf", f)
 
 class Index(TemplateView):
 

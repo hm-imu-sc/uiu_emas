@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/all.css' %}">
+        <link rel="stylesheet" href="{% static 'css/app_/test_page.css' %}">
+        <title>Document</title>
+    </head>
+    <body>
+
+        <h1>{{ test }}</h1>
+
+        <form action="{% url 'app_general:test' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <input type="file" name="f_1" multiple>
+
+            <input type="submit" name="submit" value="Upload">
+        </form>
+        
+        <iframe src="" height="200" width="300"></iframe>
+
+        <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
+        <script src="{% static 'js/app_/test_page.js' %}"></script>
+    </body>
+</html>
