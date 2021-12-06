@@ -188,6 +188,14 @@ CREATE TABLE `projects` (
   `trimester` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `projects`
+--
+
+INSERT INTO `projects` (`id`, `time_created`, `time_updated`, `trash`, `status`, `title`, `section_id`, `short_description`, `intro_video`, `report`, `trimester`) VALUES
+(1, '2021-12-12 13:40:11', '2021-12-15 13:40:11', 0, 0, 'Emas', 2, 'Des', NULL, NULL, ''),
+(3, '2021-12-12 14:02:24', '2021-12-29 14:02:24', 0, 0, 'HostelChai?', 6, 'A', NULL, NULL, '');
+
 -- --------------------------------------------------------
 
 --
@@ -203,6 +211,14 @@ CREATE TABLE `project_members` (
   `project_id` int(255) NOT NULL,
   `student_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `project_members`
+--
+
+INSERT INTO `project_members` (`id`, `time_created`, `time_updated`, `trash`, `status`, `project_id`, `student_id`) VALUES
+(1, '2021-12-15 13:41:32', '2021-12-12 13:41:32', 0, 0, 1, '011181076'),
+(2, '2021-12-21 14:01:16', '2021-12-30 14:01:16', 0, 0, 3, '011181123');
 
 -- --------------------------------------------------------
 

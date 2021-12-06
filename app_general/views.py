@@ -159,6 +159,21 @@ class StudentDashboardPage(TemplateView):
         project_id = self.database.get('project_members', conditions={"student_id": student_id})[0]["project_id"]
 
         context['project_id'] = project_id
+        context["student_id"] = student_id
+
+        query = f'SELECT title, status FROM projects WHERE id = {int(project_id)}'
+        project_details = self.database.query(query)
+
+        project_status = project_details[0][1]
+        project_title = project_details[0][0]
+
+        if project_status == 0:
+            project_status = "Not approved"
+        elif project_status ==1:
+            project_status = "Approved"
+
+        context["title"] = project_title
+        context["status"] = project_status
 
         return context
 

@@ -10,13 +10,24 @@
         <title>Document</title>
     </head>
     <body>
+        <h1>Dashboard of Student ID : {{student_id}}</h1>
 
-        <h1>Dashboard: {{teacher_name}}</h1>
+         <div class="project_details">
+           Project Details:
+           <table border>
+             <tr>
+               <th>Project Title</th>
+               <th>Status</th>
+             </tr>
 
-        {% for project in projects %}
-            <a href="{% url 'app_general:project_details_page' project.id %}">{{ project.title }}</a>
-        {% endfor %}
-
+             {% for p in projects %}
+               <tr>
+                 <th><a href="{% url 'app_general:booth_setup_page' title %}">{{ title }}</a></th>
+                 <th>{{status}}</th>
+               </tr>
+             {% endfor %}
+           </table>
+         </div>
 
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
         <script src="{% static 'js/app_general/student_dashboard_page.js' %}"></script>
