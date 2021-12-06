@@ -2,12 +2,26 @@
 {% load static %}
 <html lang="en">
     <head>
+      <style>
+        a:link, a:visited {
+        background-color: #33ff5d;
+        color: white;
+        padding: 14px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        }
+
+        a:hover, a:active {
+        background-color: green;
+        }
+        </style>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/all.css' %}">
         <link rel="stylesheet" href="{% static 'css/app_general/teacher_dashboard_page.css' %}">
-        <title>Document</title>
+        <title>Project Details Page</title>
     </head>
     <body>
 
@@ -18,7 +32,31 @@
         {% endfor %}
          -->
 
-         <h1> {{ }} </h1>
+         <h1> {{title}} </h1>
+         Course : {{ course }} <br>
+         <div class="short_description">
+           <label for="short_description">Short Description: </label>
+           <textarea name="short_description" rows="4" cols="80" readonly > {{ description }} </textarea>
+         </div>
+
+         <div class="project_member_details">
+           Project Members:
+           <table border>
+             <tr>
+               <th>Student Name</th>
+               <th>Student ID</th>
+             </tr>
+
+             {% for member in members %}
+               <tr>
+                 <th>{{member.name}}</th>
+                 <th>{{member.id}}</th>
+               </tr>
+             {% endfor %}
+           </table>
+         </div>
+
+         <a href="#">Approve</a>
 
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
         <script src="{% static 'js/app_general/teacher_dashboard_page.js' %}"></script>

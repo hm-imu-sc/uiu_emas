@@ -139,9 +139,9 @@ class ProjectDetailsPage(TemplateView):
             member_name = self.database.query(query)[0][0]
             project_members_name_list.append(member_name)
 
-
+        context["id"] = project_id
         context["title"] = project_title
-        context["description"] = short_description
+        context["description"] = project_short_description
         context["course"] = f'{course_code} ({section}): {course_name}'
         context["members"] = []
 
