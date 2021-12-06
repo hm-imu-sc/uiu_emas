@@ -12,8 +12,6 @@ class DBRead(TemplateView):
 
     database = MySql.db()
 
-
-
 class DBAction(View):
 
     database = MySql.db()

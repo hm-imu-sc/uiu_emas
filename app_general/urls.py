@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf.urls.static import static
+from django.conf import settings
 
 app_name = "app_general"
 
@@ -10,5 +12,9 @@ urlpatterns = [
     path("login_page/", views.LoginPage.as_view(), name="login_page"),
     path("teacher_dashboard_page/", views.TeacherDashboardPage.as_view(), name="teacher_dashboard_page"),
     path("project_details_page/<project_id>/", views.ProjectDetailsPage.as_view(), name= "project_details_page"),
-    path("project_approve/<project_id>/", views.ProjectApprove.as_view(), name="project_approve")
-]
+    path("project_approve/<project_id>/", views.ProjectApprove.as_view(), name="project_approve"),
+    path("booth_setup_page/<project_id>/",views.BoothSetupPage.as_view(), name="booth_setup_page"),
+    path("booth_setup/",views.BoothSetup.as_view(), name="booth_setup"),
+    path("test_page/", views.TestPage.as_view(), name="test_page"),
+    path("test/", views.Test.as_view(), name="test"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
