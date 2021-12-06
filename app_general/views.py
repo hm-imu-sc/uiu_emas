@@ -109,9 +109,10 @@ class BoothSetupPage(TemplateView):
     database = MySql.db()
 
     def get_context_data(self,*args,**kwargs):
-        self.boothid=1 # insert boothid here
+        self.boothid=super().get_context_data() # insert boothid here
         context = super().get_context_data(*args, **kwargs)
-        booth_details = self.database.query(f'')
+        booth_details = self.database.query(f'SELECT id,title,section_id,short_description FROM projects WHERE ')
+
 
 
 
