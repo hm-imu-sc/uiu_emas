@@ -11,6 +11,7 @@ urlpatterns = [
     path("student_registration/", views.StudentRegistration.as_view(), name="student_registration"),
     path("login_page/", views.LoginPage.as_view(), name="login_page"),
     path("teacher_dashboard_page/", views.TeacherDashboardPage.as_view(), name="teacher_dashboard_page"),
+    path("student_dashboard_page/", views.StudentDashboardPage.as_view(), name="student_dashboard_page"),
     path("project_details_page/<project_id>/", views.ProjectDetailsPage.as_view(), name= "project_details_page"),
     path("project_approve/<project_id>/", views.ProjectApprove.as_view(), name="project_approve"),
     path("booth_setup_page/<project_id>/",views.BoothSetupPage.as_view(), name="booth_setup_page"),

@@ -6,17 +6,19 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/all.css' %}">
-        <link rel="stylesheet" href="{% static 'css/app_/login_page.css' %}">
+        <link rel="stylesheet" href="{% static 'css/app_general/student_dashboard_page.css' %}">
         <title>Document</title>
     </head>
     <body>
-        
-        <h1>login_page</h1>
 
-        <a href="{% url 'app_general:teacher_dashboard_page' %}">Teacher Dashboard</a>
-        <a href="{% url 'app_general:student_dashboard_page' %}">Student Dashboard</a>
+        <h1>Dashboard: {{teacher_name}}</h1>
+
+        {% for project in projects %}
+            <a href="{% url 'app_general:project_details_page' project.id %}">{{ project.title }}</a>
+        {% endfor %}
+
 
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
-        <script src="{% static 'js/app_/login_page.js' %}"></script>
+        <script src="{% static 'js/app_general/student_dashboard_page.js' %}"></script>
     </body>
 </html>
