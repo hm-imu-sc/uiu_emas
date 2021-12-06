@@ -18,7 +18,7 @@ class StudentRegistrationPage(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        
+
         context["date"] = {
             "days": [i for i in range(32)[1:]],
             "months": [i for i in range(13)[1:]],
@@ -27,11 +27,11 @@ class StudentRegistrationPage(TemplateView):
 
         return context
 
-class StudentRegistration(DBAction):    
+class StudentRegistration(DBAction):
 
     def action(self, request, **kwargs):
         self.redirect_url = "app_general:login_page"
-        
+
         post_data = dict(**request.POST)
 
         student_id = post_data["student_id"][0]
@@ -77,7 +77,7 @@ class TeacherDashboardPage(TemplateView):
     def get_context_data(self, *args, **kwargs):
         context =  super().get_context_data(*args, **kwargs)
 
-        teacher_id = 'SS'
+        teacher_id = 'SHqA'
         sections = self.database.get('sections', conditions = {
             "teacher_id": teacher_id
         })
@@ -97,8 +97,25 @@ class TeacherDashboardPage(TemplateView):
         teacher_name = self.database.get('teachers', conditions = {"employee_id": teacher_id})[0]["name"]
 
         context['teacher_name'] = teacher_name
-        
+
         return context
 
 class ProjectDetailsPage(TemplateView):
-    pass
+    database = MySql.db()
+
+    template_name = "app_general/project_details_page.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context =  super().get_context_data(*args, **kwargs)
+        project_id = kwargs["project_id"]
+
+        #project details
+        query = f'SELECT title, short_description, section_id FROM projects WHERE id = {int(project_id)}'
+        project_details_tuple = self.database.query(query)
+        project_tile = project_details_tuple[0][0]
+        project_short_description = project_details_tuple[0][1]
+        section_id = project_details_tuple[0][2]
+
+        
+
+        return context
