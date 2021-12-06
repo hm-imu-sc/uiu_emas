@@ -166,7 +166,7 @@ class BoothSetup(DBAction):
             i+=1
 
         #report
-        report = request.FILES['intro_video']
+        report = request.FILES['report']
         report_path=f'pdf/app_general/{proj_id}_report.pdf'
         fs.save(report_path, report)
         self.database.query(f'UPDATE projects SET intro_video="{intro_path}",report="{report_path}" WHERE id="{proj_id}"')
