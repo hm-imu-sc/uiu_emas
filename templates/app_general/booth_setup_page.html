@@ -14,7 +14,7 @@
         <p>Project title: {{ booth_details.title }}</p>
         <p>Project Descrition:<br>{{ booth_details.short_description }}</p>
 
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="{% url 'app_general:booth_setup' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <input type="hidden" value="{{ booth_details.id }}" name="proj_id">
             <lebel>Intro video</lebel>
