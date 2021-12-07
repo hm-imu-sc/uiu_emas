@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2021 at 08:01 AM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 8.0.5
+-- Generation Time: Dec 07, 2021 at 05:02 PM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 8.0.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -193,8 +193,8 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`id`, `time_created`, `time_updated`, `trash`, `status`, `title`, `section_id`, `short_description`, `intro_video`, `report`, `trimester`) VALUES
-(1, '2021-12-12 13:40:11', '2021-12-15 13:40:11', 0, 0, 'Emas', 2, 'Des', NULL, NULL, ''),
-(3, '2021-12-12 14:02:24', '2021-12-29 14:02:24', 0, 0, 'HostelChai?', 6, 'A', NULL, NULL, '');
+(1, '2021-12-05 20:27:24', '2021-12-05 20:27:24', 0, 0, 'uiu_emas', 3, 'asdasd', 'video/app_general/1_intro_video.mp4', 'pdf/app_general/1_report.pdf', '213'),
+(2, '2021-12-05 20:27:58', '2021-12-05 20:27:58', 0, 0, 'hostel_chai', 4, 'asdasd', NULL, NULL, '213');
 
 -- --------------------------------------------------------
 
@@ -217,8 +217,11 @@ CREATE TABLE `project_members` (
 --
 
 INSERT INTO `project_members` (`id`, `time_created`, `time_updated`, `trash`, `status`, `project_id`, `student_id`) VALUES
-(1, '2021-12-15 13:41:32', '2021-12-12 13:41:32', 0, 0, 1, '011181076'),
-(2, '2021-12-21 14:01:16', '2021-12-30 14:01:16', 0, 0, 3, '011181123');
+(1, '2021-12-05 20:27:24', '2021-12-05 20:27:24', 0, 0, 1, '011181290'),
+(2, '2021-12-05 20:27:24', '2021-12-05 20:27:24', 0, 0, 1, '011181076'),
+(3, '2021-12-05 20:27:24', '2021-12-05 20:27:24', 0, 0, 1, '011181144'),
+(4, '2021-12-05 20:27:58', '2021-12-05 20:27:58', 0, 0, 2, '011181290'),
+(5, '2021-12-05 20:27:58', '2021-12-05 20:27:58', 0, 0, 2, '011181076');
 
 -- --------------------------------------------------------
 
@@ -235,6 +238,14 @@ CREATE TABLE `project_videos` (
   `project_id` int(255) NOT NULL,
   `path` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `project_videos`
+--
+
+INSERT INTO `project_videos` (`id`, `time_created`, `time_updated`, `trash`, `status`, `project_id`, `path`) VALUES
+(1, '2021-12-06 11:49:34', '2021-12-06 11:49:34', 0, 0, 1, 'video/app_general/1_demo_video0.mp4'),
+(2, '2021-12-06 12:52:29', '2021-12-06 12:52:29', 0, 0, 1, 'video/app_general/1_demo_video0.mp4');
 
 -- --------------------------------------------------------
 
@@ -276,13 +287,13 @@ CREATE TABLE `sections` (
 --
 
 INSERT INTO `sections` (`id`, `time_created`, `time_updated`, `trash`, `status`, `name`, `course_code`, `course_name`, `teacher_id`, `trimester`) VALUES
-(1, '2021-12-05 12:30:40', '2021-12-05 12:30:40', 0, 1, 'A', 'EEE 2123', 'Electronics', 'MdAbH', '213'),
-(2, '2021-12-05 12:32:40', '2021-12-05 12:32:40', 0, 1, 'A', 'CSE 3421', 'Software Engineering', 'SHqA', '213'),
-(3, '2021-12-05 12:32:47', '2021-12-05 12:32:47', 0, 1, 'B', 'CSE 3421', 'Software Engineering', 'SHqA', '213'),
-(4, '2021-12-05 12:32:54', '2021-12-05 12:32:54', 0, 1, 'C', 'CSE 3421', 'Software Engineering', 'SHqA', '213'),
-(5, '2021-12-05 12:36:36', '2021-12-05 12:36:36', 0, 0, 'A', 'CSE 1115', 'Object Oriented Programming', 'SS', '213'),
-(6, '2021-12-05 12:36:40', '2021-12-05 12:36:40', 0, 0, 'B', 'CSE 1115', 'Object Oriented Programming', 'SS', '213'),
-(7, '2021-12-05 12:36:46', '2021-12-05 12:36:46', 0, 0, 'C', 'CSE 1115', 'Object Oriented Programming', 'SS', '213');
+(1, '2021-12-05 12:30:40', '2021-12-05 12:30:40', 0, 1, 'A', 'EEE_2123', 'Electronics', 'SS', '213'),
+(2, '2021-12-05 12:32:40', '2021-12-05 12:32:40', 0, 1, 'A', 'CSE_3421', 'Software Engineering', 'SS', '213'),
+(3, '2021-12-05 12:32:47', '2021-12-05 12:32:47', 0, 1, 'B', 'CSE_3421', 'Software Engineering', 'SS', '213'),
+(4, '2021-12-05 12:32:54', '2021-12-05 12:32:54', 0, 1, 'C', 'CSE_3421', 'Software Engineering', 'SS', '213'),
+(5, '2021-12-05 12:36:36', '2021-12-05 12:36:36', 0, 0, 'A', 'CSE_1115', 'Object Oriented Programming', 'SS', '213'),
+(6, '2021-12-05 12:36:40', '2021-12-05 12:36:40', 0, 0, 'B', 'CSE_1115', 'Object Oriented Programming', 'SS', '213'),
+(7, '2021-12-05 12:36:46', '2021-12-05 12:36:46', 0, 0, 'C', 'CSE_1115', 'Object Oriented Programming', 'SS', '213');
 
 -- --------------------------------------------------------
 
@@ -523,13 +534,19 @@ ALTER TABLE `prizes`
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `project_members`
 --
 ALTER TABLE `project_members`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `project_videos`
+--
+ALTER TABLE `project_videos`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `recruits`
