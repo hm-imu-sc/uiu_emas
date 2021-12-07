@@ -1,0 +1,115 @@
+@font-face {
+    font-family: gwendolyn-regular;
+    src: url('../../fonts/font_faces/Gwendolyn-Regular.ttf');
+}
+
+@font-face {
+    font-family: gwendolyn-bold;
+    src: url('../../fonts/font_faces/Gwendolyn-Bold.ttf');
+}
+
+@font-face {
+    font-family: smooch-regular;
+    src: url('../../fonts/font_faces/Smooch-Regular.ttf');
+}
+
+@font-face {
+    font-family: satisfy;
+    src: url('../../fonts/font_faces/Satisfy-Regular.ttf');
+}
+
+@font-face {
+    font-family: general-regular;
+    src: url('../../fonts/font_faces/FuzzyBubbles-Regular.ttf');
+}
+
+@font-face {
+    font-family: general-bold;
+    src: url('../../fonts/font_faces/FuzzyBubbles-Bold.ttf');
+}
+
+* {
+    text-decoration: none;
+    color: aqua;
+    background-color: black;
+    font-family: general-bold;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+
+.title {
+    font-family: satisfy;
+    // font-family: smooch-regular;
+    font-size: 90px;
+    color: rgba(0, 255, 255, 0.8);
+    margin: 40px auto 0;
+    width: 784px;
+    
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+form {
+    // display: flex;
+    // flex-direction: column;
+    // align-content: center;
+    margin: 30px auto 0;
+    // border: 1px solid red;
+    width: 50%;
+
+    div {
+        margin: 20px auto 0;
+        display: flex;
+        flex-direction: column;
+        
+        label {
+            color: dodgerblue;
+            font-size: 17px;
+            margin-bottom: 7px;
+        }
+        input[type="text"] {
+            border: 2px solid rgba(0, 255, 255, 0.603);
+            border-radius: 5px;
+            padding: 5px;
+        }
+        select {
+            border: 2px solid rgba(0, 255, 255, 0.603);
+            border-radius: 5px;
+            padding: 5px;
+             
+            optional {
+                font-size: 15px;
+            }
+
+            &:focas {
+                outline: none;
+            }
+        }
+
+        textarea {
+            border: 2px solid rgba(0, 255, 255, 0.603);
+            border-radius: 5px;
+            padding: 5px;
+        }
+    }
+
+    input[type="submit"] {
+        cursor: pointer;
+        display: block;
+        border: 2px solid aqua;
+        border-radius: 10px;
+        padding: 10px;
+        margin: 10px auto 0;
+        width: 30%;
+
+        &:hover {
+            background-color: aqua;
+            color: black;
+        }
+    }
+}
