@@ -10,11 +10,11 @@
         <title>Document</title>
     </head>
     <body>
-        <h1>Dashboard of Student ID : {{student_id}}</h1>
+        <h1 class="title">{{ student_id }}</h1>
 
          <div class="project_details">
-           Project Details:
-           <table border>
+           <h2>Project Details:</h2>
+           <table border cellspacing="0" cellpadding="0">
              <tr>
                <th>Project Title</th>
                <th>Status</th>
@@ -22,8 +22,8 @@
 
              {% for p in projects %}
                <tr>
-                 <th><a href="{% url 'app_general:booth_setup_page' title %}">{{ title }}</a></th>
-                 <th>{{status}}</th>
+                 <td><a href="{% url 'app_general:booth_setup_page' title %}">{{ title }}</a></td>
+                 <td>{{status}}</td>
                </tr>
              {% endfor %}
            </table>
