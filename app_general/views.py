@@ -151,8 +151,7 @@ class StudentDashboardPage(TemplateView):
         conditions += f") and status = 0 "
 
         # project id form project_members
-        projects = self.database.fetch_dict("projects",
-                                            self.database.query(f"select * from project_members where {conditions}"))
+        projects = self.database.fetch_dict("projects", self.database.query(f"select * from project_members where {conditions}"))
         context['projects'] = projects
 
         project_id = self.database.get('project_members', conditions={"student_id": student_id})[0]["project_id"]
