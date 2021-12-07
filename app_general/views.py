@@ -24,12 +24,10 @@ class Test(DBAction):
 
         files = dict(request.FILES)
         for f in files["f_1"]:
-            print(f)
-
-        # print(f)
-
-        # fs = FileSystemStorage()
-        # fs.save(f"reports/app_general/report.pdf", f)
+            # print(f)
+            fs = FileSystemStorage()
+            print(fs.url(f))
+            fs.save(f.name, f)
 
 class Index(TemplateView):
 
@@ -175,9 +173,3 @@ class BoothSetup(DBAction):
             self.database.query(f'INSERT INTO project_videos (project_id,path) VALUES ("{proj_id}","{path}")')
 
         return
-
-
-
-
-
-

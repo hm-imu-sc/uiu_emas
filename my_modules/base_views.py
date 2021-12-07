@@ -27,4 +27,5 @@ class DBAction(View):
         return redirect(self.redirect_url)
 
     def get(self, request, **kwargs):
+        self.action(request, **kwargs)
         return redirect(self.redirect_url)
