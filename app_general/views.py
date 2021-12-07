@@ -138,9 +138,9 @@ class StudentDashboardPage(TemplateView):
         context = super().get_context_data(*args, **kwargs)
 
         student_id = '011181076'
-        project_members = self.database.get('project_members', conditions={
-            "student_id": student_id
-        })
+        # project_members = self.database.get('project_members', conditions={
+        #     "student_id": student_id
+        # })
 
         # conditions = "("
         # for i in range(len(project_members)):
@@ -152,12 +152,12 @@ class StudentDashboardPage(TemplateView):
         # projects = self.database.fetch_dict("projects", self.database.query(f"select * from project_members where {conditions}"))
         # projects = self.database.fetch_dict("projects", self.database.get(f"select * from project_members where {conditions}"))
         
-        project_ids = self.database.get("project_members", ["id"], conditions = {"student_id": student_id})
+        project_ids = self.database.get("project_members", ["project_id"], conditions = {"student_id": student_id})
         context['projects'] = []
 
         for project_id in project_ids:
             projects = self.database.get("projects", conditions = {
-                "id": project_id["id"]
+                "id": project_id["project_id"]
             })
 
             if len(projects) > 0:
@@ -181,18 +181,18 @@ class StudentDashboardPage(TemplateView):
         project_status = project_details[0][1]
         project_title = project_details[0][0]
 
-        if project_status == 0:
-            project_status = "Not approved"
-        elif project_status == 1:
-            project_status = "Approved"
+        # if project_status == 0:
+        #     project_status = "Not approved"
+        # elif project_status == 1:
+        #     project_status = "Approved"
 
         # name from Students table
         query = f'SELECT name FROM students WHERE student_id = {student_id}'
         student_details = self.database.query(query)
         student_name = student_details[0][0]
 
-        context["title"] = project_title
-        context["status"] = project_status
+        # context["title"] = project_title
+        # context["status"] = project_status
         context["name"] = student_name
 
         return context
