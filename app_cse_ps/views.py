@@ -68,12 +68,14 @@ class CourseListPage(DBRead):
                 "course_code": course["course_code"]
             })
 
-            query = "select count(*) from projects where "
+            query = "select count(*) from projects where ("
 
             for i in range(len(section_ids)):
                 query += f"section_id={section_ids[i]['id']}"
                 if i+1 < len(section_ids):
                     query += " or "
+
+            query += ") and status=1"
 
             # print(query)
 
@@ -100,11 +102,12 @@ class BoothListPage(DBRead):
             "course_code": course_code
         })
 
-        clause = "where"
+        clause = "where ("
         for i in range(len(section_ids)):
             clause += f" section_id={section_ids[i]['id']}"
             if i+1 < len(section_ids):
                 clause += " or"
+        clause += ") and status=1"
 
         projects = self.database.get("projects", ["id", "title", "short_description"], other_clauses = [clause])
 
