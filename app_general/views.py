@@ -150,6 +150,7 @@ class StudentDashboardPage(TemplateView):
 
         conditions += f") and status = 0 "
 
+        # project id form project_members
         projects = self.database.fetch_dict("projects",
                                             self.database.query(f"select * from project_members where {conditions}"))
         context['projects'] = projects
@@ -159,6 +160,7 @@ class StudentDashboardPage(TemplateView):
         context['project_id'] = project_id
         context["student_id"] = student_id
 
+        # title and status from projects
         query = f'SELECT title, status FROM projects WHERE id = {int(project_id)}'
         project_details = self.database.query(query)
 
@@ -167,11 +169,17 @@ class StudentDashboardPage(TemplateView):
 
         if project_status == 0:
             project_status = "Not approved"
-        elif project_status ==1:
+        elif project_status == 1:
             project_status = "Approved"
+
+        # name from Students table
+        query = f'SELECT name FROM students WHERE student_id = {student_id}'
+        student_details = self.database.query(query)
+        student_name = student_details[0][0]
 
         context["title"] = project_title
         context["status"] = project_status
+        context["name"] = student_name
 
         return context
 
