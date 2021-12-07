@@ -88,12 +88,37 @@ class CourseListPage(DBRead):
 
         return context
 
-class BoothListPage(TemplateView):
+class BoothListPage(DBRead):
 
     template_name = "app_cse_ps/booth_list_page.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["course_code"] = kwargs["course_code"]
+        course_code = kwargs["course_code"]
+        
+        section_ids = self.database.get("sections", ["id"], {
+            "course_code": course_code
+        })
+
+        clause = "where"
+        for i in range(len(section_ids)):
+            clause += f" section_id={section_ids[i]['id']}"
+            if i+1 < len(section_ids):
+                clause += " or"
+
+        projects = self.database.get("projects", ["id", "title", "short_description"], other_clauses = [clause])
+
+        for i in range(len(projects)):
+            projects[i]["members"] = self.database.get("project_members", ["student_id"], {
+                "project_id": projects[i]["id"]
+            })
+
+            for j in range(len(projects[i]["members"])):
+                projects[i]["members"][j] = dict(**projects[i]["members"][j], **self.database.get("students", ["name"], {
+                    "student_id": projects[i]["members"][j]["student_id"]
+                })[0])
+
+        context["projects"] = projects
+
         return context
     

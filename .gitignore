@@ -1,10 +1,13 @@
 downloads
 .idea
 __pycache__
+.sass-cache
 migration
 migrations
 sand_box.py
+sand_box
 notes.txt
 test.py
 media/**/
+media/*
 test

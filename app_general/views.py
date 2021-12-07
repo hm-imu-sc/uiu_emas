@@ -25,12 +25,10 @@ class Test(DBAction):
 
         files = dict(request.FILES)
         for f in files["f_1"]:
-            print(f)
-
-        # print(f)
-
-        # fs = FileSystemStorage()
-        # fs.save(f"reports/app_general/report.pdf", f)
+            # print(f)
+            fs = FileSystemStorage()
+            print(fs.url(f))
+            fs.save(f.name, f)
 
 
 class Index(TemplateView):
