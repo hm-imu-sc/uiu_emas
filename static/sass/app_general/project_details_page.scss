@@ -1,0 +1,104 @@
+@font-face {
+    font-family: gwendolyn-regular;
+    src: url('../../fonts/font_faces/Gwendolyn-Regular.ttf');
+}
+
+@font-face {
+    font-family: gwendolyn-bold;
+    src: url('../../fonts/font_faces/Gwendolyn-Bold.ttf');
+}
+
+@font-face {
+    font-family: smooch-regular;
+    src: url('../../fonts/font_faces/Smooch-Regular.ttf');
+}
+
+@font-face {
+    font-family: satisfy;
+    src: url('../../fonts/font_faces/Satisfy-Regular.ttf');
+}
+
+@font-face {
+    font-family: general-regular;
+    src: url('../../fonts/font_faces/FuzzyBubbles-Regular.ttf');
+}
+
+@font-face {
+    font-family: general-bold;
+    src: url('../../fonts/font_faces/FuzzyBubbles-Bold.ttf');
+}
+
+* {
+    text-decoration: none;
+    color: aqua;
+    background-color: black;
+    font-family: general-bold;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.title {
+    font-family: satisfy;
+    // font-family: smooch-regular;
+    font-size: 65px;
+    color: rgba(0, 255, 255, 0.8);
+    margin: 40px auto 0;
+    width: 586px;
+    
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.details {
+    border: 2px solid aqua;
+    border-radius: 10px;
+    padding: 20px;
+    width: 85%;
+    margin: 20px auto 10px;
+
+    div {
+        margin: 20px 0;
+        h2 {
+            color: dodgerblue;
+            font-size: 25px;
+        }
+
+        table {
+            border: 1px solid dodgerblue;
+            border-radius: 5px;
+
+            th {
+                font-size: 20px;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+
+            td {
+                font-size: 18px;
+            }
+        }
+    }
+}
+
+.approve {
+    display: block;
+    border: 2px solid rgba(0, 255, 0, 0.349);
+    border-radius: 10px;
+    padding: 10px;
+    color: rgba(0, 255, 0, 0.349);
+    font-size: 20px;
+    text-align: center;
+    margin: 20px auto 0;
+    width: 25%;
+
+    &:hover {
+        border-color: lime;
+        color: lime;
+    }
+}

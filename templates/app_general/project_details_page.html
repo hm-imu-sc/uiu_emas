@@ -2,7 +2,7 @@
 {% load static %}
 <html lang="en">
     <head>
-      <style>
+      {% comment %} <style>
         a:link, a:visited {
         background-color: #33ff5d;
         color: white;
@@ -15,42 +15,48 @@
         a:hover, a:active {
         background-color: green;
         }
-        </style>
+        </style> {% endcomment %}
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/all.css' %}">
-        <link rel="stylesheet" href="{% static 'css/app_general/teacher_dashboard_page.css' %}">
+        <link rel="stylesheet" href="{% static 'css/app_general/project_details_page.css' %}">
         <title>Project Details Page</title>
     </head>
     <body>
-         <h1> {{title}} </h1>
-         Course : {{ course }} <br>
-         <div class="short_description">
-           <label for="short_description">Short Description: </label>
-           <textarea name="short_description" rows="4" cols="80" readonly > {{ description }} </textarea>
-         </div>
+         <h1 class="title">Project title: {{title}} </h1>
 
-         <div class="project_member_details">
-           Project Members:
-           <table border>
-             <tr>
-               <th>Student Name</th>
-               <th>Student ID</th>
-             </tr>
+        <div class="details">
+          <div class="course_name">
+              <h2>Course: <span>{{ course }}</span></h2>
+          </div>
+            
+          <div class="short_description">
+            <h2>Short Description:<h2>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum ea incidunt ratione? Voluptatum quas aliquid debitis, possimus magnam reprehenderit deleniti neque rerum dolorem! Necessitatibus, voluptas. {{ description }} </p>
+          </div>
 
-             {% for member in members %}
-               <tr>
-                 <th>{{member.name}}</th>
-                 <th>{{member.id}}</th>
-               </tr>
-             {% endfor %}
-           </table>
-         </div>
+          <div class="project_member_details">
+            <h2>Project Members:</h2>
+            <table border cellspacing="0" cellpadding="0">
+              <tr>
+                <th>Student Name</th>
+                <th>Student ID</th>
+              </tr>
 
-         <a href="{% url 'app_general:project_approve' id%}">Approve</a>
+              {% for member in members %}
+                <tr>
+                  <td>{{member.name}}</td>
+                  <td>{{member.id}}</td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </div>
+
+        <a class="approve" href="{% url 'app_general:project_approve' id%}">Approve</a>
 
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
-        <script src="{% static 'js/app_general/teacher_dashboard_page.js' %}"></script>
+        <script src="{% static 'js/app_general/project_details_page.js' %}"></script>
     </body>
 </html>
