@@ -141,18 +141,33 @@ class StudentDashboardPage(TemplateView):
         project_members = self.database.get('project_members', conditions={
             "student_id": student_id
         })
-        conditions = "("
 
-        for i in range(len(project_members)):
-            conditions += f" student_id = {project_members[i]['student_id']} "
-            if i + 1 < len(project_members):
-                conditions += "or"
-
-        conditions += f") and status = 0 "
-
+        # conditions = "("
+        # for i in range(len(project_members)):
+        #     conditions += f" student_id = {project_members[i]['student_id']} "
+        #     if i + 1 < len(project_members):
+        #         conditions += "or"
+        # conditions += f") and status = 0 "
         # project id form project_members
-        projects = self.database.fetch_dict("projects", self.database.query(f"select * from project_members where {conditions}"))
-        context['projects'] = projects
+        # projects = self.database.fetch_dict("projects", self.database.query(f"select * from project_members where {conditions}"))
+        # projects = self.database.fetch_dict("projects", self.database.get(f"select * from project_members where {conditions}"))
+        
+        project_ids = self.database.get("project_members", ["id"], conditions = {"student_id": student_id})
+        context['projects'] = []
+
+        for project_id in project_ids:
+            projects = self.database.get("projects", conditions = {
+                "id": project_id["id"]
+            })
+
+            if len(projects) > 0:
+                context['projects'].append(projects[0])
+
+        # for i in range(len(context['projects'])):
+        #     if projects[i]["status"] == "1":
+        #         projects[i]["status"] = True
+        #     else:
+        #         projects[i]["status"] = False
 
         project_id = self.database.get('project_members', conditions={"student_id": student_id})[0]["project_id"]
 
@@ -249,7 +264,7 @@ class BoothSetupPage(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         self.boothid = kwargs['project_id']
-        self.boothid = 1  # delete this line
+        # self.boothid = 1  # delete this line
         context = super().get_context_data(*args, **kwargs)
         booth_details = self.database.query(f'SELECT id,title,short_description FROM projects WHERE id={self.boothid}')
         context['booth_details'] = {'id': booth_details[0][0], 'title': booth_details[0][1],

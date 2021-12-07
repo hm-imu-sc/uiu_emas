@@ -22,8 +22,12 @@
 
              {% for p in projects %}
                <tr>
-                 <td><a href="{% url 'app_general:booth_setup_page' title %}">{{ title }}</a></td>
-                 <td>{{status}}</td>
+                 <td><a href="{% url 'app_general:booth_setup_page' p.id %}">{{ p.title }}</a></td>
+                 {% if p.status == 0 %}
+                  <td>Not Approved</td>
+                 {% else %}
+                  <td>Approved</td>
+                 {% endif %}
                </tr>
              {% endfor %}
            </table>
