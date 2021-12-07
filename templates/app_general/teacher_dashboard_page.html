@@ -11,12 +11,13 @@
     </head>
     <body>
         
-        <h1>Dashboard: {{teacher_name}}</h1>
+        <h1 class="title">{{teacher_name}}</h1>
         
-        {% for project in projects %}
-            <a href="{% url 'app_general:project_details_page' project.id %}">{{ project.title }}</a>
-        {% endfor %}
-        
+        <div class="projects_to_check">
+            {% for project in projects %}
+                <a href="{% url 'app_general:project_details_page' project.id %}">{{ project.title }}</a>
+            {% endfor %}
+        </div>
 
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
         <script src="{% static 'js/app_general/teacher_dashboard_page.js' %}"></script>
