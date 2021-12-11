@@ -56,10 +56,14 @@ class MySql:
             "data": data
         }
 
-    def count(self, table_name, conditions=None, condition_connector="and"):
+    def count(self, table_name, conditions=None, condition_connector="and", other_clauses=[]):
         query = f"select count(*) from {table_name}"
+
         if conditions is not None:
             query = f"{query} where {self.__prepare_conditions(conditions, condition_connector)}"
+        for claus in other_clauses:
+            query += f" {claus}"
+            
         return self.__query(query)[0][0]
 
     def get_distinct(self, table_name, field_names, conditions=None, condition_connector="and"):
@@ -138,18 +142,20 @@ class MySql:
             value = conditions[condition_fields[i]]
             
             if isinstance(value, str):
-                value = f"'{value}'"
+                value = f" = '{value}'"
             elif isinstance(value, list):
                 value = self.__prepare_subconditions(condition_fields[i], value)
+            else:
+                value = f" = {value}"
 
-            condition += f"{condition_fields[i]}={value}"
+            condition += f"{condition_fields[i]}{value}"
             if i+1 < len(condition_fields):
                 condition += f" {condition_connector} "
 
         return condition
 
     def __prepare_subconditions(self, field_name, values):
-        condition = f"({field_name} in("
+        condition = f" in("
         size = len(values)
 
         for i in range(size):
@@ -158,12 +164,12 @@ class MySql:
             if isinstance(value, str):
                 value = f"'{value}'"
 
-            condition += value
+            condition += f'{value}'
 
             if i+1 < size:
                 condition += ", "
 
-        return condition + "))"
+        return condition + ")"
 
     def __query(self, query):
         self.__cursor.execute(query)

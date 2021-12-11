@@ -68,18 +68,9 @@ class CourseListPage(DBRead):
                 "course_code": course["course_code"]
             })
 
-            query = "select count(*) from projects where ("
-
-            for i in range(len(section_ids)):
-                query += f"section_id={section_ids[i]['id']}"
-                if i+1 < len(section_ids):
-                    query += " or "
-
-            query += ") and status=1"
-
-            # print(query)
-
-            num_projects = self.database.query(query)[0][0]
+            num_projects = self.database.count("projects", {
+                "section_id": [section_id["id"] for section_id in section_ids]
+            }, other_clauses=["and status=1"])
 
             context["courses"].append({
                 "name": course["course_name"],
@@ -102,14 +93,9 @@ class BoothListPage(DBRead):
             "course_code": course_code
         })
 
-        clause = "where ("
-        for i in range(len(section_ids)):
-            clause += f" section_id={section_ids[i]['id']}"
-            if i+1 < len(section_ids):
-                clause += " or"
-        clause += ") and status=1"
-
-        projects = self.database.get("projects", ["id", "title", "short_description"], other_clauses = [clause])
+        projects = self.database.get("projects", ["id", "title", "short_description"], conditions={
+            "section_id": [section_id["id"] for section_id in section_ids]
+        }, other_clauses = ["and status=1"])
 
         for i in range(len(projects)):
             projects[i]["members"] = self.database.get("project_members", ["student_id"], {
