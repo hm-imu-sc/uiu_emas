@@ -135,11 +135,35 @@ class MySql:
         condition = ""
 
         for i in range(len(condition_fields)):
-            condition += f"{condition_fields[i]} like '{conditions[condition_fields[i]]}' "
+            value = conditions[condition_fields[i]]
+            
+            if isinstance(value, str):
+                value = f"'{value}'"
+            elif isinstance(value, list):
+                value = self.__prepare_subconditions(condition_fields[i], value)
+
+            condition += f"{condition_fields[i]}={value}"
             if i+1 < len(condition_fields):
-                condition += f"{condition_connector} "
+                condition += f" {condition_connector} "
 
         return condition
+
+    def __prepare_subconditions(self, field_name, values):
+        condition = f"({field_name} in("
+        size = len(values)
+
+        for i in range(size):
+            value = values[i]
+
+            if isinstance(value, str):
+                value = f"'{value}'"
+
+            condition += value
+
+            if i+1 < size:
+                condition += ", "
+
+        return condition + "))"
 
     def __query(self, query):
         self.__cursor.execute(query)
