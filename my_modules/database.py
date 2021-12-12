@@ -175,16 +175,26 @@ class MySql:
         self.__cursor.execute(query)
         return self.__cursor.fetchall()
 
+    def __get_table_description(self, table_name):
+        table_desc = []
+        
+        raw_desc = self.__query(f"describe {table_name}")
+        desc_fields = ["field", "type", "null", "key", "default", "extra"]
+        
+        for row in raw_desc:
+        
+            table_desc.append({})
+        
+            for i in range(len(row)):
+                table_desc[-1][desc_fields[i]] = row[i]
+        
+        return table_desc
+
     def __get_fields(self, table_name):
-        file = None
 
-        try:
-            file = open(settings.BASE_DIR / "db_fields.json", "r")
-        except FileNotFoundError:
-            raise DBFieldsFileNotFound()
+        table_desc = self.__get_table_description(table_name)
 
-        tables = json.load(file)
-        return tables[table_name]
+        return [field["field"] for field in table_desc]
 
     def __fetch_dict(self, data_tuple, field_names=None, table_name=None):
         
