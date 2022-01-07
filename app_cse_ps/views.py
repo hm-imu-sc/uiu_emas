@@ -33,7 +33,7 @@ class ProjectRegistration(DBAction):
         post_data = dict(**request.POST)
 
         project_title = post_data["project_title"][0]
-        section_id =  post_data["course"][0]
+        section_id =  post_data["section"][0]
         short_description = post_data["short_description"][0]
         project_members = post_data["project_members"][0]
 
