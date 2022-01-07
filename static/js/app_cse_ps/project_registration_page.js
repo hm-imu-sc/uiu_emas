@@ -73,3 +73,32 @@ $("#check_student").click(function(){
     }
   });
 });
+
+$("#add_member").click(function(){
+  let student_id = $("#student_id").val();
+  $.ajax({
+    url : ("/cse_ps/get_student/"+student_id),
+    method: "GET",
+    success: function(data)
+    {
+      data = JSON.parse(data);
+      console.log(data);
+      if(data['message'] != "OK")
+      {
+        $("#student_info").html("No Student Found with student ID " + student_id)
+      }
+      else
+      {
+        let project_members = $("#project_members").val();
+        if(project_members.length==0)
+        {
+          $("#project_members").html(student_id);
+        }
+        else
+        {
+          $("#project_members").append(";" + student_id);
+        }
+      }
+    }
+  });
+});
