@@ -110,4 +110,3 @@ class BoothListPage(DBRead):
         context["projects"] = projects
 
         return context
-    
