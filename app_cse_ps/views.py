@@ -117,9 +117,10 @@ class BoothListPage(DBRead):
 def get_course_names(request):
     database = MySql.db()
     course_list = database.query("SELECT DISTINCT course_code, course_name FROM sections")
-
+    context = {}
     context["data"] = []
     list = ['course_code','course_name']
     for tup in course_list:
         context["data"].append({list[0]:tup[0],list[1]:tup[1]})
-    return context
+    context = json.dumps(context)
+    return HttpResponse(context)
