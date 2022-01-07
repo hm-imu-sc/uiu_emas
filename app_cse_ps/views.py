@@ -124,3 +124,15 @@ def get_course_names(request):
         context["data"].append({list[0]:tup[0],list[1]:tup[1]})
     context = json.dumps(context)
     return HttpResponse(context)
+
+def get_sections(request, course_code):
+    database = MySql.db()
+    section_list = database.query(f"SELECT id, name FROM sections WHERE course_code = '{course_code}'")
+    context = {}
+    context["data"] = []
+    list = ['id','name']
+    for tup in course_list:
+        context["data"].append({list[0]:tup[0],list[1]:tup[1]})
+    context = json.dumps(context)
+    return HttpResponse(context)
+    
