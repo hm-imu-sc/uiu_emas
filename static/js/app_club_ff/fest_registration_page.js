@@ -12,14 +12,14 @@ $("#club").click(function()
       {
         data = JSON.parse(data);
 
-        let html_for_option = "<option value=''>Select Course</option> ";
+        let html_for_option = "<option value=''>Select Your Club</option>";
         data = data['data'];
 
         for(let i=0;i<data.length;i++)
         {
-          html_for_option+=("<option value = '" + data[i]['course_code'] + "'>" + data[i]['course_code'].replace('_', ' ') + " : " + data[i]['course_name'] + "</option> ");
+          html_for_option+=("<option value = '" + data[i]['club_id'] + "'>" + data[i]['club_name'] + "</option> ");
         }
-        $("#course_name").html(html_for_option);
+        $("#club").html(html_for_option);
       }
     });
 });
