@@ -21,43 +21,45 @@
 				<input type="text" name="project_title" id="project_title">
 			</div>
 
-          <div class="course">
-            <label for="course">Course: </label>
-            <select name="course_name" id="course_name">
-              <option value=""> Select Course </option>
-            </select>
-            <br>
-            <label for="section">Section: </label>
-            <select name="section" id="section">
-              <option value=""> Select Section </option>
-            </select>
-            <!-- <label for="course">Course: </label>
-            <select name="course">
-              {% for course in data %}
-                <option value="{{ course.id }}">{{ course.course_code}} ({{ course.name }}) : {{ course.course_name }}</option>
-              {% endfor %}
-            </select> -->
-          </div>
+			<div class="course">
+				<label for="course">Course: </label>
+				<select name="course_name" id="course_name">
+					<option value=""> Select Course </option>
+				</select>
+				<br>
+
+				<label for="section">Section: </label>
+				<select name="section" id="section">
+					<option value=""> Select Section </option>
+				</select>
+				
+				<!-- <label for="course">Course: </label>
+				<select name="course">
+				{% for course in data %}
+					<option value="{{ course.id }}">{{ course.course_code}} ({{ course.name }}) : {{ course.course_name }}</option>
+				{% endfor %}
+				</select> -->
+			</div>
 
 
-          <div class="short_description">
-            <label for="short_description">Short Description: </label>
-            <textarea name="short_description" rows="4" cols="80"></textarea>
-          </div>
+			<div class="short_description">
+				<label for="short_description">Short Description: </label>
+				<textarea name="short_description" rows="4" cols="80"></textarea>
+			</div>
 
-          <div class="add_project_member">
-            <label for="add_project_member">Enter Student ID to add new member: </label>
-            <input type="text" name="" id="student_id" required>
-            <button type="button" name="check_student" id="check_student">Check</button>
-            <p id="student_info"></p>
-            <br>
-            <button type="button" name="add_member" id="add_member">Add Member</button>
-          </div>
+			<div class="add_project_member">
+				<label for="add_project_member">Enter Student ID to add new member: </label>
+				<input type="text" name="" id="student_id" required>
+				<button type="button" name="check_student" id="check_student">Check</button>
+				<p id="student_info"></p>
+				<br>
+				<button type="button" name="add_member" id="add_member">Add Member</button>
+			</div>
 
-          <div class="project_members">
-            <label for="project_members">Student IDs of Project Members</label>
-            <textarea name="project_members" rows="5" cols="80" readonly id="project_members"></textarea>
-          </div>
+			<div class="project_members">
+				<label for="project_members">Student IDs of Project Members</label>
+				<textarea name="project_members" rows="5" cols="80" readonly id="project_members"></textarea>
+			</div>
 
 			<input type="submit" value="Submit">
 
