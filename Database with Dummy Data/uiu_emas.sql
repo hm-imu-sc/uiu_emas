@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2021 at 05:02 PM
--- Server version: 10.4.19-MariaDB
--- PHP Version: 8.0.7
+-- Generation Time: Jan 07, 2022 at 04:06 PM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 8.0.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -76,6 +76,13 @@ CREATE TABLE `cff_registrations` (
   `year` year(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `cff_registrations`
+--
+
+INSERT INTO `cff_registrations` (`id`, `time_created`, `time_updated`, `trash`, `status`, `student_id`, `club_id`, `t_shirt_size`, `approval`, `year`) VALUES
+(2, '2022-01-07 21:00:12', '2022-01-07 21:00:12', 0, 0, '011181076', '1', 'XL', 0, 0000);
+
 -- --------------------------------------------------------
 
 --
@@ -97,6 +104,17 @@ CREATE TABLE `clubs` (
   `cff_registration_status` tinyint(1) NOT NULL DEFAULT 0,
   `password_hash` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `clubs`
+--
+
+INSERT INTO `clubs` (`id`, `time_created`, `time_updated`, `trash`, `status`, `name`, `club_id`, `email`, `creation_date`, `department`, `logo_path`, `cff_registration_status`, `password_hash`) VALUES
+(1, '2022-01-07 20:29:35', '2022-01-07 20:29:35', 0, 0, 'UIU Computer Club', '1', 'uiuccl@cse.uiu.ac.bd', '0000-00-00', 'CSE', '', 0, ''),
+(2, '2022-01-07 20:29:35', '2022-01-07 20:29:35', 0, 0, 'UIU App Forum', '2', 'uiuappforum@gmail.com', '0000-00-00', 'CSE', '', 0, ''),
+(3, '2022-01-07 20:29:35', '2022-01-07 20:29:35', 0, 0, 'UIU Business Club', '3', 'uiubc@gmail.com', '0000-00-00', 'BBA', '', 0, ''),
+(4, '2022-01-07 20:29:35', '2022-01-07 20:29:35', 0, 0, 'UIU Robotics Club', '4', 'uiurobotics@gmail.com', '0000-00-00', 'CSE', '', 0, ''),
+(5, '2022-01-07 20:29:35', '2022-01-07 20:29:35', 0, 0, 'UIU Electrical and Electronics Club', '5', 'uiueec@gmail.com', '0000-00-00', 'EEE', '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -193,8 +211,13 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`id`, `time_created`, `time_updated`, `trash`, `status`, `title`, `section_id`, `short_description`, `intro_video`, `report`, `trimester`) VALUES
-(1, '2021-12-05 20:27:24', '2021-12-05 20:27:24', 0, 0, 'uiu_emas', 3, 'asdasd', 'video/app_general/1_intro_video.mp4', 'pdf/app_general/1_report.pdf', '213'),
-(2, '2021-12-05 20:27:58', '2021-12-05 20:27:58', 0, 0, 'hostel_chai', 4, 'asdasd', NULL, NULL, '213');
+(1, '2021-12-05 20:27:24', '2021-12-05 20:27:24', 0, 1, 'uiu_emas', 3, 'asdasd', 'video/app_general/1_intro_video.mp4', 'pdf/app_general/1_report.pdf', '213'),
+(2, '2021-12-05 20:27:58', '2021-12-05 20:27:58', 0, 1, 'hostel_chai', 4, 'asdasd', NULL, NULL, '213'),
+(3, '2021-12-07 22:57:13', '2021-12-07 22:57:13', 0, 1, 'UIU kisu pari na', 6, 'kisu na parle ', NULL, NULL, '213'),
+(4, '2021-12-07 23:02:53', '2021-12-07 23:02:53', 0, 1, 'UIU_naiko', 5, 'uiu_naika', NULL, NULL, '213'),
+(5, '2022-01-07 11:54:39', '2022-01-07 11:54:39', 0, 0, 'UIU_nayok', 2, 'Loresomething', NULL, NULL, '213'),
+(8, '2022-01-07 16:53:52', '2022-01-07 16:53:52', 0, 1, 'UIU_AWESOME', 7, 'DO or DIE.', NULL, NULL, '213'),
+(9, '2022-01-07 17:04:25', '2022-01-07 17:04:25', 0, 1, 'UIU_AWESOME2', 1, 'huhuhu', NULL, NULL, '213');
 
 -- --------------------------------------------------------
 
@@ -221,7 +244,18 @@ INSERT INTO `project_members` (`id`, `time_created`, `time_updated`, `trash`, `s
 (2, '2021-12-05 20:27:24', '2021-12-05 20:27:24', 0, 0, 1, '011181076'),
 (3, '2021-12-05 20:27:24', '2021-12-05 20:27:24', 0, 0, 1, '011181144'),
 (4, '2021-12-05 20:27:58', '2021-12-05 20:27:58', 0, 0, 2, '011181290'),
-(5, '2021-12-05 20:27:58', '2021-12-05 20:27:58', 0, 0, 2, '011181076');
+(5, '2021-12-05 20:27:58', '2021-12-05 20:27:58', 0, 0, 2, '011181076'),
+(6, '2021-12-07 22:57:13', '2021-12-07 22:57:13', 0, 0, 3, '011181076'),
+(7, '2021-12-07 22:57:13', '2021-12-07 22:57:13', 0, 0, 3, '011181062'),
+(8, '2021-12-07 23:02:53', '2021-12-07 23:02:53', 0, 0, 4, '011181076'),
+(9, '2021-12-07 23:02:53', '2021-12-07 23:02:53', 0, 0, 4, '011181290'),
+(10, '2021-12-07 23:02:53', '2021-12-07 23:02:53', 0, 0, 4, '011181123'),
+(11, '2022-01-07 11:54:39', '2022-01-07 11:54:39', 0, 0, 5, '011181076'),
+(12, '2022-01-07 11:54:39', '2022-01-07 11:54:39', 0, 0, 5, '011181254'),
+(15, '2022-01-07 16:53:52', '2022-01-07 16:53:52', 0, 0, 8, '011181076'),
+(16, '2022-01-07 16:53:52', '2022-01-07 16:53:52', 0, 0, 8, '011181123'),
+(17, '2022-01-07 17:04:26', '2022-01-07 17:04:26', 0, 0, 9, '011181076'),
+(18, '2022-01-07 17:04:26', '2022-01-07 17:04:26', 0, 0, 9, '011181123');
 
 -- --------------------------------------------------------
 
@@ -498,13 +532,13 @@ ALTER TABLE `cff_comments`
 -- AUTO_INCREMENT for table `cff_registrations`
 --
 ALTER TABLE `cff_registrations`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `clubs`
 --
 ALTER TABLE `clubs`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `comments`
@@ -534,13 +568,13 @@ ALTER TABLE `prizes`
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `project_members`
 --
 ALTER TABLE `project_members`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `project_videos`
