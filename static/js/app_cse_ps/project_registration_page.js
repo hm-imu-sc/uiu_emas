@@ -26,5 +26,22 @@ $("#course_name").click(function()
 
 
 $("#course_name").change(function(){
-  
+  let course_code = $("#course_name").val();
+  $.ajax({
+    url : ("/cse_ps/get_sections/"+course_code),
+    method: "GET",
+    success: function(data)
+    {
+      data = JSON.parse(data);
+
+      let html_for_option = "<option value=''>Select Section</option> ";
+      data = data['data'];
+
+      for(let i=0;i<data.length;i++)
+      {
+        html_for_option+=("<option value = '" + data[i]['id'] + "'>" + data[i]['name'] + "</option> ");
+      }
+      $("#section").html(html_for_option);
+    }
+  });
 });

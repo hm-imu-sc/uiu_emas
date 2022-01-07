@@ -10,7 +10,7 @@
         <title>Document</title>
     </head>
     <body>
-        <a href="{% url 'app_cse_ps:get_course_names' %}">test</a>
+        <a href="{% url 'app_cse_ps:get_sections' 'CSE_3421' %}">test</a>
         <h1 class="title">Project Registration</h1>
         <form action="{% url 'app_cse_ps:project_registration' %}" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
