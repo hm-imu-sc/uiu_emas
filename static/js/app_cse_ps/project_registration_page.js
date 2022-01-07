@@ -96,7 +96,7 @@ $("#add_member").click(function(){
         }
         else
         {
-          $("#project_members").append(";" + student_id);
+          $("#project_members").append("," + student_id);
         }
       }
     }
