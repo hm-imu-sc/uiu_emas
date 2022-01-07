@@ -12,4 +12,5 @@ urlpatterns = [
     path("booth_list_page/<course_code>", views.BoothListPage.as_view(), name="booth_list_page"),
     path("get_course_names/", views.get_course_names, name="get_course_names"),
     path("get_sections/<course_code>", views.get_sections, name="get_sections"),
+    path("get_student/<student_id>", views.get_student, name="get_student"),
 ]
