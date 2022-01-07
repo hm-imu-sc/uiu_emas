@@ -1,0 +1,44 @@
+.navber {
+    padding: 10px 5px;
+
+    border: 2px solid rgba(0, 255, 255, 0.61);
+    border-radius: 5px;
+    background-color: rgba(0, 255, 255, 0.192);
+    * {
+        background: transparent;
+    }
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    div {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        
+        .brand {
+            font-size: 40px;
+            margin-right: 10px;
+        }
+
+        .nav-item {
+            margin: 11px 10px 0;
+            color: rgba(30, 143, 255, 0.712);
+            vertical-align: center;
+            height: 50%;
+
+            &:hover {
+                color: dodgerblue;
+            }
+        }
+    }
+
+    .regular-item {
+        margin-left: 100px;
+    }
+
+    .utility-item {
+        margin-right: 100px;
+    }
+}

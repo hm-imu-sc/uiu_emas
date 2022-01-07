@@ -11,14 +11,16 @@
     </head>
     <body>
         
+        {% include "../common/navbar.html" %}
+
         <h1 class="name">UIU&nbsp&nbsp&nbspEMAS</h1>
         <div class="all_app">
-            <div class="app_admin">
+            {% comment %} <div class="app_admin">
                 <a href="">
                     <i class="fad fa-user-lock"></i>
                     <span class="heading">Admin</span>
                 </a>
-            </div>
+            </div> {% endcomment %}
             <div class="app_cse_ps">
                 <!-- <a href="cse_ps/"> -->
                 <a href="{% url 'app_cse_ps:index' %}">
@@ -32,12 +34,12 @@
                     <span class="heading">Club Forum Fest</span>
                 </a>
             </div>
-            <div class="app_general">
+            {% comment %} <div class="app_general">
                 <a href="{% url 'app_general:index' %}">
                     <i class="fad fa-share-alt"></i>
                     <span class="heading">General</span>
                 </a>
-            </div>
+            </div> {% endcomment %}
         </div>
         
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>

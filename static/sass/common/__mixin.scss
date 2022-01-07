@@ -1,0 +1,17 @@
+@mixin text_not_selectable {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@mixin reset {
+    text-decoration: none;
+    color: aqua;
+    background-color: black;
+    font-family: general-bold;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+}

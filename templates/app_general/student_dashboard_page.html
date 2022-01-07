@@ -10,27 +10,30 @@
         <title>Document</title>
     </head>
     <body>
+        
+        {% include "../common/navbar.html" %}
+
         <h1 class="title">{{ name }}</h1>
 
-         <div class="project_details">
-           <h2>My Projects:</h2>
-           <table border cellspacing="0" cellpadding="0">
-             <tr>
-               <th>Project Title</th>
-               <th>Status</th>
-             </tr>
+        <div class="project_details">
+			<h2>My Projects:</h2>
+			<table border cellspacing="0" cellpadding="0">
+				<tr>
+				<th>Project Title</th>
+				<th>Status</th>
+				</tr>
 
-             {% for p in projects %}
-               <tr>
-                 <td><a href="{% url 'app_general:booth_setup_page' p.id %}">{{ p.title }}</a></td>
-                 {% if p.status == 0 %}
-                  <td>Not Approved</td>
-                 {% else %}
-                  <td>Approved</td>
-                 {% endif %}
-               </tr>
-             {% endfor %}
-           </table>
+				{% for p in projects %}
+				<tr>
+					<td><a href="{% url 'app_general:booth_setup_page' p.id %}">{{ p.title }}</a></td>
+					{% if p.status == 0 %}
+					<td>Not Approved</td>
+					{% else %}
+					<td>Approved</td>
+					{% endif %}
+				</tr>
+				{% endfor %}
+			</table>
          </div>
 
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>

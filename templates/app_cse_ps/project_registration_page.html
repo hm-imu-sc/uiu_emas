@@ -10,14 +10,16 @@
         <title>Document</title>
     </head>
     <body>
-        <a href="{% url 'app_cse_ps:get_student' '011181076' %}">test</a>
+
+        {% include "../common/navbar.html" %}
+
         <h1 class="title">Project Registration</h1>
         <form action="{% url 'app_cse_ps:project_registration' %}" method="POST" enctype="multipart/form-data">
-          {% csrf_token %}
-          <div class="project_title">
-              <label for="project_title">Project Title: </label>
-              <input type="text" name="project_title" id="project_title">
-          </div>
+			{% csrf_token %}
+			<div class="project_title">
+				<label for="project_title">Project Title: </label>
+				<input type="text" name="project_title" id="project_title">
+			</div>
 
           <div class="course">
             <label for="course">Course: </label>
@@ -57,7 +59,7 @@
             <textarea name="project_members" rows="5" cols="80" readonly id="project_members"></textarea>
           </div>
 
-          <input type="submit" value="Submit">
+			<input type="submit" value="Submit">
 
         </form>
 
