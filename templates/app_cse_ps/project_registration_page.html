@@ -10,6 +10,7 @@
         <title>Document</title>
     </head>
     <body>
+        <a href="{% url 'app_cse_ps:get_course_names' %}">test</a>
         <h1 class="title">Project Registration</h1>
         <form action="{% url 'app_cse_ps:project_registration' %}" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
@@ -20,12 +21,22 @@
 
           <div class="course">
             <label for="course">Course: </label>
+            <select name="course_name" id="course_name">
+              <option value=""> Select Course </option>
+            </select>
+            <br>
+            <label for="section">Section: </label>
+            <select name="section" id="section">
+              <option value=""> Select Section </option>
+            </select>
+            <!-- <label for="course">Course: </label>
             <select name="course">
               {% for course in data %}
                 <option value="{{ course.id }}">{{ course.course_code}} ({{ course.name }}) : {{ course.course_name }}</option>
               {% endfor %}
-            </select>
+            </select> -->
           </div>
+
 
           <div class="short_description">
             <label for="short_description">Short Description: </label>

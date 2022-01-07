@@ -2,6 +2,9 @@ from django.shortcuts import render
 from my_modules.base_views import DBAction, DBRead
 from django.views.generic import TemplateView
 from my_modules.database import MySql
+from django.http import HttpResponse
+import json
+
 # Create your views here.
 
 class Index(TemplateView):
@@ -61,7 +64,7 @@ class CourseListPage(DBRead):
 
         for course in courses:
             num_sections = self.database.count("sections", {
-                "course_code": course["course_code"], 
+                "course_code": course["course_code"],
             })
 
             section_ids = self.database.get("sections", ["id"], conditions = {
@@ -88,7 +91,7 @@ class BoothListPage(DBRead):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         course_code = kwargs["course_code"]
-        
+
         section_ids = self.database.get("sections", ["id"], {
             "course_code": course_code
         })
@@ -110,4 +113,13 @@ class BoothListPage(DBRead):
         context["projects"] = projects
 
         return context
-    
+
+def get_course_names(request):
+    database = MySql.db()
+    course_list = database.query("SELECT DISTINCT course_code, course_name FROM sections")
+
+    context["data"] = []
+    list = ['course_code','course_name']
+    for tup in course_list:
+        context["data"].append({list[0]:tup[0],list[1]:tup[1]})
+    return context
