@@ -10,7 +10,7 @@
         <title>Document</title>
     </head>
     <body>
-        <a href="{% url 'app_cse_ps:get_sections' 'CSE_3421' %}">test</a>
+        <a href="{% url 'app_cse_ps:get_student' '011181076' %}">test</a>
         <h1 class="title">Project Registration</h1>
         <form action="{% url 'app_cse_ps:project_registration' %}" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
@@ -47,7 +47,7 @@
             <label for="add_project_member">Enter Student ID to add new member: </label>
             <input type="text" name="" id="student_id">
             <button type="button" name="check_student" id="check_student">Check</button>
-            <p id="student"></p>
+            <p id="student_info"></p>
             <br>
             <button type="button" name="add_member" id="add_member">Add Member</button>
           </div>

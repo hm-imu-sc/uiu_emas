@@ -49,20 +49,27 @@ $("#course_name").change(function(){
 $("#check_student").click(function(){
   let student_id = $("#student_id").val();
   $.ajax({
-    // url : ("/cse_ps/get_sections/"+course_code),
-    // method: "GET",
-    // success: function(data)
-    // {
-    //   data = JSON.parse(data);
-    //
-    //   let html_for_option = "<option value=''>Select Section</option> ";
-    //   data = data['data'];
-    //
-    //   for(let i=0;i<data.length;i++)
-    //   {
-    //     html_for_option+=("<option value = '" + data[i]['id'] + "'>" + data[i]['name'] + "</option> ");
-    //   }
-    //   $("#section").html(html_for_option);
-    //}
+    url : ("/cse_ps/get_student/"+student_id),
+    method: "GET",
+    success: function(data)
+    {
+      data = JSON.parse(data);
+      console.log(data);
+      if(data['message'] != "OK")
+      {
+        $("#student_info").html("No Student Found with student ID " + student_id)
+      }
+      else
+      {
+        let student_information = "";
+        data = data['data'];
+
+        for(let i=0;i<data.length;i++)
+        {
+          student_information+=(data[i]['name'] + " (" + student_id + "), " + data[i]['department']);
+        }
+        $("#student_info").html(student_information);
+      }
+    }
   });
 });

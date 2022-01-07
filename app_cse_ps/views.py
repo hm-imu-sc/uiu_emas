@@ -139,13 +139,14 @@ def get_sections(request, course_code):
 def get_student(request, student_id):
     database = MySql.db()
     student_info = database.query(f"SELECT name, department FROM students WHERE student_id = '{student_id}'")
+    print(student_info)
     context = {}
     if len(student_info) > 0:
         context["message"] = "OK"
     else:
         context["message"] = "NOT FOUND"
-        
-    context["data"] = {}
+
+    context["data"] = []
     list = ['name', 'department']
     for tup in student_info:
         context["data"].append({list[0]:tup[0],list[1]:tup[1]})
