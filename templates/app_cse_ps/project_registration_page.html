@@ -10,34 +10,37 @@
         <title>Document</title>
     </head>
     <body>
+        
+        {% include "../common/navbar.html" %}
+
         <h1 class="title">Project Registration</h1>
         <form action="{% url 'app_cse_ps:project_registration' %}" method="POST" enctype="multipart/form-data">
-          {% csrf_token %}
-          <div class="project_title">
-              <label for="project_title">Project Title: </label>
-              <input type="text" name="project_title" id="project_title">
-          </div>
+			{% csrf_token %}
+			<div class="project_title">
+				<label for="project_title">Project Title: </label>
+				<input type="text" name="project_title" id="project_title">
+			</div>
 
-          <div class="course">
-            <label for="course">Course: </label>
-            <select name="course">
-              {% for course in data %}
-                <option value="{{ course.id }}">{{ course.course_code}} ({{ course.name }}) : {{ course.course_name }}</option>
-              {% endfor %}
-            </select>
-          </div>
+			<div class="course">
+				<label for="course">Course: </label>
+				<select name="course">
+				{% for course in data %}
+					<option value="{{ course.id }}">{{ course.course_code}} ({{ course.name }}) : {{ course.course_name }}</option>
+				{% endfor %}
+				</select>
+			</div>
 
-          <div class="short_description">
-            <label for="short_description">Short Description: </label>
-            <textarea name="short_description" rows="4" cols="80"></textarea>
-          </div>
+			<div class="short_description">
+				<label for="short_description">Short Description: </label>
+				<textarea name="short_description" rows="4" cols="80"></textarea>
+			</div>
 
-          <div class="project_members">
-            <label for="project_members">Student IDs of Project Members (Comma Separated): </label>
-            <textarea name="project_members" rows="5" cols="80"></textarea>
-          </div>
+			<div class="project_members">
+				<label for="project_members">Student IDs of Project Members (Comma Separated): </label>
+				<textarea name="project_members" rows="5" cols="80"></textarea>
+			</div>
 
-          <input type="submit" value="Submit">
+			<input type="submit" value="Submit">
 
         </form>
 

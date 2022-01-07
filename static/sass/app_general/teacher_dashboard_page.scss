@@ -1,55 +1,12 @@
-@font-face {
-    font-family: gwendolyn-regular;
-    src: url('../../fonts/font_faces/Gwendolyn-Regular.ttf');
-}
-
-@font-face {
-    font-family: gwendolyn-bold;
-    src: url('../../fonts/font_faces/Gwendolyn-Bold.ttf');
-}
-
-@font-face {
-    font-family: smooch-regular;
-    src: url('../../fonts/font_faces/Smooch-Regular.ttf');
-}
-
-@font-face {
-    font-family: satisfy;
-    src: url('../../fonts/font_faces/Satisfy-Regular.ttf');
-}
-
-@font-face {
-    font-family: general-regular;
-    src: url('../../fonts/font_faces/FuzzyBubbles-Regular.ttf');
-}
-
-@font-face {
-    font-family: general-bold;
-    src: url('../../fonts/font_faces/FuzzyBubbles-Bold.ttf');
-}
-
-* {
-    text-decoration: none;
-    color: aqua;
-    background-color: black;
-    font-family: general-bold;
-    font-size: 20px;
-    margin: 0;
-    padding: 0;
-}
+@import "../common/_setup";
 
 .title {
+    @include text_not_selectable;
     font-family: satisfy;
     font-size: 65px;
     color: rgba(0, 255, 255, 0.8);
     margin-top: 40px;
     text-align: center;
-    
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 .projects_to_check {

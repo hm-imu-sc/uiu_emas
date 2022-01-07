@@ -25,34 +25,37 @@
         <title>Project Details Page</title>
     </head>
     <body>
-         <h1 class="title">Project title: {{title}} </h1>
+        
+        {% include "../common/navbar.html" %}
+
+        <h1 class="title">Project title: {{title}} </h1>
 
         <div class="details">
-          <div class="course_name">
-              <h2>Course: <span>{{ course }}</span></h2>
-          </div>
-            
-          <div class="short_description">
-            <h2>Short Description:<h2>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum ea incidunt ratione? Voluptatum quas aliquid debitis, possimus magnam reprehenderit deleniti neque rerum dolorem! Necessitatibus, voluptas. {{ description }} </p>
-          </div>
+			<div class="course_name">
+				<h2>Course: <span>{{ course }}</span></h2>
+			</div>
+				
+			<div class="short_description">
+				<h2>Short Description:<h2>
+				<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum ea incidunt ratione? Voluptatum quas aliquid debitis, possimus magnam reprehenderit deleniti neque rerum dolorem! Necessitatibus, voluptas. {{ description }} </p>
+			</div>
 
-          <div class="project_member_details">
-            <h2>Project Members:</h2>
-            <table border cellspacing="0" cellpadding="0">
-              <tr>
-                <th>Student Name</th>
-                <th>Student ID</th>
-              </tr>
+			<div class="project_member_details">
+				<h2>Project Members:</h2>
+				<table border cellspacing="0" cellpadding="0">
+				<tr>
+					<th>Student Name</th>
+					<th>Student ID</th>
+				</tr>
 
-              {% for member in members %}
-                <tr>
-                  <td>{{member.name}}</td>
-                  <td>{{member.id}}</td>
-                </tr>
-              {% endfor %}
-            </table>
-          </div>
+				{% for member in members %}
+					<tr>
+					<td>{{member.name}}</td>
+					<td>{{member.id}}</td>
+					</tr>
+				{% endfor %}
+				</table>
+			</div>
         </div>
 
         <a class="approve" href="{% url 'app_general:project_approve' id%}">Approve</a>

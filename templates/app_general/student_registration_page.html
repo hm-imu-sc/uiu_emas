@@ -11,6 +11,8 @@
     </head>
     <body>
         
+        {% include "../common/navbar.html" %}
+        
         <h1>Registration</h1>
         
         <form action="{% url 'app_general:student_registration' %}" method="POST" enctype="multipart/form-data">
