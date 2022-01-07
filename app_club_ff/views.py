@@ -33,6 +33,18 @@ class FestRegistrationPage(TemplateView):
             context["data"].append({list[0]:tup[0],list[1]:tup[1], list[2]: tup[2]})
         return context
 
+class FestRegistration(DBAction):
+    def action(self, request, **kwargs):
+        self.redirect_url = "app_club_ff:index"
+        post_data = dict(**request.POST)
+        print('YES')
+        student_id = post_data["student_id"][0]
+        club_id =  post_data["club"][0]
+        tshirt_size = post_data["tshirt_size"][0]
+
+        self.database.query(f"INSERT INTO cff_registrations (student_id,club_id, t_shirt_size) VALUES ('{student_id}','{club_id}','{tshirt_size}')")
+        return
+
 def get_club_names(request):
     database = MySql.db()
     club_list = database.query("SELECT club_id, name FROM clubs")
