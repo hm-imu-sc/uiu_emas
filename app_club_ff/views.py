@@ -32,3 +32,14 @@ class FestRegistrationPage(TemplateView):
         for tup in student:
             context["data"].append({list[0]:tup[0],list[1]:tup[1], list[2]: tup[2]})
         return context
+
+def get_club_names(request):
+    database = MySql.db()
+    club_list = database.query("SELECT club_id, name FROM clubs")
+    context = {}
+    context["data"] = []
+    list = ['club_id','club_name']
+    for tup in club_list:
+        context["data"].append({list[0]:tup[0],list[1]:tup[1]})
+    context = json.dumps(context)
+    return HttpResponse(context)

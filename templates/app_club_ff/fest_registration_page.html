@@ -27,10 +27,28 @@
           <label for="student_email"> Email Address: </label>
           <input type="text" name="student_email" id="student_email" value="{{ student.uiu_email }}" readonly>
         {% endfor %}
-
 			</div>
 
-			<input type="submit" value="Submit">
+      <div class="club">
+        <label for="club">Member of: </label>
+        <select class="club" name="club" id="club">
+          <option value="">Select Your Club</option>
+        </select>
+      </div>
+
+      <div class="tshirt_size">
+        <label for="tshirt_size"> T-shirt Size: </label>
+        <select name="tshirt_size" id="tshirt_size">
+          <option value="S"> S </option>
+          <option value="M"> M </option>
+          <option value="L"> L </option>
+          <option value="XL"> XL </option>
+          <option value="XXL"> XXL </option>
+          <option value="XXXL"> XXXL </option>
+        </select>
+      </div>
+
+			<input type="submit" value="Register">
 
         </form>
 
