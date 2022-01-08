@@ -10,12 +10,16 @@
 }
 
 form {
-    // display: flex;
-    // flex-direction: column;
-    // align-content: center;
     margin: 30px auto 0;
-    // border: 1px solid red;
     width: 50%;
+
+    * {
+        font-size: 18px;
+
+        &:focus {
+            outline: none;
+        }
+    }
 
     div {
         margin: 20px auto 0;
@@ -52,6 +56,40 @@ form {
             border: 2px solid rgba(0, 255, 255, 0.603);
             border-radius: 5px;
             padding: 5px;
+        }
+    }
+
+    .course-selection {
+        // border: 1px solid red;
+        position: relative;
+        height: 67px;
+
+        .course-name {
+            position: absolute;
+            left: 0;
+            top: 0;
+            margin: auto;
+        }
+
+        .section-name {
+            position: absolute;
+            right: 0;
+            top: 0;
+            margin: auto;
+        }
+
+        div {
+            // border: 1px solid yellow;
+            display: flex;
+            flex-direction: column;
+            width: 49%;
+
+
+            select {
+                option {
+                    font-size: 15px;
+                }
+            }
         }
     }
 

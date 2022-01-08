@@ -13,12 +13,30 @@
         
         {% include "../common/navbar.html" %}
         
-        <h1 class="title">Login Page (Ignored)</h1>
+        {% comment %} <h1 class="title">Login Page</h1>
 
         <div class="dashboard">
             <a href="{% url 'app_general:teacher_dashboard_page' %}">Teacher Dashboard</a>
             <a href="{% url 'app_general:student_dashboard_page' %}">Student Dashboard</a>
-        </div>
+        </div> {% endcomment %}
+
+        <form action="{% url 'app_general:login_page' %}" method="POST">
+            {% csrf_token %}
+
+            <div class="title">Login</div>
+
+            <div class="user">
+                <label for="user">E-mail or User ID:</label>
+                <input id="user" type="text" name="user" placeholder="Enter you user ID or e-mail">
+            </div>
+
+            <div class="password">
+                <label for="password">Password:</label>
+                <input id="password" type="password" name="password" placeholder="Enter password">
+            </div>
+
+            <input type="submit" name="login" value="Login">
+        </form>
 
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
         <script src="{% static 'js/app_general/login_page.js' %}"></script>

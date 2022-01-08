@@ -1,34 +1,93 @@
 @import "../common/_setup";
 
-.title {
-    @include text_not_selectable;
-    font-family: satisfy;
-    // font-family: smooch-regular;
-    font-size: 90px;
-    color: rgba(0, 255, 255, 0.8);
-    margin: 40px auto 0;
-    width: 784px;
-}
+// .title {
+//     @include text_not_selectable;
+//     font-family: satisfy;
+//     font-size: 90px;
+//     color: rgba(0, 255, 255, 0.8);
+//     margin: 40px auto 0;
+//     text-align: center;
+// }
 
-.dashboard {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 40px;
+// .dashboard {
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: center;
+//     margin-top: 40px;
 
-    a {
-        border: 2px solid rgba(0, 255, 255, 0.575);
-        border-radius: 10px;
-        padding: 10px;
-        font-size: 25px;
+//     a {
+//         border: 2px solid rgba(0, 255, 255, 0.575);
+//         border-radius: 10px;
+//         padding: 10px;
+//         font-size: 25px;
+//         text-align: center;
+//         color: rgba(0, 255, 255, 0.575);
+//         margin: 20px 20px;
+//         width: 25%;
+
+//         &:hover {
+//             border-color: aqua;
+//             color: aqua;
+//         }
+//     }
+// }
+
+form {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+
+    border: 2px solid dodgerblue;
+    border-radius: 10px;
+    width: 25%;
+    height: 370px;
+    overflow: hidden;
+    padding: 20px;
+
+    .title {
         text-align: center;
-        color: rgba(0, 255, 255, 0.575);
-        margin: 20px 20px;
-        width: 25%;
+        color: dodgerblue;
+        font-family: satisfy;
+        font-size: 60px;
+    }
+
+    div {
+        display: flex;
+        flex-direction: column;
+        margin: 20px;
+
+        label {
+            color: dodgerblue;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        input {
+            border: 2px solid aqua;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 15px;
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+
+    input[type="submit"] {
+        display: block;
+        border: 2px solid dodgerblue;
+        border-radius: 5px;
+        padding: 7px;
+        width: 50%;
+        margin: 10px auto;
+        cursor: pointer;
 
         &:hover {
-            border-color: aqua;
-            color: aqua;
+            color: black;
+            background-color: dodgerblue;
         }
     }
 }
