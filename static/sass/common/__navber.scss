@@ -49,6 +49,16 @@
         margin-right: 100px;
     }
 }    
+.nav-back {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    width: 100;
+    background-color: black;
+    height: 90px;
+}
 
 .nav-border {
     margin-top: 90px;

@@ -47,13 +47,15 @@
 				<textarea name="short_description" rows="4" cols="80"></textarea>
 			</div>
 
+
 			<div class="add_project_member">
 				<label for="add_project_member">Enter Student ID to add new member: </label>
-				<input type="text" name="" id="student_id" required>
-				<button type="button" name="check_student" id="check_student">Check</button>
+				<div class="input_controls">
+					<input type="text" name="" id="student_id" required>
+					<button type="button" name="check_student" id="check_student">Check</button>
+					<button class="add_anabled" type="button" name="add_member" id="add_member">Add Member</button>
+				</div>
 				<p id="student_info"></p>
-				<br>
-				<button type="button" name="add_member" id="add_member">Add Member</button>
 			</div>
 
 			<div class="project_members">
