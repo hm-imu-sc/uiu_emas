@@ -1,0 +1,57 @@
+@import "../common/_setup";
+
+.title {
+    @include title;
+}
+
+form {
+    // border: 1px solid red;
+    width: 30%;
+    margin: 20px auto;
+
+    div {
+        display: flex;
+        flex-direction: column;
+        margin: 20px 0;
+
+        label {
+            @include text_not_selectable;
+            color: dodgerblue;
+        }
+
+        input, select {
+            border: 1px solid aqua;
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+
+        select option {
+            font-size: 15px;
+        }
+    }
+
+    .dob {
+        span {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            select {
+                width: 30%;
+            }
+        }
+    }
+
+    input[type="submit"] {
+        display: block;
+        cursor: pointer;
+        border: 2px solid aqua;
+        border-radius: 5px;
+        padding: 5px 30px;
+        margin: 10px auto;
+
+        &:hover {
+            color: black;
+            background-color: aqua;
+        }
+    }
+}
