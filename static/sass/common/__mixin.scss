@@ -1,11 +1,3 @@
-@mixin text_not_selectable {
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
 @mixin reset {
     text-decoration: none;
     color: aqua;
@@ -14,4 +6,21 @@
     font-size: 20px;
     margin: 0;
     padding: 0;
+}
+
+@mixin text_not_selectable {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@mixin title {
+    @include text_not_selectable;
+    font-family: satisfy;
+    font-size: 65px;
+    color: rgba(0, 255, 255, 0.8);
+    margin-top: 40px;
+    text-align: center;
 }
