@@ -51,6 +51,7 @@ class ArchiveProjects(TemplateView):
                 members_info.append({'id' : members_id[i], 'name' : members_name[i]})
 
             context["data"].append({list[0]:tup[0],list[1]:tup[1],list[2]:tup[2], list[3]: members_info})
+            print(context)
         return context
 
 class ProjectRegistration(DBAction):
