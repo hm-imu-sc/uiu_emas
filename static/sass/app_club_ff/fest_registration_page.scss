@@ -1,0 +1,9 @@
+@import "../common/_setup";
+
+.title {
+    @include title;
+}
+
+form {
+    @include default_form;
+}

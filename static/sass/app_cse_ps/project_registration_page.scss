@@ -10,54 +10,7 @@
 }
 
 form {
-    margin: 30px auto 0;
-    width: 50%;
-
-    * {
-        font-size: 18px;
-
-        &:focus {
-            outline: none;
-        }
-    }
-
-    div {
-        margin: 20px auto 0;
-        display: flex;
-        flex-direction: column;
-        
-        label {
-            color: dodgerblue;
-            font-size: 17px;
-            margin-bottom: 7px;
-        }
-
-        input[type="text"] {
-            border: 2px solid rgba(0, 255, 255, 0.603);
-            border-radius: 5px;
-            padding: 5px;
-        }
-
-        select {
-            border: 2px solid rgba(0, 255, 255, 0.603);
-            border-radius: 5px;
-            padding: 5px;
-             
-            optional {
-                font-size: 15px;
-            }
-
-            &:focas {
-                outline: none;
-            }
-        }
-
-        textarea {
-            border: 2px solid rgba(0, 255, 255, 0.603);
-            border-radius: 5px;
-            padding: 5px;
-        }
-    }
+    @include default_form;
 
     .course-selection {
         // border: 1px solid red;
@@ -147,20 +100,5 @@ form {
             margin-top: 5px;
         }
 
-    }
-
-    input[type="submit"] {
-        cursor: pointer;
-        display: block;
-        border: 2px solid aqua;
-        border-radius: 10px;
-        padding: 10px;
-        margin: 10px auto 20px;
-        width: 30%;
-
-        &:hover {
-            background-color: aqua;
-            color: black;
-        }
     }
 }

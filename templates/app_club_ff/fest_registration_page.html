@@ -1,33 +1,38 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/all.css' %}">
-        <link rel="stylesheet" href="{% static 'css/app_cse_ps/fest_registration_page.css' %}">
-        <title>Document</title>
-    </head>
-    <body>
-
-        {% include "../common/navbar.html" %}
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="{% static 'fonts/font-awesome/css/all.css' %}">
+		<link rel="stylesheet" href="{% static 'css/app_club_ff/fest_registration_page.css' %}">
+		<title>Document</title>
+	</head>
+	<body>
+		
+		{% include "../common/navbar.html" %}
 
         <h1 class="title">Fest Registration</h1>
+
         <form action="{% url 'app_club_ff:fest_registration' %}" method="POST" enctype="multipart/form-data">
 			{% csrf_token %}
-			<div class="student_information">
-				{% for student in data %}
-				<label for="student_name">Name: </label>
-				<input type="text" name="student_name" id="student_name" value="{{ student.name }}" readonly>
-				<br>
-				<label for="student_id"> ID: </label>
-				<input type="text" name="student_id" id="student_id" value="{{ student.student_id }}" readonly>
-				<br>
-				<label for="student_email"> Email Address: </label>
-				<input type="text" name="student_email" id="student_email" value="{{ student.uiu_email }}" readonly>
-				{% endfor %}
-			</div>
+			{% for student in data %}
+				<div>
+					<label for="student_name">Name: </label>
+					<input type="text" name="student_name" id="student_name" value="{{ student.name }}" readonly>
+				</div>
+
+				<div>
+					<label for="student_id"> ID: </label>
+					<input type="text" name="student_id" id="student_id" value="{{ student.student_id }}" readonly>
+				</div>
+
+				<div>
+					<label for="student_email"> Email Address: </label>
+					<input type="text" name="student_email" id="student_email" value="{{ student.uiu_email }}" readonly>
+				</div>
+			{% endfor %}
 
 			<div class="club">
 				<label for="club">Member of: </label>
@@ -49,10 +54,9 @@
 			</div>
 
 			<input type="submit" value="Register">
-
         </form>
-
-        <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
-        <script src="{% static 'js/app_club_ff/fest_registration_page.js' %}"></script>
-    </body>
+		
+		<script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
+		<script src="{% static 'js/app_club_ff/fest_registration_page.js' %}"></script>
+	</body>
 </html>

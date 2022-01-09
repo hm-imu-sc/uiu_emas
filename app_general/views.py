@@ -3,7 +3,7 @@ from my_modules.base_views import DBAction, DBRead
 from django.views.generic import TemplateView
 from my_modules.database import MySql
 from django.core.files.storage import FileSystemStorage
-
+from datetime import datetime, timedelta
 
 # Create your views here.
 
@@ -14,6 +14,17 @@ class TestPage(DBRead):
         context = super().get_context_data(**kwargs)
         context["test"] = "This is a Test Page"
         return context
+
+    def respond(request):
+        response = render(request, "app_general/test_page.html", context={})    
+        
+        cookie_expires = datetime.now() - timedelta(seconds=60)
+        cookie_expires = cookie_expires.strftime("%a, %d-%b-%Y %H:%M:%S GMT+6")
+        
+        response.set_cookie("key", "value", expires=cookie_expires)
+        
+        print(f"Type: {response}")
+        return response 
 
 
 class Test(DBAction):
@@ -38,7 +49,7 @@ class Index(TemplateView):
         return super().get_context_data(*args, **kwargs)
 
 
-class StudentRegistrationPage(TemplateView):
+class StudentRegistrationPage(DBRead):
     template_name = "app_general/student_registration_page.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -94,6 +105,10 @@ class LoginPage(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         return super().get_context_data(*args, **kwargs)
+
+
+class Login(DBRead):
+    pass
 
 
 class TeacherDashboardPage(TemplateView):
