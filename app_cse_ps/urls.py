@@ -13,4 +13,6 @@ urlpatterns = [
     path("get_course_names/", views.get_course_names, name="get_course_names"),
     path("get_sections/<course_code>", views.get_sections, name="get_sections"),
     path("get_student/<student_id>", views.get_student, name="get_student"),
+    path("archieve_projects/", views.ArchiveProjects.as_view(), name="archieve_projects"),
+    
 ]

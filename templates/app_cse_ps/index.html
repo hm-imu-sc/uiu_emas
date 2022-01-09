@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="{% static 'css/app_cse_ps/index.css' %}">
     </head>
     <body>
-        
+
         {% include "../common/navbar.html" %}
 
         <h1 class="title">UIU CSE Project Show</h1>
@@ -20,8 +20,12 @@
                 <i class="fad fa-users-class"></i>
                 <span>Explore Project Booths</span>
             </a>
+            <a href="{% url 'app_cse_ps:archieve_projects' %}">
+              <i class="fad fa-users-class"></i>
+              <span>Archieve</span>
+            </a>
         </div>
-        
+
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
         <script src="{% static 'js/app_general/project_registration_page.js' %}"></script>
     </body>

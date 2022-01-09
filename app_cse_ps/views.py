@@ -27,6 +27,20 @@ class ProjectRegistrationPage(TemplateView):
             context["data"].append({list[0]:tup[0],list[1]:tup[1],list[2]:tup[2],list[3]:tup[3]})
         return context
 
+class ArchiveProjects(TemplateView):
+    template_name = "app_cse_ps/archieve_projects_page.html"
+    database = MySql.db()
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        projects = self.database.query("SELECT id, title, short_description FROM projects WHERE `status` = 1")
+        context["data"] = []
+        list = ['id', 'title', 'short_description']
+
+        for tup in projects:
+            context["data"].append({list[0]:tup[0],list[1]:tup[1],list[2]:tup[2]})
+        return context
+
 class ProjectRegistration(DBAction):
     def action(self, request, **kwargs):
         self.redirect_url = "app_cse_ps:index"
