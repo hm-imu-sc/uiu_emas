@@ -69,7 +69,15 @@ $("#trimester_filter").click(function()
 
 $("#filter").click(function(){
 	let course_code = $("#course_filter").val();
+  if(course_code.length==0)
+  {
+    course_code = 'NULL';
+  }
 	let trimester = $("#trimester_filter").val();
+  if(trimester.length==0)
+  {
+    trimester = 'NULL';
+  }
 
   $.ajax({
 		url : ("/cse_ps/get_filtered_archeive_projects/"+course_code+"/"+trimester),
@@ -81,12 +89,44 @@ $("#filter").click(function(){
 
       data = data['data'];
 
+      booth_thumbnails = ""
+
       for(let i=0;i<data.length;i++)
       {
-        student_information+=(data[i]['name'] + " (" + student_id + "), " + data[i]['department']);
-      }
-      $("#student_info").html(student_information);
+        booth_thumbnails+= `
+        <div class="booth_thumbnail">
+            <div class="project_name">`+
+                data[i]['title'] +
+            `</div>
+            <div class="project_details">
+                <div class="description">
+                    <h2>Description:</h2>
+                    <span>` + data[i]['short_description'] + `Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quas, reiciendis facilis possimus ratione, animi inventore vero numquam dolorum perferendis at quod magnam saepe? Numquam.</span>
+                </div>
 
+                <div class="project_members">
+                    <h2>Project Members:</h2>
+                    <div class="members">`;
+
+
+        for(let j=0;j<data[i]['project_members'].length;j++)
+        {
+          booth_thumbnails+=`
+          <div>
+              <span class="id">` + data[i]['project_members'][j]['id'] +` | </span>
+              <span class="id">` +  data[i]['project_members'][j]['name'] + `</span>
+          </div>
+          `;
+        }
+
+        booth_thumbnails+= `</div>
+                </div>
+            </div>
+            <a class="visit_link" href="{{project.id}}">Visit Booth</a>
+        </div>
+        `;
+      }
+      $("#booth_thumbnails").html(booth_thumbnails);
 
 		}
 	});

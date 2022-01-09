@@ -51,7 +51,6 @@ class ArchiveProjects(TemplateView):
                 members_info.append({'id' : members_id[i], 'name' : members_name[i]})
 
             context["data"].append({list[0]:tup[0],list[1]:tup[1],list[2]:tup[2], list[3]: members_info})
-            print(context)
         return context
 
 class ProjectRegistration(DBAction):
@@ -192,11 +191,13 @@ def get_trimesters(request):
 
 def get_filtered_archeive_projects(request, course_code, trimester):
     database = MySql.db()
-    if (len(course_code)>0 and len(trimester)>0):
+    print(course_code)
+    print(trimester)
+    if course_code!='NULL' and trimester!='NULL':
         projects = database.query(f"SELECT projects.id, projects.title, projects.short_description FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1 and projects.trimester = '{trimester}' and sections.course_code = '{course_code}'")
-    elif len(course_code)>0:
+    elif course_code!='NULL':
         projects = database.query(f"SELECT projects.id, projects.title, projects.short_description FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1 and sections.course_code = '{course_code}'")
-    elif len(trimester)>0:
+    elif trimester!='NULL':
         projects = database.query(f"SELECT projects.id, projects.title, projects.short_description FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1 and projects.trimester = '{trimester}'")
     else:
         projects = database.query(f"SELECT projects.id, projects.title, projects.short_description FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1")
