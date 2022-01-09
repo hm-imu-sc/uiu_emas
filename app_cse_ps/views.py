@@ -40,7 +40,13 @@ class ArchiveProjects(TemplateView):
         for tup in projects:
             context["data"].append({list[0]:tup[0],list[1]:tup[1],list[2]:tup[2]})
             members_id_tup = self.database.query(f"SELECT student_id FROM project_members WHERE project_id = {tup[0]}")
-            
+            members_id = []
+            for member in members_id_tup:
+                members_id.append(member[0])
+            members_name = []
+            for member in members_id:
+                members_name.append(self.database.query(f"SELECT name FROM students WHERE student_id = {member}")[0][0])
+
 
         return context
 
