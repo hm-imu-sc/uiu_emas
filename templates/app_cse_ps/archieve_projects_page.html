@@ -6,16 +6,30 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/all.css' %}">
-        <link rel="stylesheet" href="{% static 'css/app_cse_ps/booth_list_page.css' %}">
+        <link rel="stylesheet" href="{% static 'css/app_cse_ps/archieve_projects_page.css' %}">
         <title>Document</title>
     </head>
     <body>
 
         {% include "../common/navbar.html" %}
 
-        <h1 class="title">UIU CSE Project Show</h1>
+        <h1 class="title">Archieved UIU CSE Project Show</h1>
 
         <h3 class="instructions"><i class="fad fa-asterisk"></i>Select a booth to view its content</h3>
+
+        <div class="filter">
+  				<select name="course_filter" id="course_filter">
+  					<option value=""> Course </option>
+  				</select>
+
+  				<select name="trimester_filter" id="trimester_filter">
+  					<option value=""> Trimester </option>
+  				</select>
+
+          <button type="button" name="filter">Filter</button>
+  			</div>
+
+        <br>
 
         <div class="booth_thumbnails">
             {% for project in data %}
@@ -47,6 +61,6 @@
         </div>
 
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
-        <script src="{% static 'js/app_cse_ps/booth_list_page.js' %}"></script>
+        <script src="{% static 'js/app_cse_ps/archieve_projects_page.js' %}"></script>
     </body>
 </html>
