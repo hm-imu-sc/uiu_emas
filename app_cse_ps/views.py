@@ -35,10 +35,13 @@ class ArchiveProjects(TemplateView):
         context = super().get_context_data(*args, **kwargs)
         projects = self.database.query("SELECT id, title, short_description FROM projects WHERE `status` = 1")
         context["data"] = []
-        list = ['id', 'title', 'short_description']
+        list = ['id', 'title', 'short_description', 'project_members']
 
         for tup in projects:
             context["data"].append({list[0]:tup[0],list[1]:tup[1],list[2]:tup[2]})
+            members_id_tup = self.database.query(f"SELECT student_id FROM project_members WHERE project_id = {tup[0]}")
+            
+
         return context
 
 class ProjectRegistration(DBAction):

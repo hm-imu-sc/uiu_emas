@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/all.css' %}">
+        <link rel="stylesheet" href="{% static 'css/app_cse_ps/booth_list_page.css' %}">
+        <title>Document</title>
+    </head>
+    <body>
+
+        {% include "../common/navbar.html" %}
+
+        <h1 class="title">UIU CSE Project Show</h1>
+
+        <h3 class="instructions"><i class="fad fa-asterisk"></i>Select a booth to view its content</h3>
+
+        <div class="booth_thumbnails">
+            {% for project in projects %}
+                <div class="booth_thumbnail">
+                    <div class="project_name">
+                        {{ project.title }}
+                    </div>
+                    <div class="project_details">
+                        <div class="description">
+                            <h2>Description:</h2>
+                            <span>{{ project.short_description }} Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quas, reiciendis facilis possimus ratione, animi inventore vero numquam dolorum perferendis at quod magnam saepe? Numquam.</span>
+                        </div>
+
+                        <div class="project_members">
+                            <h2>Project Members:</h2>
+                            <div class="members">
+                                {% for member in project.members %}
+                                    <div>
+                                        <span class="id">{{ member.student_id }} | </span>
+                                        <span class="id">{{ member.name }}</span>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <a class="visit_link" href="{{project.id}}">Visit Booth</a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
+        <script src="{% static 'js/app_cse_ps/booth_list_page.js' %}"></script>
+    </body>
+</html>
