@@ -14,5 +14,6 @@ urlpatterns = [
     path("get_sections/<course_code>", views.get_sections, name="get_sections"),
     path("get_student/<student_id>", views.get_student, name="get_student"),
     path("archieve_projects/", views.ArchiveProjects.as_view(), name="archieve_projects"),
-    
+    path("get_trimesters/", views.get_trimesters, name="get_trimesters"),
+
 ]

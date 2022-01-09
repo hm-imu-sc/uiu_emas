@@ -166,7 +166,6 @@ def get_sections(request, course_code):
 def get_student(request, student_id):
     database = MySql.db()
     student_info = database.query(f"SELECT name, department FROM students WHERE student_id = '{student_id}'")
-    print(student_info)
     context = {}
     if len(student_info) > 0:
         context["message"] = "OK"
@@ -179,3 +178,15 @@ def get_student(request, student_id):
         context["data"].append({list[0]:tup[0],list[1]:tup[1]})
     context = json.dumps(context)
     return HttpResponse(context)
+
+def get_trimesters(request):
+    database = MySql.db()
+    trimesters = database.query("SELECT DISTINCT trimester FROM projects ORDER BY trimester ASC")
+    context = {}
+    context["data"] = []
+    list = ['trimester']
+    for tup in trimesters:
+        context["data"].append({list[0]:tup[0]})
+    context = json.dumps(context)
+    return HttpResponse(context)
+    
