@@ -189,4 +189,35 @@ def get_trimesters(request):
         context["data"].append({list[0]:tup[0]})
     context = json.dumps(context)
     return HttpResponse(context)
-    
+
+def get_filtered_archeive_projects(request, course_code, trimester):
+    database = MySql.db()
+    if (len(course_code)>0 and len(trimester)>0):
+        projects = database.query(f"SELECT projects.id, projects.title, projects.short_description FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1 and projects.trimester = '{trimester}' and sections.course_code = '{course_code}'")
+    elif len(course_code)>0:
+        projects = database.query(f"SELECT projects.id, projects.title, projects.short_description FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1 and sections.course_code = '{course_code}'")
+    elif len(trimester)>0:
+        projects = database.query(f"SELECT projects.id, projects.title, projects.short_description FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1 and projects.trimester = '{trimester}'")
+    else:
+        projects = database.query(f"SELECT projects.id, projects.title, projects.short_description FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1")
+
+    context = {}
+    context["data"] = []
+    list = ['id', 'title', 'short_description', 'project_members']
+
+    for tup in projects:
+        members_id_tup = database.query(f"SELECT student_id FROM project_members WHERE project_id = {tup[0]}")
+        members_id = []
+        for member in members_id_tup:
+            members_id.append(member[0])
+        members_name = []
+        for member in members_id:
+            members_name.append(database.query(f"SELECT name FROM students WHERE student_id = {member}")[0][0])
+
+        members_info = []
+        for i in range(len(members_name)):
+            members_info.append({'id' : members_id[i], 'name' : members_name[i]})
+
+        context["data"].append({list[0]:tup[0],list[1]:tup[1],list[2]:tup[2], list[3]: members_info})
+    context = json.dumps(context)
+    return HttpResponse(context)

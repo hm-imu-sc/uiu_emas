@@ -66,3 +66,29 @@ $("#trimester_filter").click(function()
 		}
 	});
 });
+
+$("#filter").click(function(){
+	let course_code = $("#course_filter").val();
+	let trimester = $("#trimester_filter").val();
+
+  $.ajax({
+		url : ("/cse_ps/get_filtered_archeive_projects/"+course_code+"/"+trimester),
+		method: "GET",
+		success: function(data)
+		{
+			data = JSON.parse(data);
+			console.log(data);
+
+      data = data['data'];
+
+      for(let i=0;i<data.length;i++)
+      {
+        student_information+=(data[i]['name'] + " (" + student_id + "), " + data[i]['department']);
+      }
+      $("#student_info").html(student_information);
+
+
+		}
+	});
+
+});
