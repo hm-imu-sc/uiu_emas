@@ -55,3 +55,11 @@ def get_club_names(request):
         context["data"].append({list[0]:tup[0],list[1]:tup[1]})
     context = json.dumps(context)
     return HttpResponse(context)
+
+class FestFeed(DBRead):
+    template_name = "app_club_ff/fest_feed_page.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = {}
+        return context
