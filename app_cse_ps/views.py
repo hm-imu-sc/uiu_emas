@@ -38,7 +38,6 @@ class ArchiveProjects(TemplateView):
         list = ['id', 'title', 'short_description', 'project_members']
 
         for tup in projects:
-            context["data"].append({list[0]:tup[0],list[1]:tup[1],list[2]:tup[2]})
             members_id_tup = self.database.query(f"SELECT student_id FROM project_members WHERE project_id = {tup[0]}")
             members_id = []
             for member in members_id_tup:
@@ -47,7 +46,11 @@ class ArchiveProjects(TemplateView):
             for member in members_id:
                 members_name.append(self.database.query(f"SELECT name FROM students WHERE student_id = {member}")[0][0])
 
+            members_info = []
+            for i in range(len(members_name)):
+                members_info.append({'id' : members_id[i], 'name' : members_name[i]})
 
+            context["data"].append({list[0]:tup[0],list[1]:tup[1],list[2]:tup[2], list[3]: members_info})
         return context
 
 class ProjectRegistration(DBAction):

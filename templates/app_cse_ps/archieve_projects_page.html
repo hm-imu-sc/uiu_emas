@@ -18,7 +18,7 @@
         <h3 class="instructions"><i class="fad fa-asterisk"></i>Select a booth to view its content</h3>
 
         <div class="booth_thumbnails">
-            {% for project in projects %}
+            {% for project in data %}
                 <div class="booth_thumbnail">
                     <div class="project_name">
                         {{ project.title }}
@@ -32,9 +32,9 @@
                         <div class="project_members">
                             <h2>Project Members:</h2>
                             <div class="members">
-                                {% for member in project.members %}
+                                {% for member in project.project_members %}
                                     <div>
-                                        <span class="id">{{ member.student_id }} | </span>
+                                        <span class="id">{{ member.id }} | </span>
                                         <span class="id">{{ member.name }}</span>
                                     </div>
                                 {% endfor %}
