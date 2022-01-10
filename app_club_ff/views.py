@@ -65,5 +65,14 @@ class FestFeed(DBRead):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context = {}
+        context["clubs"] = self.get_club_names()
+        context["sorting_criterias"] = [
+            {"value": 1, "option": "Newest"},
+            {"value": 2, "option": "Oldest"}
+        ]
         return context
+
+    def get_club_names(self):
+        database = MySql.db()
+        club_name = database.get("clubs")
+        return club_name

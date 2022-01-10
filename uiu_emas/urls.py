@@ -19,6 +19,8 @@ from app_cse_ps import urls as app_cse_ps_urls
 from app_club_ff import urls as app_club_ff_urls
 from app_admin import urls as app_admin_urls
 from app_general import urls as app_general_urls
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include(app_admin_urls)),
@@ -26,4 +28,4 @@ urlpatterns = [
     path('cse_ps/', include(app_cse_ps_urls), name="cse_ps"),
     path('club_ff/', include(app_club_ff_urls), name="club_ff"),
     path('general/', include(app_general_urls), name="general"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
