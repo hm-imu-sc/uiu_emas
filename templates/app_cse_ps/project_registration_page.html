@@ -52,15 +52,14 @@
 				<textarea name="short_description" rows="4" cols="80"></textarea>
 			</div>
 
-
 			<div class="add_project_member">
 				<label for="add_project_member">Enter Student ID to add new member: </label>
 				<div class="input_controls">
-					<input type="text" name="" id="student_id" required>
+					<input type="text" name="" id="student_id" placeholder="Student ID">
 					{% comment %} <button type="button" name="check_student" id="check_student">Check</button> {% endcomment %}
+					<p id="student_info"></p>
 					<button class="add_disabled" type="button" name="add_member" id="add_member" disabled>Add Member</button>
 				</div>
-				<p id="student_info"></p>
 			</div>
 
 			<div class="project_members">
