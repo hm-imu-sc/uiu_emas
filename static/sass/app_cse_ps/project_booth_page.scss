@@ -1,0 +1,76 @@
+@import "../common/_setup";
+
+.title {
+    @include title;
+}
+
+.project {
+    width: 90%;
+    height: 420px;
+    border: 2px solid dodgerblue;
+    border-radius: 10px;
+    margin: 0 auto;
+    overflow: auto;
+}
+
+.comment-box {
+    .comment-viewer {
+        width: 85%;
+        height: 200px;
+        border: 2px solid dodgerblue;
+        border-radius: 10px;
+        margin: 20px auto;
+        overflow: auto;
+        padding: 20px;
+
+        div {
+            text-align: justify;
+            margin: 10px 0;
+
+            .commenter {
+                color: dodgerblue;
+
+            }
+            .colon {
+                color: lime;
+            }
+        }
+    }
+
+    .comment-input {
+        width: 90%;
+        margin: 20px auto;
+        
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        input {
+            width: 80%;
+            font-size: 18px;
+            border: 2px solid dodgerblue;
+            border-radius: 5px;
+            padding: 5px 10px;
+
+            &:focus {
+                outline: none;
+            }
+
+            &::placeholder {
+                color: rgba(0, 255, 255, 0.37);
+            }
+        }
+        button {
+            width: 18%;
+            font-size: 17px;
+            border: 2px solid dodgerblue;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            &:hover {
+                color: black;
+                background-color: dodgerblue;
+            }
+        }
+    }
+}

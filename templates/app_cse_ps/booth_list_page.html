@@ -41,7 +41,7 @@
                             </div>
                         </div>
                     </div>
-                    <a class="visit_link" href="{{project.id}}">Visit Booth</a>
+                    <a class="visit_link" href="{% url 'app_cse_ps:project_booth_page' project.id %}">Visit Booth</a>
                 </div>         
             {% endfor %}
         </div>   

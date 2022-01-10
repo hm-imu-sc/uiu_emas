@@ -1,0 +1,11 @@
+{% for comment in comments %}
+    <div>
+        <span class="commenter">{{ comment.user_id }}</span>
+        <span class="colon">:</span>
+        <span class="comment">{{ comment.comment }}</span> 
+    </div>
+{% endfor %}
+
+{% if length != 0 %}
+    <span id="comment-length" length="{{ length }}"></span>
+{% endif %}
