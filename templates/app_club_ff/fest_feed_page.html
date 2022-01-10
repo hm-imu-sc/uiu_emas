@@ -35,34 +35,18 @@
 
         <div class="feed">
 
+            {% for feed_post in feed_posts %}
             <div class="post_card">
                 <div class="header">
-                    <h2><span>Posted by:</span><span>Computer Club</span></h2>
-                    <h3><span>Posted at. </span><span>08-01-2022</span></h3>
+                    <h2><span>Posted by:</span><span>{{ feed_post.club_id }}</span></h2>
+                    <h3><span>Posted at. </span><span>{{ feed_post.time_created }}</span></h3>
                 </div>
                 <h3>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, nesciunt?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, nesciunt?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, nesciunt?
+                    {{ feed_post.caption }}
                 </h3>
-                <img src="{{ MEDIA_URL }}feed_posts_0_image_path.jpg" alt="">
+                <img src="{{ MEDIA_URL }}{{feed_post.image_path}}" alt="">
             </div>
-            
-            <div class="post_card">
-                <div class="header">
-                    <h2><span>Posted by:</span><span>Computer Club</span></h2>
-                    <h3><span>Posted at. </span><span>08-01-2022</span></h3>
-                </div>
-                <h3>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, nesciunt?</h3>
-                <img src="{{ MEDIA_URL }}demo.jpg" alt="">
-            </div>
-
-            <div class="post_card">
-                <div class="header">
-                    <h2><span>Posted by:</span><span>Computer Club</span></h2>
-                    <h3><span>Posted at. </span><span>08-01-2022</span></h3>
-                </div>
-                <h3>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, nesciunt?</h3>
-                <img src="{{ MEDIA_URL }}demo.jpg" alt="">
-            </div>
+            {% endfor %}
         </div>
         
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>

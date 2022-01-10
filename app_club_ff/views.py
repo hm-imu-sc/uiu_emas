@@ -70,6 +70,7 @@ class FestFeed(DBRead):
             {"value": 1, "option": "Newest"},
             {"value": 2, "option": "Oldest"}
         ]
+        context["feed_posts"] = self.get_feed_posts()
         return context
 
     def get_club_names(self):
@@ -77,4 +78,7 @@ class FestFeed(DBRead):
         club_name = database.get("clubs")
         return club_name
 
-    
+    def get_feed_posts(self):
+        database = MySql.db()
+        feed_posts = database.get("feed_posts")
+        return feed_posts
