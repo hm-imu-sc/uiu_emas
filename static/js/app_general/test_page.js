@@ -1,7 +1,7 @@
 $.ajax({
-    url: "/general/test/10/",
+    url: "/club_ff/UIUCCL/desc/5/",
     method: "GET",
     success: function(data) {
-        $("#loading-area").html(data);
+        $("body").append(data);
     }
 });

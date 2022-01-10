@@ -11,4 +11,6 @@
 </div>
 {% endfor %}
 
-<span id='posts_length' length="{{ length }}"></span>
+{% if length != 0 %}
+    <span id="post_length" length="{{ length }}"></span>
+{% endif %}
