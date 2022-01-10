@@ -76,3 +76,5 @@ class FestFeed(DBRead):
         database = MySql.db()
         club_name = database.get("clubs")
         return club_name
+
+    

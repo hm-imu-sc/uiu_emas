@@ -26,7 +26,6 @@
             <div class="filter">
                 <label for="sort_by">Sort by:</label>
                 <select name="sort_by" id="sort_by">
-                    <option value="all">ALL</option>
                     {% for sorting_criteria in sorting_criterias %}
                         <option value="{{ sorting_criteria.value }}">{{ sorting_criteria.option }}</option>
                     {% endfor %}
