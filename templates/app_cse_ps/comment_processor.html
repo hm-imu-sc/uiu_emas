@@ -5,3 +5,7 @@
         <span class="comment">{{ comment.comment }}</span> 
     </div>
 {% endfor %}
+
+{% if length != 0 %}
+    <span id="comment-length" length="{{ length }}"></span>
+{% endif %}

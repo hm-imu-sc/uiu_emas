@@ -255,4 +255,43 @@ class ProjectBoothPage(DBRead):
         return processed_comments
 
 class CommentLoader(DBRead):
-    pass
+    
+    template_name = "app_cse_ps/comment_processor.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        project_id = kwargs["project_id"]
+        already_loaded = int(kwargs["already_loaded"])
+
+        limit_cluses = ["ORDER BY time_created ASC", f"LIMIT 500 OFFSET {already_loaded}"]
+
+        comments = self.database.get("comments", conditions={"project_id": project_id}, other_clauses=limit_cluses)
+
+        context["length"] = already_loaded + len(comments)
+
+        if context["length"] == already_loaded:
+            context["length"] = 0
+
+        context["comments"] = comments
+
+        return context
+
+class Commenter(DBAction):
+
+    def action(self, request):
+        self.redirect_url = "app_cse_ps:index"
+
+        user_id = request.POST["user_id"]
+        user_type = request.POST["user_type"]
+        project_id = request.POST["project_id"]
+        comment = request.POST["comment"]
+
+        self.database.insert("comments", [{
+            "user_id": user_id,
+            "user_type": user_type,
+            "project_id": project_id,
+            "comment": comment
+        }])
+
+        print(user_id, user_type, project_id, comment)

@@ -18,4 +18,5 @@ urlpatterns = [
     path("get_filtered_archeive_projects/<course_code>/<trimester>", views.get_filtered_archeive_projects, name="get_filtered_archeive_projects"),
     path("project_booth_page/<project_id>/", views.ProjectBoothPage.as_view(), name="project_booth_page"),    
     path("comment_loader/<project_id>/<already_loaded>/", views.CommentLoader.as_view(), name="comment_loader"),
+    path("commenter/", views.Commenter.as_view(), name="commenter"),
 ]

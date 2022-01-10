@@ -20,7 +20,7 @@
         </div>
 
         <div class="comment-box">
-            <div class="comment-viewer" lenght="{{ comments.length }}"">
+            <div class="comment-viewer" project_id="{{ project.id }}">
                 {% for comment in comments.comments %}
                     <div>
                         <span class="commenter">{{ comment.user_id }}</span>
@@ -28,10 +28,12 @@
                         <span class="comment">{{ comment.comment }}</span> 
                     </div>
                 {% endfor %}
+                <span id="comment-length" length="{{ comments.length }}"></span>
             </div>
             <div class="comment-input">
+                {% csrf_token %}
                 <input id="new-comment" type="text" placeholder="comment anything ...">
-                <button class="comment-send-btn">Send</button>
+                <button id="comment-send-btn">Send</button>
             </div>
         </div>
 
