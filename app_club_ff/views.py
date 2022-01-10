@@ -71,6 +71,7 @@ class FestFeed(DBRead):
             {"value": 2, "option": "Oldest"}
         ]
         context["feed_posts"] = self.get_feed_posts()
+        context["length"] = len(context["feed_posts"])
         return context
 
     def get_club_names(self):
@@ -85,3 +86,4 @@ class FestFeed(DBRead):
             "limit 5"
         ])
         return feed_posts
+

@@ -47,6 +47,9 @@
                 <img src="{{ MEDIA_URL }}{{feed_post.image_path}}" alt="">
             </div>
             {% endfor %}
+
+            <span id='posts_length' length="{{ length }}"></span>
+
         </div>
         
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
