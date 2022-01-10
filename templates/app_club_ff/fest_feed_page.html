@@ -13,6 +13,27 @@
         
         {% include "common/navbar.html" %}
         <div class="title">Fest Feed</div>
+        <div class="filters">
+            <div class="filter">
+                <label for="club_name">Club:</label>
+                <select name="club_name" id="club_name">
+                    <option value="all">ALL</option>
+                    <option value="id1">club1</option>
+                    <option value="id2">club2</option>
+                    <option value="id3">club3</option>
+                    <option value="id4">club4</option>
+                </select>
+            </div>
+            <div class="filter">
+                <label for="sort_by">Sort by:</label>
+                <select name="sort_by" id="sort_by">
+                    <option value="criteria_1">criteria_1</option>
+                    <option value="criteria_2">criteria_2</option>
+                </select>
+            </div>
+        </div>
+
+
         
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
         <script src="{% static 'js/app_club_ff/fest_feed_page.js' %}"></script>
