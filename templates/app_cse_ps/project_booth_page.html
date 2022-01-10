@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/all.css' %}">
+        <link rel="stylesheet" href="{% static 'css/app_cse_ps/project_booth_page.css' %}">
+        <title>Document</title>
+    </head>
+    <body>
+        
+        {% include "common/navbar.html" %}
+        
+        <h1 class="title">{{ project.title }}</h1>
+
+        <div class="project">
+
+        </div>
+
+        <div class="comment-box">
+            <div class="comment-viewer" project_id="{{ project.id }}">
+                {% for comment in comments.comments %}
+                    <div>
+                        <span class="commenter">{{ comment.user_id }}</span>
+                        <span class="colon">:</span>
+                        <span class="comment">{{ comment.comment }}</span> 
+                    </div>
+                {% endfor %}
+                <span id="comment-length" length="{{ comments.length }}"></span>
+            </div>
+            <div class="comment-input">
+                {% csrf_token %}
+                <input id="new-comment" type="text" placeholder="comment anything ...">
+                <button id="comment-send-btn">Send</button>
+            </div>
+        </div>
+
+        <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
+        <script src="{% static 'js/app_cse_ps/project_booth_page.js' %}"></script>
+    </body>
+</html>

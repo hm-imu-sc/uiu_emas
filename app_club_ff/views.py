@@ -25,6 +25,10 @@ class FestRegistrationPage(TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         student_id = kwargs["student_id"]
+        already_exist = self.database.query(f"SELECT * FROM cff_registrations WHERE student_id = '{student_id}'")
+        if len(already_exist)!=0:
+            self.template_name= "app_club_ff/fest_already_registered.html"
+            return context
 
         student = self.database.query(f"SELECT student_id, name, uiu_email FROM students WHERE student_id = '{student_id}'")
         context["data"] = []

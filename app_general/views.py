@@ -27,20 +27,20 @@ class TestPage(DBRead):
         return response 
 
 
-class Test(DBAction):
+class Test(DBRead):
 
-    def action(self, request, **kwargs):
-        self.redirect_url = "app_general:test_page"
+    template_name = "app_general/test.html"
 
-        # print(request.FILES)
-
-        files = dict(request.FILES)
-        for f in files["f_1"]:
-            # print(f)
-            fs = FileSystemStorage()
-            print(fs.url(f))
-            fs.save(f.name, f)
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["len"] = [l for l in range(int(kwargs["len"]))]
+        context["data"] = {
+            "info1": "290",
+            "info2": "076",
+            "info3": "062",
+        }
+        return context
+    
 
 class Index(TemplateView):
     template_name = "app_general/index.html"

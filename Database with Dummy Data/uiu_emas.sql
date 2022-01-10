@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 07, 2022 at 04:06 PM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 8.0.5
+-- Generation Time: Jan 10, 2022 at 05:04 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -81,7 +81,8 @@ CREATE TABLE `cff_registrations` (
 --
 
 INSERT INTO `cff_registrations` (`id`, `time_created`, `time_updated`, `trash`, `status`, `student_id`, `club_id`, `t_shirt_size`, `approval`, `year`) VALUES
-(2, '2022-01-07 21:00:12', '2022-01-07 21:00:12', 0, 0, '011181076', '1', 'XL', 0, 0000);
+(2, '2022-01-07 21:00:12', '2022-01-07 21:00:12', 0, 0, '011181076', '1', 'XL', 0, 0000),
+(3, '2022-01-09 16:23:19', '2022-01-09 16:23:19', 0, 0, '011181076', '1', 'XL', 0, 0000);
 
 -- --------------------------------------------------------
 
@@ -114,7 +115,8 @@ INSERT INTO `clubs` (`id`, `time_created`, `time_updated`, `trash`, `status`, `n
 (2, '2022-01-07 20:29:35', '2022-01-07 20:29:35', 0, 0, 'UIU App Forum', '2', 'uiuappforum@gmail.com', '0000-00-00', 'CSE', '', 0, ''),
 (3, '2022-01-07 20:29:35', '2022-01-07 20:29:35', 0, 0, 'UIU Business Club', '3', 'uiubc@gmail.com', '0000-00-00', 'BBA', '', 0, ''),
 (4, '2022-01-07 20:29:35', '2022-01-07 20:29:35', 0, 0, 'UIU Robotics Club', '4', 'uiurobotics@gmail.com', '0000-00-00', 'CSE', '', 0, ''),
-(5, '2022-01-07 20:29:35', '2022-01-07 20:29:35', 0, 0, 'UIU Electrical and Electronics Club', '5', 'uiueec@gmail.com', '0000-00-00', 'EEE', '', 0, '');
+(5, '2022-01-07 20:29:35', '2022-01-07 20:29:35', 0, 0, 'UIU Electrical and Electronics Club', '5', 'uiueec@gmail.com', '0000-00-00', 'EEE', '', 0, ''),
+(6, '2022-01-09 16:22:39', '2022-01-09 16:22:39', 0, 1, 'UIU Marketing Forum', '6', 'uiumf@gmail.com', '0000-00-00', 'BBA', '', 1, '');
 
 -- --------------------------------------------------------
 
@@ -216,8 +218,19 @@ INSERT INTO `projects` (`id`, `time_created`, `time_updated`, `trash`, `status`,
 (3, '2021-12-07 22:57:13', '2021-12-07 22:57:13', 0, 1, 'UIU kisu pari na', 6, 'kisu na parle ', NULL, NULL, '213'),
 (4, '2021-12-07 23:02:53', '2021-12-07 23:02:53', 0, 1, 'UIU_naiko', 5, 'uiu_naika', NULL, NULL, '213'),
 (5, '2022-01-07 11:54:39', '2022-01-07 11:54:39', 0, 0, 'UIU_nayok', 2, 'Loresomething', NULL, NULL, '213'),
-(8, '2022-01-07 16:53:52', '2022-01-07 16:53:52', 0, 1, 'UIU_AWESOME', 7, 'DO or DIE.', NULL, NULL, '213'),
-(9, '2022-01-07 17:04:25', '2022-01-07 17:04:25', 0, 1, 'UIU_AWESOME2', 1, 'huhuhu', NULL, NULL, '213');
+(8, '2022-01-07 16:53:52', '2022-01-07 16:53:52', 0, 1, 'UIU_AWESOME', 7, 'DO or DIE.', NULL, NULL, '212'),
+(9, '2022-01-07 17:04:25', '2022-01-07 17:04:25', 0, 1, 'UIU_AWESOME2', 1, 'huhuhu', NULL, NULL, '212'),
+(10, '2022-01-09 11:01:43', '2022-01-09 11:01:43', 0, 1, 'Animal Rescue System', 2, 'hhlhihh;', NULL, NULL, '212'),
+(11, '2022-01-09 11:05:58', '2022-01-09 11:05:58', 0, 1, 'UIU_NINJAS', 1, 'rjmrytgl', NULL, NULL, '212'),
+(12, '2022-01-09 11:06:42', '2022-01-09 11:06:42', 0, 1, 'UIU_ONE_LAST_TIME', 1, 'TTTTTT', NULL, NULL, '212'),
+(13, '2022-01-09 11:07:27', '2022-01-09 11:07:27', 0, 1, 'UIU_NINJAS_2', 6, 'JJJJJJAJSJSJAAj', NULL, NULL, '211'),
+(14, '2022-01-09 11:08:24', '2022-01-09 11:08:24', 0, 1, 'UIU_ONE_LAST_TIME_2', 4, 'SELECTion Process', NULL, NULL, '211'),
+(15, '2022-01-09 11:08:40', '2022-01-09 11:08:40', 0, 1, 'UIU_V1', 1, 'YUIYIHG', NULL, NULL, '211'),
+(16, '2022-01-09 11:09:06', '2022-01-09 11:09:06', 0, 1, 'UIU_V3', 7, 'IHIHDIHI', NULL, NULL, '211'),
+(17, '2022-01-09 11:13:05', '2022-01-09 11:13:05', 0, 1, 'UIU_V6', 1, 'TTTTTT', NULL, NULL, '211'),
+(18, '2022-01-09 11:13:39', '2022-01-09 11:13:39', 0, 1, 'UIU_V7', 7, 'NJKFBBBUIBDU', NULL, NULL, '211'),
+(19, '2022-01-09 11:16:37', '2022-01-09 11:16:37', 0, 0, 'uiu_ninja10', 4, 'sfdgfg', NULL, NULL, '213'),
+(20, '2022-01-09 11:16:44', '2022-01-09 11:16:44', 0, 1, 'uiu_ninja12', 4, 'sfdgfg', NULL, NULL, '212');
 
 -- --------------------------------------------------------
 
@@ -255,7 +268,23 @@ INSERT INTO `project_members` (`id`, `time_created`, `time_updated`, `trash`, `s
 (15, '2022-01-07 16:53:52', '2022-01-07 16:53:52', 0, 0, 8, '011181076'),
 (16, '2022-01-07 16:53:52', '2022-01-07 16:53:52', 0, 0, 8, '011181123'),
 (17, '2022-01-07 17:04:26', '2022-01-07 17:04:26', 0, 0, 9, '011181076'),
-(18, '2022-01-07 17:04:26', '2022-01-07 17:04:26', 0, 0, 9, '011181123');
+(18, '2022-01-07 17:04:26', '2022-01-07 17:04:26', 0, 0, 9, '011181123'),
+(19, '2022-01-09 11:01:43', '2022-01-09 11:01:43', 0, 0, 10, '011181123'),
+(20, '2022-01-09 11:01:44', '2022-01-09 11:01:44', 0, 0, 10, '011181076'),
+(22, '2022-01-09 11:05:58', '2022-01-09 11:05:58', 0, 0, 11, '011181076'),
+(23, '2022-01-09 11:05:58', '2022-01-09 11:05:58', 0, 0, 11, '011181254'),
+(24, '2022-01-09 11:06:42', '2022-01-09 11:06:42', 0, 0, 12, '011181123'),
+(25, '2022-01-09 11:07:27', '2022-01-09 11:07:27', 0, 0, 13, '011181123'),
+(26, '2022-01-09 11:08:24', '2022-01-09 11:08:24', 0, 0, 14, '011181076'),
+(27, '2022-01-09 11:08:40', '2022-01-09 11:08:40', 0, 0, 15, '011181123'),
+(28, '2022-01-09 11:09:06', '2022-01-09 11:09:06', 0, 0, 16, '011181123'),
+(29, '2022-01-09 11:09:06', '2022-01-09 11:09:06', 0, 0, 16, '011181254'),
+(30, '2022-01-09 11:13:06', '2022-01-09 11:13:06', 0, 0, 17, '011181076'),
+(31, '2022-01-09 11:13:06', '2022-01-09 11:13:06', 0, 0, 17, '011181123'),
+(32, '2022-01-09 11:13:39', '2022-01-09 11:13:39', 0, 0, 18, '011181254'),
+(33, '2022-01-09 11:13:39', '2022-01-09 11:13:39', 0, 0, 18, '011181290'),
+(35, '2022-01-09 11:16:44', '2022-01-09 11:16:44', 0, 0, 19, '011181076'),
+(37, '2022-01-09 13:54:39', '2022-01-09 13:54:39', 0, 0, 20, '011181123');
 
 -- --------------------------------------------------------
 
@@ -532,13 +561,13 @@ ALTER TABLE `cff_comments`
 -- AUTO_INCREMENT for table `cff_registrations`
 --
 ALTER TABLE `cff_registrations`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `clubs`
 --
 ALTER TABLE `clubs`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `comments`
@@ -568,13 +597,13 @@ ALTER TABLE `prizes`
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `project_members`
 --
 ALTER TABLE `project_members`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `project_videos`

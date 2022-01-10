@@ -122,11 +122,19 @@ $("#student_id").keyup(function(){
                 $(student_id_input).attr("disabled", "true");
                 $(student_id_input).removeClass("add_anabled");
                 $(student_id_input).addClass("add_disabled");
+				$("#student_info").html("No Student Found with student ID " + student_id);
             }
             else {
                 $(student_id_input).removeAttr("disabled");
                 $(student_id_input).removeClass("add_disabled");
                 $(student_id_input).addClass("add_anabled");
+				
+				let student_information = "";
+				data = data['data'];
+
+				student_information+=(data[0]['name'] + " (" + student_id + "), Department of " + data[0]['department']);
+
+				$("#student_info").html(student_information);
             }
         }
     });

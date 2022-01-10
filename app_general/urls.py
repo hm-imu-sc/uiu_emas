@@ -18,5 +18,5 @@ urlpatterns = [
     path("booth_setup/",views.BoothSetup.as_view(), name="booth_setup"),
     # path("test_page/", views.TestPage.as_view(), name="test_page"),
     path("test_page/", views.TestPage.respond, name="test_page"),
-    path("test/", views.Test.as_view(), name="test"),
+    path("test/<len>/", views.Test.as_view(), name="test"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
