@@ -222,3 +222,37 @@ def get_filtered_archeive_projects(request, course_code, trimester):
         context["data"].append({list[0]:tup[0],list[1]:tup[1],list[2]:tup[2], list[3]: members_info})
     context = json.dumps(context)
     return HttpResponse(context)
+
+class ProjectBoothPage(DBRead):
+    
+    template_name = "app_cse_ps/project_booth_page.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        project_id = kwargs["project_id"]
+
+        project = self.database.get("projects", conditions={"id": project_id})[0]
+        comments = self.database.get("comments", conditions={"project_id": project_id})
+
+        context["project"] = project
+        context["comments"] = {
+            "length": len(comments),
+            "comments": comments
+        }
+        # context["comments"] = self.process_comments(comments)
+
+        return context
+    
+    def process_comments(self, comments):
+        processed_comments = ""
+        for comment in comments:
+            processed_comments += "<div>"
+            processed_comments += "<span class=\"commenter\">Commenter</span>"
+            processed_comments += "<span class=\"colon\"> : </span>"
+            processed_comments += f"<span class=\"comment\">{comment['comment']}</span>"
+            processed_comments += "</div>"
+        return processed_comments
+
+class CommentLoader(DBRead):
+    pass

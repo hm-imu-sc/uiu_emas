@@ -13,7 +13,11 @@
         
         {% include "../common/navbar.html" %}
 
-        
+        <a href="{% url 'app_general:test' 1 %}">Load</a>
+
+        <p id="loading-area">
+
+        </p>
 
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
         <script src="{% static 'js/app_general/test_page.js' %}"></script>
