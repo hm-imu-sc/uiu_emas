@@ -80,5 +80,8 @@ class FestFeed(DBRead):
 
     def get_feed_posts(self):
         database = MySql.db()
-        feed_posts = database.get("feed_posts")
+        feed_posts = database.get("feed_posts", other_clauses=[
+            "order by time_created asc",
+            "limit 5"
+        ])
         return feed_posts
