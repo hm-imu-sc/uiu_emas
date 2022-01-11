@@ -92,23 +92,28 @@ class PostProcessor(DBRead):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        offset = kwargs["offset"]
+        
+        offset = int(kwargs["offset"])
         club_id = kwargs["club_id"]
         criteria = kwargs["criteria"]
-        context["posts"] = self.get_feed_posts()
+        
+        context["feed_posts"] = self.get_feed_posts(offset, club_id, criteria)
+        context["length"] = len(context["feed_posts"]) + offset
+        # print(context["posts"])
+        print(context["length"])
         return context
 
     def get_feed_posts(self, offset, club_id, criteria):
-        database = MySql.db()
+        # database = MySql.db()
         conditions = None
 
         if club_id != "all":
             conditions = {
                 "club_id": club_id
             }
-        feed_posts = database.get("feed_posts", conditions=conditions, other_clauses=[
+        feed_posts = self.database.get("feed_posts", conditions=conditions, other_clauses=[
             f"order by time_created {criteria}",
             "limit 5",
-            f"offset {offset}"
+            f"offset {offset}" if offset != -1 else "",
         ])
         return feed_posts

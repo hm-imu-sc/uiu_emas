@@ -1,7 +1,7 @@
 function filter(club_id_selector, criteria_selector, offset=0, success) {
     let club_id = $(club_id_selector).val();
     let criteria = $(criteria_selector).val();
-
+    console.log("/club_ff/post_processor/" + club_id + "/" + criteria + "/" + offset + "/")
     $.ajax({
         url: "/club_ff/post_processor/" + club_id + "/" + criteria + "/" + offset + "/",
         method: "GET",
