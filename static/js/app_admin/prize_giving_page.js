@@ -47,7 +47,7 @@ $("#courses").change(function() {
 	}
 });
 
-$(".prize label i").click(function(){
-    $(".prize label i").removeClass("active");
-    $(this).addClass("active");
-});
+// $(".prize label i").click(function(){
+//     $(".prize label i").removeClass("active");
+//     $(this).addClass("active");
+// });

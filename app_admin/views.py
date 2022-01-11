@@ -55,24 +55,27 @@ def get_course_by_trimester(request,**kwargs):
     return HttpResponse(context)
 
 def get_projects_by_course_code(request,**kwargs):
-    print("efwfwgwrgwrgrwgwrgwrrgwrgwgrwgwrgwrg")
-    print(kwargs)
+    #print("efwfwgwrgwrgrwgwrgwrrgwrgwgrwgwrgwrg")
+    #print(kwargs)
     database = MySql.db()
     context = {}
     section_ids = database.query(f'SELECT id FROM sections WHERE course_code="{kwargs["course_code"]}"')
-    print(section_ids)
     section_ids =[ s[0] for s in section_ids]
-    print(section_ids)
-    project_ids = database.query(f'SELECT id FROM sections WHERE course_code="{kwargs["course_code"]}"')
-    # if len(courses) > 0:
-    #     context["message"] = "OK"
-    # else:
-    #     context["message"] = "NOT FOUND"
-    #
-    # context["data"] = []
-    # list = ['project_id','title']
-    # for tup in courses:
-    #     context["data"].append({list[0]: tup[0], list[1]: tup[1], list[3]: tup[3]})
-    # context = json.dumps(context)
+    ids = ""
+    for temp in section_ids:
+        ids += str(temp) + ","
+    ids = ids[:-1]
+    project_ids = database.query(f'SELECT id,title FROM projects WHERE section_id IN ({ids})')
+
+    if len(project_ids) > 0:
+        context["message"] = "OK"
+    else:
+        context["message"] = "NOT FOUND"
+
+    context["data"] = []
+    list = ['project_id','title']
+    for tup in project_ids:
+        context["data"].append({list[0]: tup[0], list[1]: tup[1]})
+    context = json.dumps(context)
     return HttpResponse(context)
 
