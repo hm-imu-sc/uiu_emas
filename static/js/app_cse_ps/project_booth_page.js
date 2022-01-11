@@ -8,6 +8,11 @@ function send_comment() {
 
     let project_id = $(".comment-viewer").attr("project_id");
     let comment = $("#new-comment").val();
+    
+    if (comment.length === 0) {
+        return;
+    }
+
     $("#new-comment").val("");
 
     let csrf_token = $("input[name=\"csrfmiddlewaretoken\"]").val();
