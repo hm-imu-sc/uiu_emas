@@ -22,7 +22,8 @@ from app_general import urls as app_general_urls
 
 urlpatterns = [
     path('', include(app_admin_urls)),
-    path('admin/', admin.site.urls),
+    path('admin_django/', admin.site.urls),
+    path('admin/', include(app_admin_urls) , name="admin"),
     path('cse_ps/', include(app_cse_ps_urls), name="cse_ps"),
     path('club_ff/', include(app_club_ff_urls), name="club_ff"),
     path('general/', include(app_general_urls), name="general"),
