@@ -1,1 +1,65 @@
 @import "../common/_setup";
+
+.prizes {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 50%;
+    margin: 30px auto;
+
+    .prize {
+        margin: 0 30px;
+
+        label {
+            cursor: pointer;
+            i {
+                font-size: 80px;
+                font-size: 80px;
+                padding: 40px;
+            }
+
+            .prize-gold {
+                color: rgba(255, 217, 0, 0.3);   
+                     
+                &:hover {
+                    color: gold;
+                    border-bottom: 5px solid gold;
+                }
+            }
+            .prize-silver {
+                color: rgba(192, 192, 192, 0.3);
+        
+                &:hover {
+                    color: silver;
+                    border-bottom: 5px solid silver;
+                }
+            }
+        
+            .prize-bronze {
+                color: rgba(205, 127, 50, 0.3);  
+        
+                &:hover {
+                    color: #cd7f32;
+                    border-bottom: 5px solid #cd7f32;
+                }
+            }
+
+            .prize-gold.active {
+                color: gold;
+                border-bottom: 5px solid gold;
+            }
+            .prize-silver.active {
+                color: silver;
+                border-bottom: 5px solid silver;
+            }
+            .prize-bronze.active {
+                color: #cd7f32;
+                border-bottom: 5px solid #cd7f32;
+            }
+        }
+
+        input {
+            display: none;
+        }
+    }
+}

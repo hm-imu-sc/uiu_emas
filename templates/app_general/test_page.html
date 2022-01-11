@@ -13,11 +13,65 @@
         
         {% include "../common/navbar.html" %}
 
-        <a href="{% url 'app_cse_ps:comment_loader' 1 1 %}">Load</a>
+        {% comment %} <div class="prizes">
+            <div class="prize">
+                <label for="f_prize"><i class="fad fa-award prize-silver"></i></label>
+                <input id="s_prize" type="radio" name="prize" value="2">
+            </div>
+            <div class="prize">
+                <label for="f_prize"><i class="fad fa-award prize-gold"></i></label>
+                <input id="f_prize" type="radio" name="prize" value="1">
+            </div>
+            <div class="prize">
+                <label for="f_prize"><i class="fad fa-award prize-bronze"></i></label>
+                <input id="t_prize" type="radio" name="prize" value="3">
+            </div>
+        </div> {% endcomment %}
 
-        <p id="loading-area">
+        <div class="prizes">
+            <div class="prize">
+                <label for="s_prize"><i class="fad fa-medal prize-silver"></i></label>
+                <input id="s_prize" type="radio" name="prize" value="2">
+            </div>
+            <div class="prize">
+                <label for="f_prize"><i class="fad fa-medal prize-gold"></i></label>
+                <input id="f_prize" type="radio" name="prize" value="1">
+            </div>
+            <div class="prize">
+                <label for="t_prize"><i class="fad fa-medal prize-bronze"></i></label>
+                <input id="t_prize" type="radio" name="prize" value="3">
+            </div>
+        </div>
 
-        </p>
+        {% comment %} <div class="prizes">
+            <div class="prize">
+                <label for="f_prize"><i class="fad fa-trophy-alt prize-gold"></i></label>
+                <input id="f_prize" type="radio" name="prize" value="1">
+            </div>
+            <div class="prize">
+                <label for="f_prize"><i class="fad fa-trophy-alt prize-silver"></i></label>
+                <input id="s_prize" type="radio" name="prize" value="2">
+            </div>
+            <div class="prize">
+                <label for="f_prize"><i class="fad fa-trophy-alt prize-bronze"></i></label>
+                <input id="t_prize" type="radio" name="prize" value="3">
+            </div>
+        </div> {% endcomment %}
+
+        {% comment %} <div class="prizes">
+            <div class="prize">
+                <label for="f_prize"><i class="fad fa-medal prize-gold"></i></label>
+                <input id="f_prize" type="radio" name="prize" value="1">
+            </div>
+            <div class="prize">
+                <label for="f_prize"><i class="fad fa-trophy-alt prize-gold"></i></label>
+                <input id="f_prize" type="radio" name="prize" value="1">
+            </div>
+            <div class="prize">
+                <label for="f_prize"><i class="fad fa-award prize-bronze"></i></label>
+                <input id="t_prize" type="radio" name="prize" value="3">
+            </div>
+        </div> {% endcomment %}
 
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
         <script src="{% static 'js/app_general/test_page.js' %}"></script>
