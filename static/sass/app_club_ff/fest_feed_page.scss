@@ -29,7 +29,7 @@
             margin-left: 10px;
             font-size: 18px;
             padding: 5px 10px;
-            width: 200px;
+            width: 230px;
 
             option {
                 font-size: 15px;
@@ -77,9 +77,11 @@
         }
 
         img {
+            display: block;
             max-height: 500px;
             max-width: 100%;
             border-radius: 5px;
+            margin: 0 auto;
         }
     }
 }
