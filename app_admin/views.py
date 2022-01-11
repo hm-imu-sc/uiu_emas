@@ -54,7 +54,7 @@ def get_course_by_trimester(request,**kwargs):
     context = json.dumps(context)
     return HttpResponse(context)
 
-def get_projects_by_section_id(request,**kwargs):
+def get_projects_by_course_code(request,**kwargs):
     print("efwfwgwrgwrgrwgwrgwrrgwrgwgrwgwrgwrg")
     print(kwargs)
     database = MySql.db()

@@ -25,11 +25,11 @@ $("#trimester").change(function(){
 });
 
 $("#courses").change(function(){
-	let section_id = $("#courses").val();
-	if(section_id != -1)
+	let course_code = $("#courses").val();
+	if(course_code != -1)
 	{
 		$.ajax({
-		url : ("/get_projects_by_section_id/"+section_id+"/"),
+		url : ("/get_projects_by_course_code/"+course_code+"/"),
 		method: "GET",
 		success: function(data)
 		{
