@@ -59,3 +59,61 @@ def get_club_names(request):
         context["data"].append({list[0]:tup[0],list[1]:tup[1]})
     context = json.dumps(context)
     return HttpResponse(context)
+
+class FestFeed(DBRead):
+    template_name = "app_club_ff/fest_feed_page.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["clubs"] = self.get_club_names()
+        context["sorting_criterias"] = [
+            {"value": "desc", "option": "Newest"},
+            {"value": "asc", "option": "Oldest"}
+        ]
+        context["feed_posts"] = self.get_feed_posts()
+        context["length"] = len(context["feed_posts"])
+        return context
+
+    def get_club_names(self):
+        database = MySql.db()
+        club_name = database.get("clubs")
+        return club_name
+
+    def get_feed_posts(self):
+        database = MySql.db()
+        feed_posts = database.get("feed_posts", other_clauses=[
+            "order by time_created asc",
+            "limit 5"
+        ])
+        return feed_posts
+
+class PostProcessor(DBRead):
+    template_name = "app_club_ff/post_processor.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        offset = int(kwargs["offset"])
+        club_id = kwargs["club_id"]
+        criteria = kwargs["criteria"]
+        
+        context["feed_posts"] = self.get_feed_posts(offset, club_id, criteria)
+        context["length"] = len(context["feed_posts"]) + offset
+        # print(context["posts"])
+        print(context["length"])
+        return context
+
+    def get_feed_posts(self, offset, club_id, criteria):
+        # database = MySql.db()
+        conditions = None
+
+        if club_id != "all":
+            conditions = {
+                "club_id": club_id
+            }
+        feed_posts = self.database.get("feed_posts", conditions=conditions, other_clauses=[
+            f"order by time_created {criteria}",
+            "limit 5",
+            f"offset {offset}" if offset != -1 else "",
+        ])
+        return feed_posts

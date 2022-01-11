@@ -1,7 +1,4 @@
-$.ajax({
-    url: "/general/test/10/",
-    method: "GET",
-    success: function(data) {
-        $("#loading-area").html(data);
-    }
+$(".prize label i").click(function(){
+    $(".prize label i").removeClass("active");
+    $(this).addClass("active");
 });

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/all.css' %}">
+        <link rel="stylesheet" href="{% static 'css/app_club_ff/fest_feed_page.css' %}">
+        <title>Document</title>
+    </head>
+    <body>
+        
+        {% include "common/navbar.html" %}
+        <div class="title">Fest Feed</div>
+        <div class="filters">
+            <div class="filter">
+                <label for="club_name">Club:</label>
+                <select name="club_name" id="club_name">
+                    <option value="all">ALL</option>
+                    {% for club in clubs %}
+                    <option value="{{club.club_id}}">{{club.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filter">
+                <label for="sort_by">Sort by:</label>
+                <select name="sort_by" id="sort_by">
+                    {% for sorting_criteria in sorting_criterias %}
+                        <option value="{{ sorting_criteria.value }}">{{ sorting_criteria.option }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="feed">
+
+            {% for feed_post in feed_posts %}
+            <div class="post_card">
+                <div class="header">
+                    <h2><span>Posted by:</span><span>{{ feed_post.club_id }}</span></h2>
+                    <h3><span>Posted at. </span><span>{{ feed_post.time_created }}</span></h3>
+                </div>
+                <h3>
+                    {{ feed_post.caption }}
+                </h3>
+                <img src="{{ MEDIA_URL }}{{feed_post.image_path}}" alt="">
+            </div>
+            {% endfor %}
+
+            <span id='posts_length' length="{{ length }}"></span>
+
+        </div>
+        
+        <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
+        <script src="{% static 'js/app_club_ff/fest_feed_page.js' %}"></script>
+    </body>
+</html>
