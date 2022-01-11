@@ -12,42 +12,42 @@
     <body>
         {% include "../common/navbar.html" %}
         <h>Give prize</h>
-        <lebel>Trimester</lebel><br>
-        <select id="trimester">
-            <option value="0">Select</option>
-            {% for trimester in trimesters %}
-                <option value="{{ trimester }}">{{ trimester }}</option>
-            {% endfor %}
+        <form action="{% url 'app_admin:give_award' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <lebel>Trimester</lebel><br>
+            <select id="trimester" name="trimester">
+                <option value="0">Select</option>
+                {% for trimester in trimesters %}
+                    <option value="{{ trimester }}">{{ trimester }}</option>
+                {% endfor %}
 
-        </select>
-        <br><lebel>Course</lebel><br>
-        <select id="courses">
-        </select>
-        <br><lebel>Project</lebel><br>
-        <select id="projects">
-        </select>
+            </select>
+            <br><lebel>Course</lebel><br>
+            <select id="courses" name="courses">
+            </select>
+            <br><lebel>Project</lebel><br>
+            <select id="projects" name="projects">
+            </select>
 
-        <div class="prizes">
-            <lebel>Prize</lebel><br>
-            <div class="prize">
-                <lebel for="f_prize"><i class="fad fa-award prize-gold"></i></lebel>
-                <input type="radio" id="f_prize" name="prize" value="1">
+            <div class="prizes">
+                <lebel>Prize</lebel><br>
+                <div class="prize">
+                    <lebel for="f_prize"><i class="fad fa-award prize-gold"></i></lebel>
+                    <input type="radio" id="f_prize" name="prize" value="1" required>
+                </div>
+                <div class="prize">
+                    <lebel for="s_prize"><i class="fad fa-award prize-silver"></i></lebel>
+                    <input type="radio" id="s_prize" name="prize" value="2">
+                </div>
+                <div class="prize">
+                    <lebel for="t_prize"><i class="fad fa-award prize-bronze"></i></lebel>
+                    <input type="radio" id="t_prize" name="prize"  value="3">
+                </div>
             </div>
-            <div class="prize">
-                <lebel for="s_prize"><i class="fad fa-award prize-silver"></i></lebel>
-                <input type="radio" id="s_prize" name="prize" value="2">
-            </div>
-            <div class="prize">
-                <lebel for="t_prize"><i class="fad fa-award prize-bronze"></i></lebel>
-                <input type="radio" id="t_prize" name="prize"  value="3">
-            </div>
-
-
-        </div>
-
-        <input type="button" value="Give Award">
-
+            <button type="submit" >Give Award</button>
         </form>
+
+
     </body>
     <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
     <script src="{% static 'js/app_admin/prize_giving_page.js' %}"></script>
