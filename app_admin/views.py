@@ -2,6 +2,8 @@ from django.shortcuts import render
 from my_modules.base_views import DBAction,DBRead
 from django.views.generic import TemplateView
 from my_modules.database import MySql
+from django.http import HttpResponse
+import json
 
 # Create your views here.
 
@@ -26,7 +28,6 @@ class Index(TemplateView):
 
 class PrizeGivingPage(DBRead):
     template_name = "app_admin/prize_giving_page.html"
-    database = MySql.db()
 
     def get_context_data(self, *args ,**kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -34,4 +35,40 @@ class PrizeGivingPage(DBRead):
         context['trimesters'] = list(trimesters[0])
         print(context)
         return context
+
+def get_course_by_trimester(request,**kwargs):
+
+    print(kwargs)
+    database = MySql.db()
+    context = {}
+    courses = database.query(f'SELECT DISTINCT course_code,course_name FROM sections WHERE trimester={kwargs["trimester"]}')
+    if len(courses) > 0:
+        context["message"] = "OK"
+    else:
+        context["message"] = "NOT FOUND"
+
+    context["data"] = []
+    list = ['course_code', 'course_name']
+    for tup in courses:
+        context["data"].append({list[0]: tup[0], list[1]: tup[1]})
+    context = json.dumps(context)
+    return HttpResponse(context)
+
+def get_projects_by_courses(request,**kwargs):
+
+    print(kwargs)
+    database = MySql.db()
+    context = {}
+    courses = database.query(f'SELECT DISTINCT id,course_code,course_name FROM sections WHERE trimester={kwargs["trimester"]}')
+    if len(courses) > 0:
+        context["message"] = "OK"
+    else:
+        context["message"] = "NOT FOUND"
+
+    context["data"] = []
+    list = ['section_id','course_code', 'course_name']
+    for tup in courses:
+        context["data"].append({list[0]: tup[0], list[1]: tup[1], list[3]: tup[3]})
+    context = json.dumps(context)
+    return HttpResponse(context)
 
