@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{%  load static %}
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -9,14 +10,19 @@
         <title>Give Prizes</title>
     </head>
     <body>
+        {% include "../common/navbar.html" %}
         <h>Give prize</h>
         <lebel>Trimester</lebel><br>
         <select>
+            {% for trimester in trimesters %}
+                <option value="{{ trimester }}">{{ trimester }}</option>
+            {% endfor %}
+
         </select>
-        <lebel>Course</lebel><br>
+        <br><lebel>Course</lebel><br>
         <select>
         </select>
-        <lebel>Project</lebel><br>
+        <br><lebel>Project</lebel><br>
         <select>
         </select>
 
@@ -24,21 +30,21 @@
             <lebel>Prize</lebel><br>
             <div class="prize">
                 <lebel for="f_prize"><i class="fad fa-award prize-gold"></i></lebel>
-                <input type="radio" id="f_prize">
+                <input type="radio" id="f_prize" name="prize" value="1">
             </div>
             <div class="prize">
                 <lebel for="s_prize"><i class="fad fa-award prize-silver"></i></lebel>
-                <input type="radio" id="s_prize">
+                <input type="radio" id="s_prize" name="prize" value="2">
             </div>
             <div class="prize">
                 <lebel for="t_prize"><i class="fad fa-award prize-bronze"></i></lebel>
-                <input type="radio" id="t_prize">
+                <input type="radio" id="t_prize" name="prize"  value="3">
             </div>
 
 
         </div>
 
-        <input type="button">
+        <input type="button" value="Give Award">
 
         </form>
     </body>

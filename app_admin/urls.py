@@ -8,4 +8,6 @@ app_name = "app_admin"
 
 urlpatterns = [
     path("", views.Index.as_view(), name="index"),
+    path("prize_giving_page/", views.PrizeGivingPage.as_view(), name="prize_giving_page"),
+
 ]
