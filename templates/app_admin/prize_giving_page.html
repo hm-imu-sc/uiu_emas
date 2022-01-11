@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/all.css' %}">
+        <link rel="stylesheet" href="{% static 'css/app_admin/prize_giving_page.css' %}">
+        <title>Give Prizes</title>
+    </head>
+    <body>
+        <h>Give prize</h>
+        <lebel>Trimester</lebel><br>
+        <select>
+        </select>
+        <lebel>Course</lebel><br>
+        <select>
+        </select>
+        <lebel>Project</lebel><br>
+        <select>
+        </select>
+
+        <div class="prizes">
+            <lebel>Prize</lebel><br>
+            <div class="prize">
+                <lebel for="f_prize"><i class="fad fa-award prize-gold"></i></lebel>
+                <input type="radio" id="f_prize">
+            </div>
+            <div class="prize">
+                <lebel for="s_prize"><i class="fad fa-award prize-silver"></i></lebel>
+                <input type="radio" id="s_prize">
+            </div>
+            <div class="prize">
+                <lebel for="t_prize"><i class="fad fa-award prize-bronze"></i></lebel>
+                <input type="radio" id="t_prize">
+            </div>
+
+
+        </div>
+
+        <input type="button">
+
+        </form>
+    </body>
+</html>
