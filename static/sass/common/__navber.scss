@@ -1,5 +1,6 @@
 
 .navbar {
+    z-index: 1000;
     position: fixed;
     top: 0;
     right: 0;
@@ -48,8 +49,10 @@
     .utility-item {
         margin-right: 100px;
     }
-}    
+}  
+
 .nav-back {
+    z-index: 999;
     position: fixed;
     top: 0;
     right: 0;
@@ -61,5 +64,6 @@
 }
 
 .nav-border {
+    z-index: 998;
     margin-top: 90px;
 }
