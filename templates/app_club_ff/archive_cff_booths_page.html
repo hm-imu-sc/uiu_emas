@@ -18,13 +18,14 @@
         {% comment %} <h3 class="instructions"><i class="fad fa-asterisk"></i>Select a booth to view its content</h3> {% endcomment %}
 
         <div class="filter">
-  				<select name="club_name" id="club_name_filter">
-  					<option value=""> Club name </option>
+  				<select name="club_name_filter" id="club_name_filter">
+                    <option value=""> Club Name </option>
   				</select>
 
-  				<select name="Year" id="year_filter">
-  					<option value=""> Year </option>
-  				</select>
+<!--  				<select name="year_filter" id="year_filter">-->
+<!--  					<option value="1"> Year </option>-->
+
+<!--  				</select>-->
 
           <button type="button" name="filter">Filter</button>
         </div>
@@ -49,6 +50,6 @@
         </div>
 
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
-        <script src="{% static 'js/app_cse_ps/cff_booth_archieve_page.js' %}"></script>
+        <script src="{% static 'js/app_club_ff/cff_booth_archive_page.js' %}"></script>
     </body>
 </html>
