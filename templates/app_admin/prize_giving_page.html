@@ -6,45 +6,57 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/all.css' %}">
-{#        <link rel="stylesheet" href="{% static 'css/app_admin/prize_giving_page.css' %}">#}
+        <link rel="stylesheet" href="{% static 'css/app_admin/prize_giving_page.css' %}">
         <title>Give Prizes</title>
     </head>
     <body>
         {% include "../common/navbar.html" %}
-        <h>Give prize</h>
+        <h1 class="title">Give prize</h1>
+
         <form action="{% url 'app_admin:give_award' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <lebel>Trimester</lebel><br>
-            <select id="trimester" name="trimester">
-                <option value="0">Select</option>
-                {% for trimester in trimesters %}
-                    <option value="{{ trimester }}">{{ trimester }}</option>
-                {% endfor %}
 
-            </select>
-            <br><lebel>Course</lebel><br>
-            <select id="courses" name="courses">
-            </select>
-            <br><lebel>Project</lebel><br>
-            <select id="projects" name="projects">
-            </select>
-
-            <div class="prizes">
-                <lebel>Prize</lebel><br>
-                <div class="prize">
-                    <lebel for="f_prize"><i class="fad fa-award prize-gold"></i></lebel>
-                    <input type="radio" id="f_prize" name="prize" value="1" required>
-                </div>
-                <div class="prize">
-                    <lebel for="s_prize"><i class="fad fa-award prize-silver"></i></lebel>
-                    <input type="radio" id="s_prize" name="prize" value="2">
-                </div>
-                <div class="prize">
-                    <lebel for="t_prize"><i class="fad fa-award prize-bronze"></i></lebel>
-                    <input type="radio" id="t_prize" name="prize"  value="3">
-                </div>
+            <div>
+                <label>Trimester::</label>
+                <select id="trimester" name="trimester">
+                    <option value="0">Select</option>
+                    {% for trimester in trimesters %}
+                        <option value="{{ trimester }}">{{ trimester }}</option>
+                    {% endfor %}
+                </select>
             </div>
-            <button type="submit" >Give Award</button>
+
+            <div>
+                <label>Course:</label>
+                <select id="courses" name="courses">
+                </select>
+            </div>
+
+            <div>
+                <label>Project:</label>
+                <select id="projects" name="projects">
+                </select>
+            </div>
+
+            <div>
+                <label>Prize:</label>
+                <div class="prizes">
+                    <div class="prize">
+                        <label for="s_prize"><i class="fad fa-medal prize-silver"></i></label>
+                        <input type="radio" id="s_prize" name="prize" value="2">
+                    </div>
+                    <div class="prize">
+                        <label for="f_prize"><i class="fad fa-medal prize-gold"></i></label>
+                        <input type="radio" id="f_prize" name="prize" value="1">
+                    </div>
+                    <div class="prize">
+                        <label for="t_prize"><i class="fad fa-medal prize-bronze"></i></label>
+                        <input type="radio" id="t_prize" name="prize"  value="3">
+                    </div>
+                </div>                
+            </div>
+
+            <input type="submit" value="Award Prize">
         </form>
 
 
