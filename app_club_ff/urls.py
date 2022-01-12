@@ -18,4 +18,5 @@ urlpatterns = [
     path("fest_registration/",views.FestRegistration.as_view(), name="fest_registration"),
     path("fest_feed_page/", views.FestFeed.as_view(),name="fest_feed_page"),
     path("post_processor/<club_id>/<criteria>/<offset>/", views.PostProcessor.as_view(), name="post_processor"),
+    path("archive_cff_booths_page/", views.ArchiveCffBooths.as_view(), name="archive_cff_booths_page"),
 ]
