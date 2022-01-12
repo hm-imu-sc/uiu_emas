@@ -139,7 +139,6 @@ class ArchiveCffBooths(TemplateView):
         list = ['id', 'time_created', 'club_id', 'club_description', 'club_name']
 
         for tup in booths:
-
             c_name = self.database.query(f"SELECT name FROM clubs WHERE id = {tup[2]}")
             c_name = c_name[0]
             context["data"].append({list[0]: tup[0], list[1]: tup[1], list[2]: tup[2], list[3]: tup[3], list[4]: c_name[0]})

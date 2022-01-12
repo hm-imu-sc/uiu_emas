@@ -17,6 +17,19 @@
 
         {% comment %} <h3 class="instructions"><i class="fad fa-asterisk"></i>Select a booth to view its content</h3> {% endcomment %}
 
+        <div class="filter">
+  				<select name="club_name" id="club_name_filter">
+  					<option value=""> Club name </option>
+  				</select>
+
+  				<select name="Year" id="year_filter">
+  					<option value=""> Year </option>
+  				</select>
+
+          <button type="button" name="filter">Filter</button>
+        </div>
+
+        <br>
         <div class="booth_thumbnails" id = "booth_thumbnails">
             {% for club in data %}
                 <div class="booth_thumbnail">
@@ -36,6 +49,6 @@
         </div>
 
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
-        <script src="{% static 'js/app_cse_ps/archieve_projects_page.js' %}"></script>
+        <script src="{% static 'js/app_cse_ps/cff_booth_archieve_page.js' %}"></script>
     </body>
 </html>
