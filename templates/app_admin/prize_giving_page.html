@@ -18,7 +18,7 @@
 
             <div>
                 <label>Trimester::</label>
-                <select id="trimester" name="trimester">
+                <select id="trimester" name="trimester" required>
                     <option value="0">Select</option>
                     {% for trimester in trimesters %}
                         <option value="{{ trimester }}">{{ trimester }}</option>
@@ -28,13 +28,13 @@
 
             <div>
                 <label>Course:</label>
-                <select id="courses" name="courses">
+                <select id="courses" name="courses" required>
                 </select>
             </div>
 
             <div>
                 <label>Project:</label>
-                <select id="projects" name="projects">
+                <select id="projects" name="projects" required>
                 </select>
             </div>
 
