@@ -3,9 +3,53 @@
 .title {
     @include text_not_selectable;
     font-family: satisfy;
-    // font-family: smooch-regular;
     font-size: 90px;
     color: rgba(0, 255, 255, 0.8);
     margin: 40px auto 0;
     width: 784px;
+}
+
+.options {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    a {
+        display: flex;
+        flex-direction: column;
+        margin: 80px 100px 0;
+        border: 2px solid aqua;
+        border-radius: 10px;
+        padding: 20px;
+        width: 10%;
+
+        span, i {
+            font-size: 20px;
+            text-align: center;
+        }
+
+        span {
+            font-family: general-bold;;
+            margin-top: 30px;
+        }
+
+        i {
+            font-size: 90px;
+        }
+
+        &:hover {
+            border-radius: 20px;
+            background-color: aqua;
+        }
+
+        &:hover span {
+            background-color: aqua;
+            color: black;
+        }
+
+        &:hover i {
+            background-color: aqua;
+            color: black;
+        }
+    }
 }

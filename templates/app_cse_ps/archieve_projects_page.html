@@ -15,47 +15,42 @@
 
         <h1 class="title">Archieved UIU CSE Project Show</h1>
 
-        <h3 class="instructions"><i class="fad fa-asterisk"></i>Select a booth to view its content</h3>
+        {% comment %} <h3 class="instructions"><i class="fad fa-asterisk"></i>Select a booth to view its content</h3> {% endcomment %}
 
         <div class="filter">
-  				<select name="course_filter" id="course_filter">
-  					<option value=""> Course </option>
-  				</select>
+            <select name="course_filter" id="course_filter">
+                <option value=""> Course </option>
+            </select>
 
-  				<select name="trimester_filter" id="trimester_filter">
-  					<option value=""> Trimester </option>
-  				</select>
+            <select name="trimester_filter" id="trimester_filter">
+                <option value=""> Trimester </option>
+            </select>
 
-          <button type="button" name="filter" id="filter">Filter</button>
-  			</div>
-
-        <br>
+            <button type="button" name="filter" id="filter">Apply Filter</button>
+        </div>
 
         <div class="booth_thumbnails" id = "booth_thumbnails">
             {% for project in data %}
                 <div class="booth_thumbnail">
                     <div class="project_name">
-                        {{ project.title }}
+                        <span>Project name:</span><span>{{ project.title }}</span>
                     </div>
-                    <div class="project_details">
-                        <div class="description">
-                            <h2>Description:</h2>
-                            <span>{{ project.short_description }} Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quas, reiciendis facilis possimus ratione, animi inventore vero numquam dolorum perferendis at quod magnam saepe? Numquam.</span>
-                        </div>
+                    <div class="description">
+                        <span>Description:</span><span>{{ project.short_description }} Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quas, reiciendis facilis possimus ratione, animi inventore vero numquam dolorum perferendis at quod magnam saepe? Numquam.</span>
+                    </div>
 
-                        <div class="project_members">
-                            <h2>Project Members:</h2>
-                            <div class="members">
-                                {% for member in project.project_members %}
-                                    <div>
-                                        <span class="id">{{ member.id }} | </span>
-                                        <span class="id">{{ member.name }}</span>
-                                    </div>
-                                {% endfor %}
-                            </div>
+                    <div class="project_members">
+                        <h2>Project Members:</h2>
+                        <div class="members">
+                            {% for member in project.project_members %}
+                                <div>
+                                    <span class="id">{{ member.id }} | </span>
+                                    <span class="id">{{ member.name }}</span>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
-                    <a class="visit_link" href="{{project.id}}">Visit Booth</a>
+                    {% comment %} use this id, if needed {{project.id}} {% endcomment %}
                 </div>
             {% endfor %}
         </div>
