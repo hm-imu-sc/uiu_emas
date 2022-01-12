@@ -133,10 +133,15 @@ class ArchiveCffBooths(TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         booths = self.database.query("SELECT id, time_created, club_id, club_description FROM booths WHERE `status` = 1")
+
         context["data"] = []
-        list = ['id', 'time_created', 'club_id', 'club_description']
+        club_name_list = []
+        list = ['id', 'time_created', 'club_id', 'club_description', 'club_name']
 
         for tup in booths:
-            context["data"].append({list[0]: tup[0], list[1]: tup[1], list[2]: tup[2]})
 
+            c_name = self.database.query(f"SELECT name FROM clubs WHERE id = {tup[2]}")
+            c_name = c_name[0]
+            context["data"].append({list[0]: tup[0], list[1]: tup[1], list[2]: tup[2], list[3]: tup[3], list[4]: c_name[0]})
         return context
+
