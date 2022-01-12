@@ -1,0 +1,5 @@
+@import "../common/_setup";
+
+.title {
+    @include title;
+}
