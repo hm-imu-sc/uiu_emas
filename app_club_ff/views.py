@@ -140,10 +140,10 @@ class PostProcessor(DBRead):
 
 
 def get_filtered_cff(request, club_name, year):
-    print("get_ff method")
     database = MySql.db()
     print(club_name)
     print(year)
+
     if club_name != 'NULL':
         booths = database.query(
             f"SELECT booths.id, YEAR(booths.time_created), booths.club_id, booths.club_description, clubs.name FROM booths JOIN clubs ON booths.club_id = clubs.club_id WHERE booths.status = 1 and clubs.name = '{club_name}' ")
@@ -153,9 +153,10 @@ def get_filtered_cff(request, club_name, year):
     elif year != 'NULL' and club_name != 'NULL':
         booths = database.query(
             f"SELECT booths.id, YEAR(booths.time_created), booths.club_id, booths.club_description, clubs.name FROM booths JOIN clubs ON booths.club_id = clubs.club_id WHERE booths.status = 1 and YEAR(booths.time_created) = '{year}' and clubs.name = '{club_name}' ")
-    else:
+    elif club_name == 'NULL' and year == 'NULL':
         booths = database.query(
             f"SELECT booths.id, YEAR(booths.time_created), booths.club_id, booths.club_description, clubs.name FROM booths JOIN clubs ON booths.club_id = clubs.club_id WHERE booths.status = 1")
+
 
     context = {}
     context["data"] = []
@@ -166,7 +167,7 @@ def get_filtered_cff(request, club_name, year):
         club_name = club_name_tup[0]
         context["data"].append(
             {list[0]: tup[0], list[1]: tup[1], list[2]: tup[2], list[3]: tup[3], list[4]: club_name})
-
+    print(context)
     context = json.dumps(context)
     return HttpResponse(context)
 
