@@ -12,14 +12,14 @@ import json
 
 # Create your views here.
 
-class Index(TemplateView):
+class Index(DBRead):
     template_name = "app_club_ff/index.html"
 
     def get_context_data(self, *args, **kwargs):
         return super().get_context_data(*args, **kwargs)
 
 
-class FestRegistrationPage(TemplateView):
+class FestRegistrationPage(DBRead):
     template_name = "app_club_ff/fest_registration_page.html"
     database = MySql.db()
 
@@ -66,19 +66,6 @@ def get_club_names(request):
     return HttpResponse(context)
 
 
-def get_cff_years(request):
-    database = MySql.db()
-    years = database.query("SELECT DISTINCT year(time_created) FROM booths")
-    context = {}
-    context["data"] = []
-    list = ['year']
-    for tup in years:
-        context["data"].append({list[0]: tup[0]})
-    print(context["data"])
-    context = json.dumps(context)
-    return HttpResponse(context)
-
-
 class FestFeed(DBRead):
     template_name = "app_club_ff/fest_feed_page.html"
 
@@ -101,7 +88,7 @@ class FestFeed(DBRead):
     def get_feed_posts(self):
         database = MySql.db()
         feed_posts = database.get("feed_posts", other_clauses=[
-            "order by time_created asc",
+            "order by time_created desc",
             "limit 5"
         ])
         return feed_posts
@@ -138,6 +125,17 @@ class PostProcessor(DBRead):
         ])
         return feed_posts
 
+def get_cff_years(request):
+    database = MySql.db()
+    years = database.query("SELECT DISTINCT year(time_created) FROM booths")
+    context = {}
+    context["data"] = []
+    list = ['year']
+    for tup in years:
+        context["data"].append({list[0]: tup[0]})
+    print(context["data"])
+    context = json.dumps(context)
+    return HttpResponse(context)
 
 def get_filtered_cff(request, club_name, year):
     database = MySql.db()
@@ -156,8 +154,6 @@ def get_filtered_cff(request, club_name, year):
     elif club_name == 'NULL' and year == 'NULL':
         booths = database.query(
             f"SELECT booths.id, YEAR(booths.time_created), booths.club_id, booths.club_description, clubs.name FROM booths JOIN clubs ON booths.club_id = clubs.club_id WHERE booths.status = 1")
-
-
 
     context = {}
     context["data"] = []

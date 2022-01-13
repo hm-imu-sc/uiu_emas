@@ -9,6 +9,8 @@ from my_modules.database import MySql
 from django.http import HttpResponse
 import json
 
+LOGIN_REQUIRED = True
+
 app_name = "app_club_ff"
 
 urlpatterns = [
