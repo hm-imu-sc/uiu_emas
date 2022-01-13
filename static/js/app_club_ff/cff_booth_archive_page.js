@@ -2,11 +2,8 @@ $("#club_name_filter").click(function()
 {
 	let option = $("#club_name_filter option");
 
-//	console.log("---------")
-
 	if(option.length>1)
 	{
-//	    console.log(option.length)
 		return;
 	}
 	$.ajax({
@@ -15,7 +12,6 @@ $("#club_name_filter").click(function()
 		success: function(data)
 		{
 			data = JSON.parse(data);
-//			console.log(data)
 
 			let html_for_option = "<option value=''>Club name</option> ";
 			data = data['data'];
@@ -36,7 +32,6 @@ $("#year_filter").click(function()
 
 	if(option.length>1)
 	{
-	    console.log("----------------")
 		return;
 	}
 	$.ajax({
@@ -45,7 +40,6 @@ $("#year_filter").click(function()
 		success: function(data)
 		{
 			data = JSON.parse(data);
-			console.log(data)
 
 			let html_for_option = "<option value=''>Year</option> ";
 			data = data['data'];
@@ -58,3 +52,55 @@ $("#year_filter").click(function()
 		}
 	});
 });
+
+$("#filter").click(function(){
+  let club_name = $("#club_name_filter").val();
+
+  if(club_name.length==0)
+  {
+    club_name = 'NULL';
+  }
+  let year = $("#year_filter").val();
+
+  if(year.length==0)
+  {
+    year = 'NULL';
+  }
+
+  $.ajax({
+		url : ("/club_ff/get_filtered_cff/"+club_name+"/"+year),
+		method: "GET",
+		success: function(data)
+		{
+			data = JSON.parse(data);
+
+			console.log(data);
+
+            data = data['data'];
+
+
+            booth_thumbnails = ""
+
+            for(let i=0;i<data.length;i++)
+            {
+               booth_thumbnails+= `
+               <div class="booth_thumbnail">
+                   <div class="club_name">`+
+                       data[i]['club_name'] +
+                   `</div>
+                   <div class="club_details">
+                       <div class="description">
+                            <h2>Description:</h2>
+                            <span>` + data[i]['club_description'] + `Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quas, reiciendis facilis possimus ratione, animi inventore vero numquam dolorum perferendis at quod magnam saepe? Numquam.</span>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+              }
+              $("#booth_thumbnails").html(booth_thumbnails);
+		}
+	});
+});
+
+

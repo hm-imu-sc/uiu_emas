@@ -139,39 +139,36 @@ class PostProcessor(DBRead):
         return feed_posts
 
 
-# def get_filtered_archive_cff_booths(request, course_code, trimester):
-#     database = MySql.db()
-#     print(course_code)
-#     print(trimester)
-#     if course_code!='NULL' :
-#         projects = database.query(f"SELECT projects.id, projects.title, projects.short_description FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1 and projects.trimester = '{trimester}' and sections.course_code = '{course_code}'")
-#     elif course_code!='NULL':
-#         projects = database.query(f"SELECT projects.id, projects.title, projects.short_description FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1 and sections.course_code = '{course_code}'")
-#     elif trimester!='NULL':
-#         projects = database.query(f"SELECT projects.id, projects.title, projects.short_description FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1 and projects.trimester = '{trimester}'")
-#     else:
-#         projects = database.query(f"SELECT projects.id, projects.title, projects.short_description FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1")
-#
-#     context = {}
-#     context["data"] = []
-#     list = ['id', 'title', 'short_description', 'project_members']
-#
-#     for tup in projects:
-#         members_id_tup = database.query(f"SELECT student_id FROM project_members WHERE project_id = {tup[0]}")
-#         members_id = []
-#         for member in members_id_tup:
-#             members_id.append(member[0])
-#         members_name = []
-#         for member in members_id:
-#             members_name.append(database.query(f"SELECT name FROM students WHERE student_id = {member}")[0][0])
-#
-#         members_info = []
-#         for i in range(len(members_name)):
-#             members_info.append({'id' : members_id[i], 'name' : members_name[i]})
-#
-#         context["data"].append({list[0]:tup[0],list[1]:tup[1],list[2]:tup[2], list[3]: members_info})
-#     context = json.dumps(context)
-#     return HttpResponse(context)
+def get_filtered_cff(request, club_name, year):
+    print("get_ff method")
+    database = MySql.db()
+    print(club_name)
+    print(year)
+    if club_name != 'NULL':
+        booths = database.query(
+            f"SELECT booths.id, YEAR(booths.time_created), booths.club_id, booths.club_description, clubs.name FROM booths JOIN clubs ON booths.club_id = clubs.club_id WHERE booths.status = 1 and clubs.name = '{club_name}' ")
+    elif year != 'NULL':
+        booths = database.query(
+            f"SELECT booths.id, YEAR(booths.time_created), booths.club_id, booths.club_description, clubs.name FROM booths JOIN clubs ON booths.club_id = clubs.club_id WHERE booths.status = 1 and YEAR(booths.time_created) = '{year}' ")
+    elif year != 'NULL' and club_name != 'NULL':
+        booths = database.query(
+            f"SELECT booths.id, YEAR(booths.time_created), booths.club_id, booths.club_description, clubs.name FROM booths JOIN clubs ON booths.club_id = clubs.club_id WHERE booths.status = 1 and YEAR(booths.time_created) = '{year}' and clubs.name = '{club_name}' ")
+    else:
+        booths = database.query(
+            f"SELECT booths.id, YEAR(booths.time_created), booths.club_id, booths.club_description, clubs.name FROM booths JOIN clubs ON booths.club_id = clubs.club_id WHERE booths.status = 1")
+
+    context = {}
+    context["data"] = []
+    list = ['id', 'time_created', 'club_id', 'club_description', 'club_name']
+
+    for tup in booths:
+        club_name_tup = database.query(f"SELECT name FROM clubs WHERE id = {tup[2]}")
+        club_name = club_name_tup[0]
+        context["data"].append(
+            {list[0]: tup[0], list[1]: tup[1], list[2]: tup[2], list[3]: tup[3], list[4]: club_name})
+
+    context = json.dumps(context)
+    return HttpResponse(context)
 
 
 class ArchiveCffBooths(TemplateView):
@@ -184,7 +181,6 @@ class ArchiveCffBooths(TemplateView):
             "SELECT id, time_created, club_id, club_description FROM booths WHERE `status` = 1")
 
         context["data"] = []
-        club_name_list = []
         list = ['id', 'time_created', 'club_id', 'club_description', 'club_name']
 
         for tup in booths:
