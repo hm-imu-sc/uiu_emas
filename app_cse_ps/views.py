@@ -7,13 +7,13 @@ import json
 
 # Create your views here.
 
-class Index(TemplateView):
+class Index(DBRead):
     template_name = "app_cse_ps/index.html"
 
     def get_context_data(self, *args, **kwargs):
         return super().get_context_data(*args, **kwargs)
 
-class ProjectRegistrationPage(TemplateView):
+class ProjectRegistrationPage(DBRead):
     template_name = "app_cse_ps/project_registration_page.html"
     database = MySql.db()
 
@@ -27,7 +27,7 @@ class ProjectRegistrationPage(TemplateView):
             context["data"].append({list[0]:tup[0],list[1]:tup[1],list[2]:tup[2],list[3]:tup[3]})
         return context
 
-class ArchiveProjects(TemplateView):
+class ArchiveProjects(DBRead):
     template_name = "app_cse_ps/archieve_projects_page.html"
     database = MySql.db()
 
@@ -107,6 +107,8 @@ class CourseListPage(DBRead):
                 "num_sections": num_sections,
                 "num_projects": num_projects,
             })
+
+        print(context)
 
         return context
 

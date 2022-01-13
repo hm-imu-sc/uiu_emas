@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from my_modules.base_views import DBAction, DBRead
 from django.views.generic import TemplateView
 from my_modules.database import MySql
 from django.core.files.storage import FileSystemStorage
 from datetime import datetime, timedelta
+import hashlib
 
 # Create your views here.
 
@@ -14,17 +15,6 @@ class TestPage(DBRead):
         context = super().get_context_data(**kwargs)
         context["test"] = "This is a Test Page"
         return context
-
-    def respond(request):
-        response = render(request, "app_general/test_page.html", context={})    
-        
-        cookie_expires = datetime.now() - timedelta(seconds=60)
-        cookie_expires = cookie_expires.strftime("%a, %d-%b-%Y %H:%M:%S GMT+6")
-        
-        response.set_cookie("key", "value", expires=cookie_expires)
-        
-        print(f"Type: {response}")
-        return response 
 
 
 class Test(DBRead):
@@ -42,7 +32,7 @@ class Test(DBRead):
         return context
     
 
-class Index(TemplateView):
+class Index(DBRead):
     template_name = "app_general/index.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -100,18 +90,52 @@ class StudentRegistration(DBAction):
         # return super().action(request, **kwargs)
 
 
-class LoginPage(TemplateView):
+class LoginPage(DBRead):
     template_name = "app_general/login_page.html"
 
     def get_context_data(self, *args, **kwargs):
         return super().get_context_data(*args, **kwargs)
 
 
-class Login(DBRead):
-    pass
+class Login(DBAction):
+    
+    def action(self, request, **kwargs):
 
+        user = request.POST["user"]
+        password = request.POST["password"]
 
-class TeacherDashboardPage(TemplateView):
+        user_domains = {
+            "student": ["student_id", "uiu_email"],
+            "teacher": ["employee_id", "uiu_email"]
+        }
+
+        user_data = None
+        user_domain = None
+
+        for key in user_domains.keys():
+            
+            user_data = self.database.get(f"{key}s", conditions={
+                user_domains[key][0]: user,
+                user_domains[key][1]: user,
+            }, condition_connector = "or")
+            
+            if len(user_data) == 1:
+                user_data = user_data[0]
+                user_domain = key
+                break
+
+        if user_data is None or not self.verify_password(user_data, password):
+            self.redirect_url = "app_general:login_page"
+
+        user_id = user_data[user_domains[user_domain][0]]
+        password_hash = user_data["password_hash"]
+        self.redirect_url = f"app_general:{user_domain}_dashboard_page"
+
+    def verify_password(self, user, password):
+        given = hashlib.sha256(password.encode("ASCII")).hexdigest()
+        return user["password_hash"] == given
+
+class TeacherDashboardPage(DBRead):
     database = MySql.db()
 
     template_name = "app_general/teacher_dashboard_page.html"
@@ -119,21 +143,19 @@ class TeacherDashboardPage(TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
-        teacher_id = 'SS'
+        teacher_id = kwargs["employee_id"]
         sections = self.database.get('sections', conditions={
             "teacher_id": teacher_id
         })
-        conditions = "("
 
-        for i in range(len(sections)):
-            conditions += f" section_id = {sections[i]['id']} "
-            if i + 1 < len(sections):
-                conditions += "or"
+        section_ids = [sections[i]['id'] for i in range(len(sections))]
+        projects = []
 
-        conditions += f") and status = 0 "
-
-        projects = self.database.fetch_dict("projects",
-                                            self.database.query(f"select * from projects where {conditions}"))
+        if len(section_ids) > 0:
+            projects = self.database.get("projects", conditions={
+                "section_id": section_ids,
+                "status": 0
+            })
 
         context['projects'] = projects
 
@@ -144,7 +166,7 @@ class TeacherDashboardPage(TemplateView):
         return context
 
 
-class StudentDashboardPage(TemplateView):
+class StudentDashboardPage(DBRead):
     database = MySql.db()
 
     template_name = "app_general/student_dashboard_page.html"
@@ -152,7 +174,8 @@ class StudentDashboardPage(TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
-        student_id = '011181076'
+        student_id = kwargs["student_id"]
+
         # project_members = self.database.get('project_members', conditions={
         #     "student_id": student_id
         # })
@@ -213,7 +236,7 @@ class StudentDashboardPage(TemplateView):
         return context
 
 
-class ProjectDetailsPage(TemplateView):
+class ProjectDetailsPage(DBRead):
     database = MySql.db()
 
     template_name = "app_general/project_details_page.html"
@@ -273,7 +296,7 @@ class ProjectApprove(DBAction):
         return
 
 
-class BoothSetupPage(TemplateView):
+class BoothSetupPage(DBRead):
     template_name = 'app_general/booth_setup_page.html'
     database = MySql.db()
 

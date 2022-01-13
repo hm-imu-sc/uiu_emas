@@ -2,6 +2,8 @@ from django.conf import settings
 from django.urls import path
 from . import views
 
+LOGIN_REQUIRED = True
+
 app_name = "app_cse_ps"
 
 urlpatterns = [

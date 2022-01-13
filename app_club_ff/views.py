@@ -12,13 +12,13 @@ import json
 
 # Create your views here.
 
-class Index(TemplateView):
+class Index(DBRead):
     template_name = "app_club_ff/index.html"
 
     def get_context_data(self, *args, **kwargs):
         return super().get_context_data(*args, **kwargs)
 
-class FestRegistrationPage(TemplateView):
+class FestRegistrationPage(DBRead):
     template_name = "app_club_ff/fest_registration_page.html"
     database = MySql.db()
 
@@ -82,7 +82,7 @@ class FestFeed(DBRead):
     def get_feed_posts(self):
         database = MySql.db()
         feed_posts = database.get("feed_posts", other_clauses=[
-            "order by time_created asc",
+            "order by time_created desc",
             "limit 5"
         ])
         return feed_posts
