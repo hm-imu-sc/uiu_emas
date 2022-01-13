@@ -144,10 +144,10 @@ def get_filtered_cff(request, club_name, year):
     print(club_name)
     print(year)
 
-    if club_name != 'NULL':
+    if club_name != 'NULL' and year == 'NULL':
         booths = database.query(
             f"SELECT booths.id, YEAR(booths.time_created), booths.club_id, booths.club_description, clubs.name FROM booths JOIN clubs ON booths.club_id = clubs.club_id WHERE booths.status = 1 and clubs.name = '{club_name}' ")
-    elif year != 'NULL':
+    elif year != 'NULL' and club_name == 'NULL':
         booths = database.query(
             f"SELECT booths.id, YEAR(booths.time_created), booths.club_id, booths.club_description, clubs.name FROM booths JOIN clubs ON booths.club_id = clubs.club_id WHERE booths.status = 1 and YEAR(booths.time_created) = '{year}' ")
     elif year != 'NULL' and club_name != 'NULL':
@@ -156,6 +156,7 @@ def get_filtered_cff(request, club_name, year):
     elif club_name == 'NULL' and year == 'NULL':
         booths = database.query(
             f"SELECT booths.id, YEAR(booths.time_created), booths.club_id, booths.club_description, clubs.name FROM booths JOIN clubs ON booths.club_id = clubs.club_id WHERE booths.status = 1")
+
 
 
     context = {}

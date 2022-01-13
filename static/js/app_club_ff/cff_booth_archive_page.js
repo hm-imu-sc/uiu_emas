@@ -85,20 +85,26 @@ $("#filter").click(function(){
               {
                 booth_thumbnails+= `
                 <div class="booth_thumbnail">
-                    <div class="club_name">`+
-                        data[i]['club_name'] +
-                    `</div>
+                    <div class="club_name">` + data[i]['club_name']  +  `</div>
                     <div class="booth_details">
                         <div class="description">
                             <h2>Description:</h2>
                             <span>` + data[i]['club_description'] + `Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quas, reiciendis facilis possimus ratione, animi inventore vero numquam dolorum perferendis at quod magnam saepe? Numquam.</span>
+                             <br>
+                             <a class="visit_link" href="{{booths.id}}">Visit Booth</a>
                         </div>
-                    `;
-                  }
-                  $("#booth_thumbnails").html(booth_thumbnails);
+                    </div>
+                        `;
+                booth_thumbnails+= `</div>
+                </div>
+                </div>
 
-                  }
-                });
+                </div> `;
+
+              }
+            $("#booth_thumbnails").html(booth_thumbnails);
+        }
+        });
 });
 
 
