@@ -25,22 +25,20 @@ class ViewBase:
         if self.login_required or self.logout_required:
             verified = self.__verify_user(request)
 
-        print(verified)
-
         if verified:
             if self.logout_required:
                 response = redirect(f"app_general:{user['domain']}_dashboard_page")
             else:
-                response = self.get_requested_response(request, *args, **kwargs)
+                response = self._get_requested_response(request, *args, **kwargs)
         else:
             if self.logout_required:
-                response = self.get_requested_response(request, *args, **kwargs)
+                response = self._get_requested_response(request, *args, **kwargs)
             else:
                 response = redirect("app_general:login_page")
 
         return response
 
-    def get_requested_response(self, request, *args, **kwargs):
+    def _get_requested_response(self, request, *args, **kwargs):
         pass
 
     def __verify_user(self, request):
@@ -59,7 +57,7 @@ class ViewBase:
 
 class DBRead(ViewBase):
 
-    def get_requested_response(self, request, *args, **kwargs):
+    def _get_requested_response(self, request, *args, **kwargs):
         kwargs["request"] = request
         context = self.get_context_data(*args, **kwargs)
         return render(request, self.template_name, context=context)
@@ -70,7 +68,7 @@ class DBRead(ViewBase):
 
 class DBAction(ViewBase):
 
-    def get_requested_response(self, request, *args, **kwargs):
+    def _get_requested_response(self, request, *args, **kwargs):
         self.action(request, **kwargs)
         return redirect(self.redirect_url, **self.redirect_args)
 
