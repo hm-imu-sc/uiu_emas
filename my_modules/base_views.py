@@ -25,6 +25,9 @@ class ViewBase:
         if self.login_required or self.logout_required:
             verified = self.__verify_user(request)
 
+            if verified:
+                user = request.session["user"]
+
         if verified:
             if self.logout_required:
                 response = redirect(f"app_general:{user['domain']}_dashboard_page")
@@ -69,7 +72,11 @@ class DBRead(ViewBase):
 class DBAction(ViewBase):
 
     def _get_requested_response(self, request, *args, **kwargs):
+        self.redirect_args = {}
+        self.redirect_url = None
+
         self.action(request, **kwargs)
+
         return redirect(self.redirect_url, **self.redirect_args)
 
     def action(self, **kwargs):
