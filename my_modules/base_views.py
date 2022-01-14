@@ -10,12 +10,6 @@ from django.views.generic import View, TemplateView
 
 import hashlib
 
-# class classonlymethod(classmethod):
-#     def __get__(self, instance, cls=None):
-#         if instance is not None:
-#             raise AttributeError("This method is available only on the class, not on instances.")
-#         return super().__get__(instance, cls)
-
 
 class DBRead(TemplateView):
 
@@ -30,12 +24,7 @@ class DBRead(TemplateView):
         user = None
 
         if self.login_required or self.logout_required:
-            try:
-                user = request.session["user"]
-                if not self.__verify_user(user):
-                    verified = False
-            except KeyError:
-                verified = False
+            verified = self.__verify_user(request)
 
         if verified:
             if self.logout_required:
@@ -55,19 +44,12 @@ class DBRead(TemplateView):
         context = self.get_context_data(*args, **kwargs)
         return render(request, self.template_name, context=context)
 
-    def __verify_user(self, user):
-
+    def __verify_user(self, request):
         try:
-            return user["login_status"]
+            return request.session["user"]["login_status"]
         except TypeError or KeyError:
+            request.session["user"] = {"login_status": False}
             return False
-            
-        # user_data = self.database.get(f"{user['domain']['name']}s", ["password_hash"], {
-        #     user["domain"]["field"]: user["id"]
-        # })[0]
-        # identification_hash = hashlib.sha256(f"{user['id']}({user_data['password_hash']})".encode("ASCII")).hexdigest()
-        
-        # return user["identification_hash"] == identification_hash
 
     @classmethod
     def as_view(cls, login_required=False, logout_required=False):
@@ -96,12 +78,7 @@ class DBAction(View):
         user = None
 
         if self.login_required or self.logout_required:
-            try:
-                user = request.session["user"]
-                if not self.__verify_user(user):
-                    verified = False
-            except KeyError:
-                verified = False
+            verified = self.__verify_user(request)
 
         if verified:
             if self.logout_required:
@@ -120,11 +97,11 @@ class DBAction(View):
         self.action(request, **kwargs)
         return redirect(self.redirect_url, **self.redirect_args)
 
-    def __verify_user(self, user):
-
+    def __verify_user(self, request):
         try:
-            return user["login_status"]
+            return request.session["user"]["login_status"]
         except TypeError or KeyError:
+            request.session["user"] = {"login_status": False}
             return False
 
     @classmethod
