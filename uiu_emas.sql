@@ -41,6 +41,13 @@ CREATE TABLE `booths` (
 
 -- --------------------------------------------------------
 
+INSERT INTO `booths` (`id`, `time_created`, `time_updated`, `trash`, `status`, `club_id`, `intro_video`, `club_description`, `recruiting`) VALUES
+(1, '2022-01-03 16:10:35', '2022-01-13 16:10:35', 0, 1, '1', '', 'Our objectives are to widen the scope of our members to make them prepare for the competitive software & IT industry. ', 0),
+(2, '2022-01-04 16:13:46', '2022-01-05 16:13:46', 0, 1, '2', '', 'APP Forum is an initiative of UIU CCC. UIU App forum is a developer\'s community with machine learning. ', 0),
+(3, '2022-01-02 16:15:45', '2022-01-03 16:15:45', 0, 1, '4', '', 'UIU Robotics is a student-run club of highly motivated undergraduate and graduate students from the United International University.', 0),
+(4, '2020-01-03 08:46:55', '2022-01-08 08:46:55', 0, 1, '6', '', 'UIU markeing forum abc', 0);
+
+
 --
 -- Table structure for table `cff_comments`
 --
