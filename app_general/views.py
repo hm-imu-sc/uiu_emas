@@ -101,8 +101,12 @@ class Login(DBAction):
     
     def action(self, request, **kwargs):
 
-        user = request.POST["user"]
-        password = request.POST["password"]
+        try:
+            user = request.POST["user"]
+            password = request.POST["password"]
+        except Exception:
+            self.redirect_url = "app_general:login_page"
+            return
 
         user_domains = {
             "student": ["student_id", "uiu_email"],
@@ -126,14 +130,41 @@ class Login(DBAction):
 
         if user_data is None or not self.verify_password(user_data, password):
             self.redirect_url = "app_general:login_page"
+            return
 
         user_id = user_data[user_domains[user_domain][0]]
-        password_hash = user_data["password_hash"]
+        # password_hash = user_data["password_hash"]
+
+        # request.session["user"] = {
+        #     "id": user_id,
+        #     "domain": {
+        #         "name": user_domain,
+        #         "field": user_domains[user_domain][0]
+        #     },
+        #     "identification_hash": hashlib.sha256(f"{user_id}({password_hash})".encode("ASCII")).hexdigest()
+        # }
+
+        request.session["user"] = {
+            "login_status": True,
+            "id": user_id,
+            "domain": user_domain
+        }
+
+        request.session.set_expiry(24 * 3600)
+
         self.redirect_url = f"app_general:{user_domain}_dashboard_page"
 
     def verify_password(self, user, password):
         given = hashlib.sha256(password.encode("ASCII")).hexdigest()
         return user["password_hash"] == given
+
+
+class Logout(DBAction):
+    
+    def action(self, request, **kwargs):
+        self.redirect_url = "app_general:login_page"
+        del request.session["user"]
+
 
 class TeacherDashboardPage(DBRead):
     database = MySql.db()
@@ -143,7 +174,7 @@ class TeacherDashboardPage(DBRead):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
-        teacher_id = kwargs["employee_id"]
+        teacher_id = kwargs["request"].session["user"]["id"]
         sections = self.database.get('sections', conditions={
             "teacher_id": teacher_id
         })
@@ -174,22 +205,8 @@ class StudentDashboardPage(DBRead):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
-        student_id = kwargs["student_id"]
+        student_id = kwargs["request"].session["user"]["id"]
 
-        # project_members = self.database.get('project_members', conditions={
-        #     "student_id": student_id
-        # })
-
-        # conditions = "("
-        # for i in range(len(project_members)):
-        #     conditions += f" student_id = {project_members[i]['student_id']} "
-        #     if i + 1 < len(project_members):
-        #         conditions += "or"
-        # conditions += f") and status = 0 "
-        # project id form project_members
-        # projects = self.database.fetch_dict("projects", self.database.query(f"select * from project_members where {conditions}"))
-        # projects = self.database.fetch_dict("projects", self.database.get(f"select * from project_members where {conditions}"))
-        
         project_ids = self.database.get("project_members", ["project_id"], conditions = {"student_id": student_id})
         context['projects'] = []
 
@@ -201,36 +218,21 @@ class StudentDashboardPage(DBRead):
             if len(projects) > 0:
                 context['projects'].append(projects[0])
 
-        # for i in range(len(context['projects'])):
-        #     if projects[i]["status"] == "1":
-        #         projects[i]["status"] = True
-        #     else:
-        #         projects[i]["status"] = False
-
         project_id = self.database.get('project_members', conditions={"student_id": student_id})[0]["project_id"]
 
         context['project_id'] = project_id
         context["student_id"] = student_id
 
-        # title and status from projects
         query = f'SELECT title, status FROM projects WHERE id = {int(project_id)}'
         project_details = self.database.query(query)
 
         project_status = project_details[0][1]
         project_title = project_details[0][0]
 
-        # if project_status == 0:
-        #     project_status = "Not approved"
-        # elif project_status == 1:
-        #     project_status = "Approved"
-
-        # name from Students table
         query = f'SELECT name FROM students WHERE student_id = {student_id}'
         student_details = self.database.query(query)
         student_name = student_details[0][0]
 
-        # context["title"] = project_title
-        # context["status"] = project_status
         context["name"] = student_name
 
         return context
