@@ -7,9 +7,6 @@ django.setup()
 from django.shortcuts import redirect, render
 from my_modules.database import MySql
 
-import hashlib
-
-
 class ViewBase:
 
     database = MySql.db()
@@ -47,7 +44,7 @@ class ViewBase:
     def __verify_user(self, request):
         try:
             return request.session["user"]["login_status"]
-        except TypeError or KeyError:
+        except KeyError:
             request.session["user"] = {"login_status": False}
             return False
 
@@ -61,11 +58,11 @@ class ViewBase:
 class DBRead(ViewBase):
 
     def _get_requested_response(self, request, *args, **kwargs):
-        kwargs["request"] = request
-        context = self.get_context_data(*args, **kwargs)
+        context = self.get_context_data(request, *args, **kwargs)
+        context["session"] = {"user": request.session["user"]}
         return render(request, self.template_name, context=context)
     
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, request, *args, **kwargs):
         return {}
 
 

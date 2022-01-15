@@ -12,7 +12,8 @@
     <body>
         
         {% include "../common/navbar.html" %}
-        <a href="{% url "app_admin:get_course_by_trimester" 213 %}">test</a>
+        
+        <a href="{% url 'app_general:'|add:user|add:"_dashboard_page" %}">Click</a>
 
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
         <script src="{% static 'js/app_general/test_page.js' %}"></script>

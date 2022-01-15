@@ -10,15 +10,13 @@ import json
 class Index(DBRead):
     template_name = "app_cse_ps/index.html"
 
-    def get_context_data(self, *args, **kwargs):
-        return super().get_context_data(*args, **kwargs)
 
 class ProjectRegistrationPage(DBRead):
     template_name = "app_cse_ps/project_registration_page.html"
     database = MySql.db()
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        context = {}
 
         unique_sections_tuple = self.database.query("SELECT DISTINCT id, course_code, course_name, name FROM sections")
         context["data"] = []
@@ -27,12 +25,13 @@ class ProjectRegistrationPage(DBRead):
             context["data"].append({list[0]:tup[0],list[1]:tup[1],list[2]:tup[2],list[3]:tup[3]})
         return context
 
+
 class ArchiveProjects(DBRead):
     template_name = "app_cse_ps/archieve_projects_page.html"
     database = MySql.db()
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        context = {}
         projects = self.database.query("SELECT id, title, short_description FROM projects WHERE `status` = 1")
         context["data"] = []
         list = ['id', 'title', 'short_description', 'project_members']
@@ -53,6 +52,7 @@ class ArchiveProjects(DBRead):
             context["data"].append({list[0]:tup[0],list[1]:tup[1],list[2]:tup[2], list[3]: members_info})
         return context
 
+
 class ProjectRegistration(DBAction):
     def action(self, request, **kwargs):
         self.redirect_url = "app_cse_ps:index"
@@ -71,12 +71,13 @@ class ProjectRegistration(DBAction):
             self.database.query(f'INSERT into project_members(project_id, student_id) VALUE ("{project_id}", "{member.strip()}")')
         return
 
+
 class CourseListPage(DBRead):
 
     template_name = "app_cse_ps/course_list_page.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, request, *args, **kwargs):
+        context = {}
         context["courses"] = [
             # {
             #     "name": "Object Oriented Programming Laboratory",
@@ -112,12 +113,13 @@ class CourseListPage(DBRead):
 
         return context
 
+
 class BoothListPage(DBRead):
 
     template_name = "app_cse_ps/booth_list_page.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, request, *args, **kwargs):
+        context = {}
         course_code = kwargs["course_code"]
 
         section_ids = self.database.get("sections", ["id"], {
@@ -142,6 +144,7 @@ class BoothListPage(DBRead):
 
         return context
 
+
 def get_course_names(request):
     database = MySql.db()
     course_list = database.query("SELECT DISTINCT course_code, course_name FROM sections")
@@ -153,6 +156,7 @@ def get_course_names(request):
     context = json.dumps(context)
     return HttpResponse(context)
 
+
 def get_sections(request, course_code):
     database = MySql.db()
     section_list = database.query(f"SELECT id, name FROM sections WHERE course_code = '{course_code}'")
@@ -163,6 +167,7 @@ def get_sections(request, course_code):
         context["data"].append({list[0]:tup[0],list[1]:tup[1]})
     context = json.dumps(context)
     return HttpResponse(context)
+
 
 def get_student(request, student_id):
     database = MySql.db()
@@ -180,6 +185,7 @@ def get_student(request, student_id):
     context = json.dumps(context)
     return HttpResponse(context)
 
+
 def get_trimesters(request):
     database = MySql.db()
     trimesters = database.query("SELECT DISTINCT trimester FROM projects ORDER BY trimester ASC")
@@ -190,6 +196,7 @@ def get_trimesters(request):
         context["data"].append({list[0]:tup[0]})
     context = json.dumps(context)
     return HttpResponse(context)
+
 
 def get_filtered_archeive_projects(request, course_code, trimester):
     database = MySql.db()
@@ -225,12 +232,13 @@ def get_filtered_archeive_projects(request, course_code, trimester):
     context = json.dumps(context)
     return HttpResponse(context)
 
+
 class ProjectBoothPage(DBRead):
     
     template_name = "app_cse_ps/project_booth_page.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, request, *args, **kwargs):
+        context = {}
 
         project_id = kwargs["project_id"]
 
@@ -256,12 +264,13 @@ class ProjectBoothPage(DBRead):
             processed_comments += "</div>"
         return processed_comments
 
+
 class CommentLoader(DBRead):
     
     template_name = "app_cse_ps/comment_processor.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, request, *args, **kwargs):
+        context = {}
 
         project_id = kwargs["project_id"]
         already_loaded = int(kwargs["already_loaded"])
@@ -278,6 +287,7 @@ class CommentLoader(DBRead):
         context["comments"] = comments
 
         return context
+
 
 class Commenter(DBAction):
 

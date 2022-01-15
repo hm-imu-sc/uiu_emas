@@ -11,18 +11,18 @@ import hashlib
 class TestPage(DBRead):
     template_name = "app_general/test_page.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["test"] = "This is a Test Page"
-        return context
+    def get_context_data(self, request, *args, **kwargs):
+        return {
+            "user": "student"
+        }
 
 
 class Test(DBRead):
 
     template_name = "app_general/test.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, request, *args, **kwargs):
+        context = {}
         context["len"] = [l for l in range(int(kwargs["len"]))]
         context["data"] = {
             "info1": "290",
@@ -35,15 +35,15 @@ class Test(DBRead):
 class Index(DBRead):
     template_name = "app_general/index.html"
 
-    def get_context_data(self, *args, **kwargs):
-        return super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        return {}
 
 
 class StudentRegistrationPage(DBRead):
     template_name = "app_general/student_registration_page.html"
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        context = {}
 
         context["date"] = {
             "days": [i for i in range(32)[1:]],
@@ -93,8 +93,8 @@ class StudentRegistration(DBAction):
 class LoginPage(DBRead):
     template_name = "app_general/login_page.html"
 
-    def get_context_data(self, *args, **kwargs):
-        # return super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        # return {}
         return {}
 
 
@@ -172,10 +172,10 @@ class TeacherDashboardPage(DBRead):
 
     template_name = "app_general/teacher_dashboard_page.html"
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        context = {}
 
-        teacher_id = kwargs["request"].session["user"]["id"]
+        teacher_id = request.session["user"]["id"]
         sections = self.database.get('sections', conditions={
             "teacher_id": teacher_id
         })
@@ -203,10 +203,10 @@ class StudentDashboardPage(DBRead):
 
     template_name = "app_general/student_dashboard_page.html"
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        context = {}
 
-        student_id = kwargs["request"].session["user"]["id"]
+        student_id = request.session["user"]["id"]
 
         project_ids = self.database.get("project_members", ["project_id"], conditions = {"student_id": student_id})
         context['projects'] = []
@@ -244,8 +244,8 @@ class ProjectDetailsPage(DBRead):
 
     template_name = "app_general/project_details_page.html"
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        context = {}
         project_id = kwargs["project_id"]
 
         # project details
@@ -303,10 +303,10 @@ class BoothSetupPage(DBRead):
     template_name = 'app_general/booth_setup_page.html'
     database = MySql.db()
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, request,  *args, **kwargs):
         self.boothid = kwargs['project_id']
         # self.boothid = 1  # delete this line
-        context = super().get_context_data(*args, **kwargs)
+        context = {}
         booth_details = self.database.query(f'SELECT id,title,short_description FROM projects WHERE id={self.boothid}')
         context['booth_details'] = {'id': booth_details[0][0], 'title': booth_details[0][1],
                                     'short_description': booth_details[0][2]}

@@ -15,17 +15,14 @@ import json
 class Index(DBRead):
     template_name = "app_club_ff/index.html"
 
-    def get_context_data(self, *args, **kwargs):
-        return super().get_context_data(*args, **kwargs)
-
 
 class FestRegistrationPage(DBRead):
     template_name = "app_club_ff/fest_registration_page.html"
     database = MySql.db()
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        student_id = kwargs["student_id"]
+    def get_context_data(self, request,  *args, **kwargs):
+        context = {}
+        student_id = request.session["user"]["id"]
         already_exist = self.database.query(f"SELECT * FROM cff_registrations WHERE student_id = '{student_id}'")
         if len(already_exist) != 0:
             self.template_name = "app_club_ff/fest_already_registered.html"
@@ -69,8 +66,8 @@ def get_club_names(request):
 class FestFeed(DBRead):
     template_name = "app_club_ff/fest_feed_page.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, request, *args, **kwargs):
+        context = {}
         context["clubs"] = self.get_club_names()
         context["sorting_criterias"] = [
             {"value": "desc", "option": "Newest"},
@@ -97,8 +94,8 @@ class FestFeed(DBRead):
 class PostProcessor(DBRead):
     template_name = "app_club_ff/post_processor.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, request, *args, **kwargs):
+        context = {}
 
         offset = int(kwargs["offset"])
         club_id = kwargs["club_id"]
@@ -125,6 +122,7 @@ class PostProcessor(DBRead):
         ])
         return feed_posts
 
+
 def get_cff_years(request):
     database = MySql.db()
     years = database.query("SELECT DISTINCT year(time_created) FROM booths")
@@ -136,6 +134,7 @@ def get_cff_years(request):
     print(context["data"])
     context = json.dumps(context)
     return HttpResponse(context)
+
 
 def get_filtered_cff(request, club_name, year):
     database = MySql.db()
@@ -173,8 +172,8 @@ class ArchiveCffBooths(TemplateView):
     template_name = "app_club_ff/archive_cff_booths_page.html"
     database = MySql.db()
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        context = {}
         booths = self.database.query(
             "SELECT id, time_created, club_id, club_description FROM booths WHERE `status` = 1")
 

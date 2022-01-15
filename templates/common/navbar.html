@@ -7,11 +7,21 @@
         <a class="nav-item" href="{% url 'app_club_ff:index' %}">Club Forum Fest</a>
     </div>
     <div class="utility-item">
-        <a class="nav-item" href="{% url 'app_admin:prize_giving_page' %}">Add Prizes</a>
+
         <a class="nav-item" href="{% url 'app_general:test_page' %}">Test Page</a>
-        <a class="nav-item" href="{% url 'app_general:index' %}">Register</a>
-        <a class="nav-item" href="{% url 'app_general:login_page' %}">Login</a>
-        <a class="nav-item" href="{% url 'app_general:logout' %}">Logout</a>
+        
+        {% if session.user.login_status %}
+            <a class="nav-item" href="{% url 'app_general:'|add:session.user.domain|add:"_dashboard_page" %}">Dashboard</a>
+            <a class="nav-item" href="{% url 'app_general:logout' %}">Logout</a>
+        {% else %}
+            <a class="nav-item" href="{% url 'app_general:index' %}">Register</a>
+            <a class="nav-item" href="{% url 'app_general:login_page' %}">Login</a>
+        {% endif %}
+
+        {% comment %}
+            <a class="nav-item" href="{% url 'app_admin:prize_giving_page' %}">Add Prizes</a>
+            <a class="nav-item" href="{% url 'app_general:test_page' %}">Test Page</a>
+        {% endcomment %}
     </div>   
 </div>
 <div class="nav-border"></div>
