@@ -81,7 +81,7 @@ class StudentRegistration(DBAction):
                 "uiu_email": email,
                 "phone_number": phone_number,
                 "department": department,
-                "password_hash": password,
+                "password_hash": hashlib.sha256(password.encode("ASCII")).hexdigest(),
                 "photo": "null",
                 "dob": f"{dob['year']}-{dob['month']}-{dob['day']}"
             }
@@ -212,29 +212,23 @@ class StudentDashboardPage(DBRead):
         context['projects'] = []
 
         for project_id in project_ids:
-            projects = self.database.get("projects", conditions = {
-                "id": project_id["project_id"]
-            })
+            project = self.database.get("projects", ["id", "title", "section_id"], conditions = {
+                "id": project_id["project_id"],
+                "status": 1
+            })[0]
 
-            if len(projects) > 0:
-                context['projects'].append(projects[0])
+            project["course"] = self.database.get("sections", ["name", "course_code", "course_name"], {"id": project["section_id"]})[0]
+            project["team"] = [
+                team_member["student_id"]
+                for team_member in self.database.get("project_members", ["student_id"], conditions = project_id)
+            ]
 
-        project_id = self.database.get('project_members', conditions={"student_id": student_id})[0]["project_id"]
+            context['projects'].append(project)
 
-        context['project_id'] = project_id
-        context["student_id"] = student_id
-
-        query = f'SELECT title, status FROM projects WHERE id = {int(project_id)}'
-        project_details = self.database.query(query)
-
-        project_status = project_details[0][1]
-        project_title = project_details[0][0]
-
-        query = f'SELECT name FROM students WHERE student_id = {student_id}'
-        student_details = self.database.query(query)
-        student_name = student_details[0][0]
-
-        context["name"] = student_name
+        context["student"] = {
+            "id": student_id,
+            **self.database.get("students", ["name", "department"], {"student_id": student_id})[0],
+        }
 
         return context
 
