@@ -290,11 +290,11 @@ class CommentLoader(DBRead):
 
 class Commenter(DBAction):
 
-    def action(self, request):
+    def action(self, request, **kwargs):
         self.redirect_url = "app_cse_ps:index"
 
-        user_id = request.POST["user_id"]
-        user_type = request.POST["user_type"]
+        user_id = request.session["user"]["id"]
+        user_type = request.session["user"]["domain"]
         project_id = request.POST["project_id"]
         comment = request.POST["comment"]
 

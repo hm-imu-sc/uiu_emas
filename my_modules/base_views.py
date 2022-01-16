@@ -76,5 +76,5 @@ class DBAction(ViewBase):
 
         return redirect(self.redirect_url, **self.redirect_args)
 
-    def action(self, **kwargs):
+    def action(self, request, **kwargs):
         pass

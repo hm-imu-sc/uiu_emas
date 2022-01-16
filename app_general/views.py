@@ -134,16 +134,6 @@ class Login(DBAction):
             return
 
         user_id = user_data[user_domains[user_domain][0]]
-        # password_hash = user_data["password_hash"]
-
-        # request.session["user"] = {
-        #     "id": user_id,
-        #     "domain": {
-        #         "name": user_domain,
-        #         "field": user_domains[user_domain][0]
-        #     },
-        #     "identification_hash": hashlib.sha256(f"{user_id}({password_hash})".encode("ASCII")).hexdigest()
-        # }
 
         request.session["user"] = {
             "login_status": True,
