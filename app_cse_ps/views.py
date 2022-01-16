@@ -28,7 +28,6 @@ class ProjectRegistrationPage(DBRead):
 
 class ArchiveProjects(DBRead):
     template_name = "app_cse_ps/archieve_projects_page.html"
-    database = MySql.db()
 
     def get_context_data(self, request,  *args, **kwargs):
         context = {}

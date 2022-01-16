@@ -199,8 +199,6 @@ class TeacherDashboardPage(DBRead):
 
 
 class StudentDashboardPage(DBRead):
-    database = MySql.db()
-
     template_name = "app_general/student_dashboard_page.html"
 
     def get_context_data(self, request,  *args, **kwargs):
@@ -232,6 +230,48 @@ class StudentDashboardPage(DBRead):
 
         return context
 
+
+class ProjectProcessor(DBRead):
+    template_name = "app_general/project_processor.html"
+
+    def get_context_data(self, request,  *args, **kwargs):
+
+        context = {}
+
+        student_id = request.session["user"]["id"]
+        project_status = kwargs["project_status"]
+
+        project_ids = self.database.get("project_members", ["project_id"], conditions = {"student_id": student_id})
+        context['projects'] = []
+
+        for project_id in project_ids:
+            project = self.database.get("projects", ["id", "title", "section_id"], conditions = {
+                "id": project_id["project_id"],
+                "status": project_status
+            })
+
+            if len(project) == 0:
+                continue
+            
+            project = project[0]
+
+            project["course"] = self.database.get("sections", ["name", "course_code", "course_name"], {"id": project["section_id"]})[0]
+            project["team"] = [
+                team_member["student_id"]
+                for team_member in self.database.get("project_members", ["student_id"], conditions = project_id)
+            ]
+
+            project["status"] = project_status
+
+            context['projects'].append(project)
+
+        context["student"] = {
+            "id": student_id,
+            **self.database.get("students", ["name", "department"], {"student_id": student_id})[0],
+        }
+
+        return context
+    
 
 class ProjectDetailsPage(DBRead):
     database = MySql.db()

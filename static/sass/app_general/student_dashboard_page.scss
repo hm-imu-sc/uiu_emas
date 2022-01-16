@@ -108,6 +108,27 @@
             flex-direction: row;
             justify-content: left;
             flex-wrap: wrap;
+            max-height: 600px;
+            min-height: 415px;
+            overflow: auto;
+
+            .no-projects {
+                height: 70px;
+                margin: auto;
+
+                span {
+                    color: dodgerblue;
+                    font-size: 35px;
+                    vertical-align: middle;
+                }
+
+                i {
+                    font-size: 50px;
+                    color: red;
+                    margin-right: 20px;
+                    vertical-align: middle;
+                }
+            }
 
             .project {
                 border: 2px solid rgba(255, 255, 0, 0.555);
@@ -125,6 +146,9 @@
                         font-size: 30px;
                         text-transform: uppercase;
                         color: rgba(0, 255, 0, 0.452);
+                        width: 70%;
+                        overflow: auto;
+                        max-height: 75px;
                     }
 
                     .course-code-section {
@@ -133,24 +157,26 @@
                 }
 
                 .project-team {
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                    justify-content: left;
-                    margin-top: 10px;
-
-                    div {
+                    span:nth-child(1) {
+                        display: block;
                         color: dodgerblue;
-                        width: 100%;
+                        margin-top: 10px;
                     }
 
-                    span {
-                        border: 1px solid green;
-                        border-radius: 10px;
-                        padding: 3px 6px;
-                        color: yellow;
-                        font-size: 15px;
-                        margin: 5px;
+                    .team-members {
+                        display: flex;
+                        flex-direction: row;
+                        overflow: auto;
+                        justify-content: left;
+
+                        span {
+                            border: 1px solid green;
+                            border-radius: 10px;
+                            padding: 3px 6px;
+                            color: yellow;
+                            font-size: 15px;
+                            margin: 5px;
+                        }
                     }
                 }
 
@@ -158,8 +184,7 @@
                     border: 2px solid rgba(0, 255, 0, 0.452);;
                     border-radius: 10px;
                     position: absolute;
-                    top: 0;
-                    bottom: 0;
+                    top: 20px;
                     right: 20px;
                     margin: auto;
                     height: 50px;

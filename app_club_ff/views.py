@@ -168,9 +168,8 @@ def get_filtered_cff(request, club_name, year):
     return HttpResponse(context)
 
 
-class ArchiveCffBooths(TemplateView):
+class ArchiveCffBooths(DBRead):
     template_name = "app_club_ff/archive_cff_booths_page.html"
-    database = MySql.db()
 
     def get_context_data(self, request,  *args, **kwargs):
         context = {}

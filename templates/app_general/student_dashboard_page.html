@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load general_extras %}
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -24,6 +25,7 @@
 					</div>
 				</div>
 				<div class="dashboard-controls">
+					<a href="{% url 'app_club_ff:fest_registration_page' %}">Fest Registration</a>
 					<a href="{% url 'app_cse_ps:project_registration_page' %}">Project Registration</a>
 					<a href="#">Edit Profile</a>
 				</div>				
@@ -38,18 +40,19 @@
 					{% for project in projects %}
 						<div class="project">
 							<div class="project-header">
-								<span class="project-name">{{ project.title }}</span>
+								<span class="project-name">{{ project.title|abstractify:17 }}</span>
 								<span class="course-name">{{ project.course.course_name }}</span>
 								<span class="course-code-section">Course Code: {{ project.course.course_code }} | Section: {{ project.course.name }}</span>
 							</div>
 							<div class="project-team">
-								<div>Team: </div>
-								{% for team_member in project.team %}
-									<span class="team-member">{{ team_member }}</span>
-								{% endfor %}
+								<span>Team: </span>
+								<div class="team-members">
+									{% for team_member in project.team %}
+										<span class="team-member">{{ team_member }}</span>
+									{% endfor %}
+								</div>
 							</div>
 							<a href="{% url 'app_general:booth_setup_page' project.id %}">
-								{% comment %} <i class="fad fa-tools"></i> {% endcomment %}
 								<i class="fad fa-cog"></i>
 							</a>
 						</div>
