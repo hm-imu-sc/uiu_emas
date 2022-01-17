@@ -14,7 +14,7 @@
             <a class="nav-item" href="{% url 'app_general:'|add:session.user.domain|add:"_dashboard_page" %}">Dashboard</a>
             <a class="nav-item" href="{% url 'app_general:logout' %}">Logout</a>
         {% else %}
-            <a class="nav-item" href="{% url 'app_general:index' %}">Register</a>
+            <a class="nav-item" href="{% url 'app_general:student_registration_page' %}">Register</a>
             <a class="nav-item" href="{% url 'app_general:login_page' %}">Login</a>
         {% endif %}
 
