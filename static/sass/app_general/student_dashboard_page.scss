@@ -11,6 +11,7 @@
         justify-content: space-between;
         
         .user-info {
+            border: 1px solid red;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -44,6 +45,7 @@
         }
         
         .dashboard-controls {
+            border: 1px solid red;
             margin-top: 18px;
 
             a {
