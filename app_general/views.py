@@ -146,7 +146,13 @@ class Login(DBAction):
         self.redirect_url = f"app_general:{user_domain}_dashboard_page"
 
     def verify_password(self, user, password):
+
+        if len(user) == 0:
+            return False
+
         given = hashlib.sha256(password.encode("ASCII")).hexdigest()
+        # print(given)
+        # print(user)
         return user["password_hash"] == given
 
 
