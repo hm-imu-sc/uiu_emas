@@ -345,7 +345,9 @@ class BoothSetup(DBAction):
         # intro video upload
         intro_video = request.FILES['intro_video']
         fs = FileSystemStorage()
-        intro_path = f'video/app_general/{proj_id}_intro_video.mp4'
+        name = intro_video.name
+        ext = name.split('.')[-1]
+        intro_path = f'projects-{proj_id}-intro_video.{ext}'
         fs.save(intro_path, intro_video)
 
         # demo video
@@ -354,18 +356,36 @@ class BoothSetup(DBAction):
         video_paths = []
         i = 0
         print(len(demo_videos))
+
+        max_project_videos_id = self.database.query("SELECT MAX(id) AS id FROM project_videos")
+        max_project_videos_id = max_project_videos_id[0][0]
+
         for video in demo_videos:
-            video_path = f'video/app_general/{proj_id}_demo_video{i}.mp4'
+            max_project_videos_id+=1
+            name=video.name
+            ext=name.split('.')[-1]
+            print(ext)
+            video_path = f'project_videos-{max_project_videos_id}-path.{ext}'
             fs.save(video_path, video)
             video_paths.append(video_path)
             i += 1
 
+        print(type(demo_videos[0]))
+        print(demo_videos[0])
+
         # report
         report = request.FILES['report']
-        report_path = f'pdf/app_general/{proj_id}_report.pdf'
+        name = report.name
+        ext = name.split('.')[-1]
+        report_path = f'projects-{proj_id}-report.{ext}'
         fs.save(report_path, report)
+
+
+
         self.database.query(
             f'UPDATE projects SET intro_video="{intro_path}",report="{report_path}" WHERE id="{proj_id}"')
+
+
 
         for path in video_paths:
             self.database.query(f'INSERT INTO project_videos (project_id,path) VALUES ("{proj_id}","{path}")')
