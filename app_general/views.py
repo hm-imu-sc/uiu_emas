@@ -214,6 +214,8 @@ class StudentDashboardPage(DBRead):
             if len(project) == 0:
                 continue
 
+            project = project[0]
+
             project["course"] = self.database.get("sections", ["name", "course_code", "course_name"], {"id": project["section_id"]})[0]
             project["team"] = [
                 team_member["student_id"]
