@@ -24,6 +24,8 @@ class ViewBase:
 
             if verified:
                 user = request.session["user"]
+        else:
+            request.session["user"] = {}
 
         if verified:
             if self.logout_required:
