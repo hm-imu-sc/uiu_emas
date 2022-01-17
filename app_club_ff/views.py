@@ -23,6 +23,7 @@ class FestRegistrationPage(DBRead):
     def get_context_data(self, request,  *args, **kwargs):
         context = {}
         student_id = request.session["user"]["id"]
+        print(student_id)
         already_exist = self.database.query(f"SELECT * FROM cff_registrations WHERE student_id = '{student_id}'")
         if len(already_exist) != 0:
             self.template_name = "app_club_ff/fest_already_registered.html"

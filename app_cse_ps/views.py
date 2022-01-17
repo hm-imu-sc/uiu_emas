@@ -31,9 +31,9 @@ class ArchiveProjects(DBRead):
 
     def get_context_data(self, request,  *args, **kwargs):
         context = {}
-        projects = self.database.query("SELECT id, title, short_description FROM projects WHERE `status` = 1")
+        projects = self.database.query("SELECT id, title, short_description, section_id FROM projects WHERE `status` = 1")
         context["data"] = []
-        list = ['id', 'title', 'short_description', 'project_members']
+        list = ['id', 'title', 'short_description', 'project_members', 'course_name', 'trimester']
 
         for tup in projects:
             members_id_tup = self.database.query(f"SELECT student_id FROM project_members WHERE project_id = {tup[0]}")
@@ -48,7 +48,8 @@ class ArchiveProjects(DBRead):
             for i in range(len(members_name)):
                 members_info.append({'id' : members_id[i], 'name' : members_name[i]})
 
-            context["data"].append({list[0]:tup[0],list[1]:tup[1],list[2]:tup[2], list[3]: members_info})
+            course_trimester = self.database.query(f"SELECT course_name, trimester FROM sections WHERE sections.id = {tup[3]}")
+            context["data"].append({list[0]:tup[0],list[1]:tup[1],list[2]:tup[2], list[3]: members_info, list[4]: course_trimester[0][0], list[5]: course_trimester[0][1]})
         return context
 
 
@@ -202,17 +203,17 @@ def get_filtered_archeive_projects(request, course_code, trimester):
     print(course_code)
     print(trimester)
     if course_code!='NULL' and trimester!='NULL':
-        projects = database.query(f"SELECT projects.id, projects.title, projects.short_description FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1 and projects.trimester = '{trimester}' and sections.course_code = '{course_code}'")
+        projects = database.query(f"SELECT projects.id, projects.title, projects.short_description, sections.course_name, sections.trimester FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1 and projects.trimester = '{trimester}' and sections.course_code = '{course_code}'")
     elif course_code!='NULL':
-        projects = database.query(f"SELECT projects.id, projects.title, projects.short_description FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1 and sections.course_code = '{course_code}'")
+        projects = database.query(f"SELECT projects.id, projects.title, projects.short_description, sections.course_name, sections.trimester FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1 and sections.course_code = '{course_code}'")
     elif trimester!='NULL':
-        projects = database.query(f"SELECT projects.id, projects.title, projects.short_description FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1 and projects.trimester = '{trimester}'")
+        projects = database.query(f"SELECT projects.id, projects.title, projects.short_description, sections.course_name, sections.trimester FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1 and projects.trimester = '{trimester}'")
     else:
-        projects = database.query(f"SELECT projects.id, projects.title, projects.short_description FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1")
+        projects = database.query(f"SELECT projects.id, projects.title, projects.short_description, sections.course_name, sections.trimester FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1")
 
     context = {}
     context["data"] = []
-    list = ['id', 'title', 'short_description', 'project_members']
+    list = ['id', 'title', 'short_description', 'project_members', 'course_name', 'trimester']
 
     for tup in projects:
         members_id_tup = database.query(f"SELECT student_id FROM project_members WHERE project_id = {tup[0]}")
@@ -227,13 +228,13 @@ def get_filtered_archeive_projects(request, course_code, trimester):
         for i in range(len(members_name)):
             members_info.append({'id' : members_id[i], 'name' : members_name[i]})
 
-        context["data"].append({list[0]:tup[0],list[1]:tup[1],list[2]:tup[2], list[3]: members_info})
+        context["data"].append({list[0]:tup[0],list[1]:tup[1],list[2]:tup[2], list[3]: members_info, list[4]: tup[3], list[5]: tup[4]})
     context = json.dumps(context)
     return HttpResponse(context)
 
 
 class ProjectBoothPage(DBRead):
-    
+
     template_name = "app_cse_ps/project_booth_page.html"
 
     def get_context_data(self, request, *args, **kwargs):
@@ -252,7 +253,7 @@ class ProjectBoothPage(DBRead):
         # context["comments"] = self.process_comments(comments)
 
         return context
-    
+
     def process_comments(self, comments):
         processed_comments = ""
         for comment in comments:
@@ -265,7 +266,7 @@ class ProjectBoothPage(DBRead):
 
 
 class CommentLoader(DBRead):
-    
+
     template_name = "app_cse_ps/comment_processor.html"
 
     def get_context_data(self, request, *args, **kwargs):
