@@ -63,7 +63,8 @@ class DBRead(ViewBase):
         try:
             context["session"] = {"user": request.session["user"]}
         except KeyError:
-            context["session"]["user"] = {}
+            request.session["user"] = {"login_status": False}
+            context["session"] = {"user": request.session["user"]}
 
         return render(request, self.template_name, context=context)
     
