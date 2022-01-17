@@ -24,8 +24,6 @@ class ViewBase:
 
             if verified:
                 user = request.session["user"]
-        else:
-            request.session["user"] = {}
 
         if verified:
             if self.logout_required:
@@ -61,7 +59,12 @@ class DBRead(ViewBase):
 
     def _get_requested_response(self, request, *args, **kwargs):
         context = self.get_context_data(request, *args, **kwargs)
-        context["session"] = {"user": request.session["user"]}
+        
+        try:
+            context["session"] = {"user": request.session["user"]}
+        except KeyError:
+            context["session"]["user"] = {}
+
         return render(request, self.template_name, context=context)
     
     def get_context_data(self, request, *args, **kwargs):
