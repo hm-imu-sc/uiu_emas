@@ -17,7 +17,7 @@ $("#sort_by").change(function() {filter("#club_name", this, 0, function(data) {
     $(".feed").html(data)
 })});
 
-$("#load-more").click(function() {filter("#club_name", "#sort_by", $("#post_length").attr("length"), function(data){
-    $("#post_length").remove();
+$("#load-more").click(function() {filter("#club_name", "#sort_by", $("#posts_length").attr("length"), function(data){
+    $("#posts_length").remove();
     $(".feed").append(data)
 })});
