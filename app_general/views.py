@@ -1,38 +1,28 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from my_modules.base_views import DBAction, DBRead
 from django.views.generic import TemplateView
 from my_modules.database import MySql
 from django.core.files.storage import FileSystemStorage
 from datetime import datetime, timedelta
+import hashlib
 
 # Create your views here.
 
 class TestPage(DBRead):
     template_name = "app_general/test_page.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["test"] = "This is a Test Page"
-        return context
-
-    def respond(request):
-        response = render(request, "app_general/test_page.html", context={})    
-        
-        cookie_expires = datetime.now() - timedelta(seconds=60)
-        cookie_expires = cookie_expires.strftime("%a, %d-%b-%Y %H:%M:%S GMT+6")
-        
-        response.set_cookie("key", "value", expires=cookie_expires)
-        
-        print(f"Type: {response}")
-        return response 
+    def get_context_data(self, request, *args, **kwargs):
+        return {
+            "user": "student"
+        }
 
 
 class Test(DBRead):
 
     template_name = "app_general/test.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, request, *args, **kwargs):
+        context = {}
         context["len"] = [l for l in range(int(kwargs["len"]))]
         context["data"] = {
             "info1": "290",
@@ -42,18 +32,18 @@ class Test(DBRead):
         return context
     
 
-class Index(TemplateView):
+class Index(DBRead):
     template_name = "app_general/index.html"
 
-    def get_context_data(self, *args, **kwargs):
-        return super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        return {}
 
 
 class StudentRegistrationPage(DBRead):
     template_name = "app_general/student_registration_page.html"
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        context = {}
 
         context["date"] = {
             "days": [i for i in range(32)[1:]],
@@ -91,7 +81,7 @@ class StudentRegistration(DBAction):
                 "uiu_email": email,
                 "phone_number": phone_number,
                 "department": department,
-                "password_hash": password,
+                "password_hash": hashlib.sha256(password.encode("ASCII")).hexdigest(),
                 "photo": "null",
                 "dob": f"{dob['year']}-{dob['month']}-{dob['day']}"
             }
@@ -100,40 +90,94 @@ class StudentRegistration(DBAction):
         # return super().action(request, **kwargs)
 
 
-class LoginPage(TemplateView):
+class LoginPage(DBRead):
     template_name = "app_general/login_page.html"
 
-    def get_context_data(self, *args, **kwargs):
-        return super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        # return {}
+        return {}
 
 
-class Login(DBRead):
-    pass
+class Login(DBAction):
+    
+    def action(self, request, **kwargs):
+
+        try:
+            user = request.POST["user"]
+            password = request.POST["password"]
+        except Exception:
+            self.redirect_url = "app_general:login_page"
+            return
+
+        user_domains = {
+            "student": ["student_id", "uiu_email"],
+            "teacher": ["employee_id", "uiu_email"]
+        }
+
+        user_data = None
+        user_domain = None
+
+        for key in user_domains.keys():
+            
+            user_data = self.database.get(f"{key}s", conditions={
+                user_domains[key][0]: user,
+                user_domains[key][1]: user,
+            }, condition_connector = "or")
+            
+            if len(user_data) == 1:
+                user_data = user_data[0]
+                user_domain = key
+                break
+
+        if user_data is None or not self.verify_password(user_data, password):
+            self.redirect_url = "app_general:login_page"
+            return
+
+        user_id = user_data[user_domains[user_domain][0]]
+
+        request.session["user"] = {
+            "login_status": True,
+            "id": user_id,
+            "domain": user_domain
+        }
+
+        request.session.set_expiry(24 * 3600)
+
+        self.redirect_url = f"app_general:{user_domain}_dashboard_page"
+
+    def verify_password(self, user, password):
+        given = hashlib.sha256(password.encode("ASCII")).hexdigest()
+        return user["password_hash"] == given
 
 
-class TeacherDashboardPage(TemplateView):
+class Logout(DBAction):
+    
+    def action(self, request, **kwargs):
+        self.redirect_url = "app_general:login_page"
+        del request.session["user"]
+
+
+class TeacherDashboardPage(DBRead):
     database = MySql.db()
 
     template_name = "app_general/teacher_dashboard_page.html"
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        context = {}
 
-        teacher_id = 'SS'
+        teacher_id = request.session["user"]["id"]
         sections = self.database.get('sections', conditions={
             "teacher_id": teacher_id
         })
-        conditions = "("
 
-        for i in range(len(sections)):
-            conditions += f" section_id = {sections[i]['id']} "
-            if i + 1 < len(sections):
-                conditions += "or"
+        section_ids = [sections[i]['id'] for i in range(len(sections))]
+        projects = []
 
-        conditions += f") and status = 0 "
-
-        projects = self.database.fetch_dict("projects",
-                                            self.database.query(f"select * from projects where {conditions}"))
+        if len(section_ids) > 0:
+            projects = self.database.get("projects", conditions={
+                "section_id": section_ids,
+                "status": 0
+            })
 
         context['projects'] = projects
 
@@ -144,82 +188,88 @@ class TeacherDashboardPage(TemplateView):
         return context
 
 
-class StudentDashboardPage(TemplateView):
-    database = MySql.db()
-
+class StudentDashboardPage(DBRead):
     template_name = "app_general/student_dashboard_page.html"
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        context = {}
 
-        student_id = '011181076'
-        # project_members = self.database.get('project_members', conditions={
-        #     "student_id": student_id
-        # })
+        student_id = request.session["user"]["id"]
 
-        # conditions = "("
-        # for i in range(len(project_members)):
-        #     conditions += f" student_id = {project_members[i]['student_id']} "
-        #     if i + 1 < len(project_members):
-        #         conditions += "or"
-        # conditions += f") and status = 0 "
-        # project id form project_members
-        # projects = self.database.fetch_dict("projects", self.database.query(f"select * from project_members where {conditions}"))
-        # projects = self.database.fetch_dict("projects", self.database.get(f"select * from project_members where {conditions}"))
-        
         project_ids = self.database.get("project_members", ["project_id"], conditions = {"student_id": student_id})
         context['projects'] = []
 
         for project_id in project_ids:
-            projects = self.database.get("projects", conditions = {
-                "id": project_id["project_id"]
-            })
+            project = self.database.get("projects", ["id", "title", "section_id"], conditions = {
+                "id": project_id["project_id"],
+                "status": 1
+            })[0]
 
-            if len(projects) > 0:
-                context['projects'].append(projects[0])
+            project["course"] = self.database.get("sections", ["name", "course_code", "course_name"], {"id": project["section_id"]})[0]
+            project["team"] = [
+                team_member["student_id"]
+                for team_member in self.database.get("project_members", ["student_id"], conditions = project_id)
+            ]
 
-        # for i in range(len(context['projects'])):
-        #     if projects[i]["status"] == "1":
-        #         projects[i]["status"] = True
-        #     else:
-        #         projects[i]["status"] = False
+            context['projects'].append(project)
 
-        project_id = self.database.get('project_members', conditions={"student_id": student_id})[0]["project_id"]
-
-        context['project_id'] = project_id
-        context["student_id"] = student_id
-
-        # title and status from projects
-        query = f'SELECT title, status FROM projects WHERE id = {int(project_id)}'
-        project_details = self.database.query(query)
-
-        project_status = project_details[0][1]
-        project_title = project_details[0][0]
-
-        # if project_status == 0:
-        #     project_status = "Not approved"
-        # elif project_status == 1:
-        #     project_status = "Approved"
-
-        # name from Students table
-        query = f'SELECT name FROM students WHERE student_id = {student_id}'
-        student_details = self.database.query(query)
-        student_name = student_details[0][0]
-
-        # context["title"] = project_title
-        # context["status"] = project_status
-        context["name"] = student_name
+        context["student"] = {
+            "id": student_id,
+            **self.database.get("students", ["name", "department"], {"student_id": student_id})[0],
+        }
 
         return context
 
 
-class ProjectDetailsPage(TemplateView):
+class ProjectProcessor(DBRead):
+    template_name = "app_general/project_processor.html"
+
+    def get_context_data(self, request,  *args, **kwargs):
+
+        context = {}
+
+        student_id = request.session["user"]["id"]
+        project_status = kwargs["project_status"]
+
+        project_ids = self.database.get("project_members", ["project_id"], conditions = {"student_id": student_id})
+        context['projects'] = []
+
+        for project_id in project_ids:
+            project = self.database.get("projects", ["id", "title", "section_id"], conditions = {
+                "id": project_id["project_id"],
+                "status": project_status
+            })
+
+            if len(project) == 0:
+                continue
+            
+            project = project[0]
+
+            project["course"] = self.database.get("sections", ["name", "course_code", "course_name"], {"id": project["section_id"]})[0]
+            project["team"] = [
+                team_member["student_id"]
+                for team_member in self.database.get("project_members", ["student_id"], conditions = project_id)
+            ]
+
+            project["status"] = project_status
+
+            context['projects'].append(project)
+
+        context["student"] = {
+            "id": student_id,
+            **self.database.get("students", ["name", "department"], {"student_id": student_id})[0],
+        }
+
+        return context
+    
+
+class ProjectDetailsPage(DBRead):
     database = MySql.db()
 
     template_name = "app_general/project_details_page.html"
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        context = {}
         project_id = kwargs["project_id"]
 
         # project details
@@ -273,14 +323,14 @@ class ProjectApprove(DBAction):
         return
 
 
-class BoothSetupPage(TemplateView):
+class BoothSetupPage(DBRead):
     template_name = 'app_general/booth_setup_page.html'
     database = MySql.db()
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, request,  *args, **kwargs):
         self.boothid = kwargs['project_id']
         # self.boothid = 1  # delete this line
-        context = super().get_context_data(*args, **kwargs)
+        context = {}
         booth_details = self.database.query(f'SELECT id,title,short_description FROM projects WHERE id={self.boothid}')
         context['booth_details'] = {'id': booth_details[0][0], 'title': booth_details[0][1],
                                     'short_description': booth_details[0][2]}

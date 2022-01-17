@@ -3,9 +3,6 @@ $(comment_viewer).scrollTop($(comment_viewer)[0].scrollHeight);
 
 function send_comment() {
 
-    let user_id = "011181062";
-    let user_type = "student";
-
     let project_id = $(".comment-viewer").attr("project_id");
     let comment = $("#new-comment").val();
     
@@ -21,8 +18,6 @@ function send_comment() {
         url: "/cse_ps/commenter/",
         method: "POST",
         data: {
-            user_id: user_id,
-            user_type: user_type,
             project_id: project_id,
             comment: comment, 
             csrfmiddlewaretoken: csrf_token

@@ -7,20 +7,20 @@ import json
 
 # Create your views here.
 
-class Index(TemplateView):
+class Index(DBRead):
     template_name = "app_admin/index.html"
 
-    def get_context_data(self, *args, **kwargs):
-        return super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        return {}
 
-# class BoothSetupPage(TemplateView):
+# class BoothSetupPage(DBRead):
 #     template_name = 'app_general/booth_setup_page.html'
 #     database = MySql.db()
 #
-#     def get_context_data(self, *args, **kwargs):
+#     def get_context_data(self, request,  *args, **kwargs):
 #         self.boothid = kwargs['project_id']
 #         # self.boothid = 1  # delete this line
-#         context = super().get_context_data(*args, **kwargs)
+#         context = {}
 #         booth_details = self.database.query(f'SELECT id,title,short_description FROM projects WHERE id={self.boothid}')
 #         context['booth_details'] = {'id': booth_details[0][0], 'title': booth_details[0][1],
 #                                     'short_description': booth_details[0][2]}
@@ -30,7 +30,7 @@ class PrizeGivingPage(DBRead):
     template_name = "app_admin/prize_giving_page.html"
 
     def get_context_data(self, *args ,**kwargs):
-        context = super().get_context_data(*args, **kwargs)
+        context = {}
         trimesters = self.database.query(f'SELECT DISTINCT trimester FROM sections')
         context['trimesters'] = list(trimesters[0])
         print(context)

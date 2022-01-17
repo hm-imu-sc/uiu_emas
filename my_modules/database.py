@@ -20,7 +20,7 @@ class MySql:
             MySql.database = MySql()
         return MySql.database
 
-    def get(self, table_name, field_names = ["*"], conditions = None, condition_connector = "and", other_clauses=[]):
+    def get(self, table_name, field_names = ["*"], conditions = None, condition_connector = "and", other_clauses=[], print_query=False):
 
         table_fields = self.__get_fields(table_name) if field_names[0] == "*" else field_names
 
@@ -39,7 +39,7 @@ class MySql:
         for claus in other_clauses:
             query += f" {claus}"
 
-        data_tuple = self.__query(query)
+        data_tuple = self.__query(query, print_query)
 
         if field_names[0] == "*":
             return self.__fetch_dict(data_tuple, table_name=table_name)
@@ -171,7 +171,13 @@ class MySql:
 
         return condition + ")"
 
-    def __query(self, query):
+    def __query(self, query, print_query=False):
+        
+        if print_query:
+            print("=================================================================")
+            print(query)
+            print("=================================================================")
+        
         self.__cursor.execute(query)
         return self.__cursor.fetchall()
 

@@ -20,19 +20,19 @@
             <a href="{% url 'app_general:student_dashboard_page' %}">Student Dashboard</a>
         </div> {% endcomment %}
 
-        <form action="{% url 'app_general:login_page' %}" method="POST">
+        <form action="{% url 'app_general:login' %}" method="POST">
             {% csrf_token %}
 
             <div class="title">Login</div>
 
             <div class="user">
                 <label for="user">E-mail or User ID:</label>
-                <input id="user" type="text" name="user" placeholder="Enter you user ID or e-mail">
+                <input id="user" type="text" name="user" placeholder="Enter you user ID or e-mail" required>
             </div>
 
             <div class="password">
                 <label for="password">Password:</label>
-                <input id="password" type="password" name="password" placeholder="Enter password">
+                <input id="password" type="password" name="password" placeholder="Enter password" required>
             </div>
 
             <input type="submit" name="login" value="Login">

@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-fi*!4oglln*+kd$3%s+@qipx)s4vfxm=4sv*rjhj966gdr#p!l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "http://127.0.0.1:8000/"
+]
 
 
 # Application definition
@@ -89,6 +93,14 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'session_cache',
+    }
+}
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

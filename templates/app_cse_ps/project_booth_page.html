@@ -30,11 +30,13 @@
                 {% endfor %}
                 <span id="comment-length" length="{{ comments.length }}"></span>
             </div>
-            <div class="comment-input">
-                {% csrf_token %}
-                <input id="new-comment" type="text" placeholder="comment anything ...">
-                <button id="comment-send-btn">Send</button>
-            </div>
+                {% if session.user.login_status %}
+                <div class="comment-input">
+                    {% csrf_token %}
+                    <input id="new-comment" type="text" placeholder="comment anything ...">
+                    <button id="comment-send-btn">Send</button>
+                </div>
+            {% endif %}
         </div>
 
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
