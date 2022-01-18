@@ -55,8 +55,45 @@ $("form .prizes .prize label i").click(function(){
 $("#submit").click(function (){
 	let trimester = $("#trimester").val();
 	let course_code = $("#courses").val();
+	let project = $("#projects").val();
+
 	let prize = -1;
-	if($('#f_prize').hasClass())
-		prize = 1
+
+	let prize_lebels = $(".prizes .prize label i");
+
+	for (let i=0; i<prize_lebels.length; i++) {
+		if ($(prize_lebels[i]).hasCLass("active")) {
+			let prizetag = $(prize_lebels[i]).attr("class").split(" ")[2];
+			if (prizetag === "prize-gold") {
+				prize = 1;
+			}
+			else if (prizetag === "prize-silver") {
+				prize = 2;
+			}
+			else if (prizetag === "prize-bronze") {
+				prize = 3;
+			}
+			break;
+		}
+	}
+
+	if(prize == -1 || trimester == 1 || project == -1 || course_code == -1)
+	{
+		let code="<p>Please fill up the entire form</p>";
+		$("#error").html(code)
+	}
+	else
+	{
+		$.ajax({
+			url: ("/give_award/"),
+			type: 'POST',
+			data: { trimester : trimester, course_code: course_code, project: project, prize: prize },  // data to submit
+			success: function () {
+				let code="<p>Prize successfully added</p>";
+				$("#error").html(code)
+			}
+		});
+	}
+
 
 })

@@ -80,16 +80,23 @@ def get_projects_by_course_code(request,**kwargs):
     context = json.dumps(context)
     return HttpResponse(context)
 
-class GiveAward(DBAction):
-    def action(self, request, **kwargs):
-        self.redirect_url = f"app_admin:prize_giving_page"
-        project_id = request.POST["projects"]
-        student_ids = self.database.query(f'SELECT student_id FROM project_members WHERE project_id = {project_id}')
-        student_ids = [s[0] for s in student_ids]
-        prize=request.POST["prize"]
-        for id in student_ids:
-            self.database.query(f'INSERT INTO prizes (project_id,student_id,prize) VALUES ("{project_id}","{id}","{prize}")')
-        return
+
+def give_award(request, **kwargs):
+    trimester = request.POST["trimester"]
+    project_id = request.POST["project"]
+    course_code = request.POST["course_code"]
+    prize = request.POST["prize"]
+    database=MySql.db()
+
+
+
+    student_ids = database.query(f'SELECT student_id FROM project_members WHERE project_id = {project_id}')
+    student_ids = [s[0] for s in student_ids]
+    for id in student_ids:
+        database.query(f'INSERT INTO prizes (project_id,student_id,prize) VALUES ("{project_id}","{id}","{prize}")')
+    return
+
+
 
 
 
