@@ -79,16 +79,19 @@ class FestFeed(DBRead):
         return context
 
     def get_club_names(self):
-        database = MySql.db()
-        club_name = database.get("clubs")
+        club_name = self.database.get("clubs")
         return club_name
 
     def get_feed_posts(self):
-        database = MySql.db()
-        feed_posts = database.get("feed_posts", other_clauses=[
+        feed_posts = self.database.get("feed_posts", other_clauses=[
             "order by time_created desc",
             "limit 5"
         ])
+
+        for i in range(len(feed_posts)):
+            club_name = self.database.get("clubs", ["name"], {"id": feed_posts[i]["club_id"]})[0]["name"]
+            feed_posts[i]["club_name"] = club_name
+
         return feed_posts
 
 
@@ -104,23 +107,26 @@ class PostProcessor(DBRead):
 
         context["feed_posts"] = self.get_feed_posts(offset, club_id, criteria)
         context["length"] = len(context["feed_posts"]) + offset
-        # print(context["posts"])
-        print(context["length"])
         return context
 
     def get_feed_posts(self, offset, club_id, criteria):
-        # database = MySql.db()
         conditions = None
 
         if club_id != "all":
             conditions = {
                 "club_id": club_id
             }
+
         feed_posts = self.database.get("feed_posts", conditions=conditions, other_clauses=[
             f"order by time_created {criteria}",
             "limit 5",
             f"offset {offset}" if offset != -1 else "",
         ])
+
+        for i in range(len(feed_posts)):
+            club_name = self.database.get("clubs", ["name"], {"id": feed_posts[i]["club_id"]})[0]["name"]
+            feed_posts[i]["club_name"] = club_name
+
         return feed_posts
 
 
