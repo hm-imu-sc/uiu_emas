@@ -13,9 +13,7 @@
         {% include "../common/navbar.html" %}
         <h1 class="title">Give prize</h1>
 
-        <form action="{% url 'app_admin:give_award' %}" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-
+        <form>
             <div>
                 <label>Trimester::</label>
                 <select id="trimester" name="trimester" required>
@@ -55,8 +53,7 @@
                     </div>
                 </div>                
             </div>
-
-            <input type="submit" value="Award">
+            <input type="button" id="submit" value="Award">
         </form>
 
 

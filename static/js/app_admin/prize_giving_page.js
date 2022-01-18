@@ -51,3 +51,12 @@ $("form .prizes .prize label i").click(function(){
     $("form .prizes .prize label i").removeClass("active");
     $(this).addClass("active");
 });
+
+$("#submit").click(function (){
+	let trimester = $("#trimester").val();
+	let course_code = $("#courses").val();
+	let prize = -1;
+	if($('#f_prize').hasClass())
+		prize = 1
+
+})
