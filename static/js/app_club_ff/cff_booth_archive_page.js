@@ -90,15 +90,13 @@ $("#filter").click(function(){
                         <div class="description">
                             <h2>Description:</h2>
                             <span>` + data[i]['club_description'] + `Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quas, reiciendis facilis possimus ratione, animi inventore vero numquam dolorum perferendis at quod magnam saepe? Numquam.</span>
-                             <br>
-                             <a class="visit_link" href="{{booths.id}}">Visit Booth</a>
+                            <h1> Year : <div class="time_created" style="display: inline">` + data[i]['time_created']  +  `</div> </h1>
                         </div>
                     </div>
                         `;
                 booth_thumbnails+= `</div>
                 </div>
                 </div>
-
                 </div> `;
 
               }
