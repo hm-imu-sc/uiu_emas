@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 12, 2022 at 05:35 AM
+-- Generation Time: Jan 18, 2022 at 06:12 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.7
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `uiu_emas`
+-- Database: `uiu_emas_2`
 --
 
 -- --------------------------------------------------------
@@ -40,13 +40,6 @@ CREATE TABLE `booths` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
-
-INSERT INTO `booths` (`id`, `time_created`, `time_updated`, `trash`, `status`, `club_id`, `intro_video`, `club_description`, `recruiting`) VALUES
-(1, '2022-01-03 16:10:35', '2022-01-13 16:10:35', 0, 1, '1', '', 'Our objectives are to widen the scope of our members to make them prepare for the competitive software & IT industry. ', 0),
-(2, '2022-01-04 16:13:46', '2022-01-05 16:13:46', 0, 1, '2', '', 'APP Forum is an initiative of UIU CCC. UIU App forum is a developer\'s community with machine learning. ', 0),
-(3, '2022-01-02 16:15:45', '2022-01-03 16:15:45', 0, 1, '4', '', 'UIU Robotics is a student-run club of highly motivated undergraduate and graduate students from the United International University.', 0),
-(4, '2020-01-03 08:46:55', '2022-01-08 08:46:55', 0, 1, '6', '', 'UIU markeing forum abc', 0);
-
 
 --
 -- Table structure for table `cff_comments`
@@ -251,24 +244,24 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`id`, `time_created`, `time_updated`, `trash`, `status`, `title`, `section_id`, `short_description`, `intro_video`, `report`, `trimester`) VALUES
-(1, '2021-12-05 20:27:24', '2021-12-05 20:27:24', 0, 1, 'uiu_emas', 3, 'asdasd', 'video/app_general/1_intro_video.mp4', 'pdf/app_general/1_report.pdf', '213'),
-(2, '2021-12-05 20:27:58', '2021-12-05 20:27:58', 0, 1, 'hostel_chai', 4, 'asdasd', NULL, NULL, '213'),
-(3, '2021-12-07 22:57:13', '2021-12-07 22:57:13', 0, 1, 'UIU kisu pari na', 6, 'kisu na parle ', NULL, NULL, '213'),
-(4, '2021-12-07 23:02:53', '2021-12-07 23:02:53', 0, 1, 'UIU_naiko', 5, 'uiu_naika', NULL, NULL, '213'),
-(5, '2022-01-07 11:54:39', '2022-01-07 11:54:39', 0, 0, 'UIU_nayok', 2, 'Loresomething', NULL, NULL, '213'),
-(8, '2022-01-07 16:53:52', '2022-01-07 16:53:52', 0, 1, 'UIU_AWESOME', 7, 'DO or DIE.', NULL, NULL, '212'),
-(9, '2022-01-07 17:04:25', '2022-01-07 17:04:25', 0, 1, 'UIU_AWESOME2', 1, 'huhuhu', NULL, NULL, '212'),
-(10, '2022-01-09 11:01:43', '2022-01-09 11:01:43', 0, 1, 'Animal Rescue System', 2, 'hhlhihh;', NULL, NULL, '212'),
-(11, '2022-01-09 11:05:58', '2022-01-09 11:05:58', 0, 1, 'UIU_NINJAS', 1, 'rjmrytgl', NULL, NULL, '212'),
-(12, '2022-01-09 11:06:42', '2022-01-09 11:06:42', 0, 1, 'UIU_ONE_LAST_TIME', 1, 'TTTTTT', NULL, NULL, '212'),
-(13, '2022-01-09 11:07:27', '2022-01-09 11:07:27', 0, 1, 'UIU_NINJAS_2', 6, 'JJJJJJAJSJSJAAj', NULL, NULL, '211'),
-(14, '2022-01-09 11:08:24', '2022-01-09 11:08:24', 0, 1, 'UIU_ONE_LAST_TIME_2', 4, 'SELECTion Process', NULL, NULL, '211'),
-(15, '2022-01-09 11:08:40', '2022-01-09 11:08:40', 0, 1, 'UIU_V1', 1, 'YUIYIHG', NULL, NULL, '211'),
-(16, '2022-01-09 11:09:06', '2022-01-09 11:09:06', 0, 1, 'UIU_V3', 7, 'IHIHDIHI', NULL, NULL, '211'),
-(17, '2022-01-09 11:13:05', '2022-01-09 11:13:05', 0, 1, 'UIU_V6', 1, 'TTTTTT', NULL, NULL, '211'),
-(18, '2022-01-09 11:13:39', '2022-01-09 11:13:39', 0, 1, 'UIU_V7', 7, 'NJKFBBBUIBDU', NULL, NULL, '211'),
-(19, '2022-01-09 11:16:37', '2022-01-09 11:16:37', 0, 0, 'uiu_ninja10', 4, 'sfdgfg', NULL, NULL, '213'),
-(20, '2022-01-09 11:16:44', '2022-01-09 11:16:44', 0, 1, 'uiu_ninja12', 4, 'sfdgfg', NULL, NULL, '212');
+(1, '2021-12-05 20:27:24', '2021-12-05 20:27:24', 0, 1, 'uiu_emas', 3, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima sequi quos debitis in aliquam, dignissimos perferendis ab iure molestiae libero incidunt possimus ratione, inventore iste explicabo pariatur provident laborum suscipit voluptate accusamus? Nostrum, sit sapiente magnam repellat ab eaque doloribus facere nobis aspernatur officiis! Perspiciatis ipsum cum repellendus nobis totam.', 'projects-1-intro_video.mp4', 'projects-1-report.pdf', '213'),
+(2, '2021-12-05 20:27:58', '2021-12-05 20:27:58', 0, 1, 'hostel_chai', 4, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima sequi quos debitis in aliquam, dignissimos perferendis ab iure molestiae libero incidunt possimus ratione, inventore iste explicabo pariatur provident laborum suscipit voluptate accusamus? Nostrum, sit sapiente magnam repellat ab eaque doloribus facere nobis aspernatur officiis! Perspiciatis ipsum cum repellendus nobis totam.', '', '', '213'),
+(3, '2021-12-07 22:57:13', '2021-12-07 22:57:13', 0, 1, 'UIU kisu pari na', 6, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima sequi quos debitis in aliquam, dignissimos perferendis ab iure molestiae libero incidunt possimus ratione, inventore iste explicabo pariatur provident laborum suscipit voluptate accusamus? Nostrum, sit sapiente magnam repellat ab eaque doloribus facere nobis aspernatur officiis! Perspiciatis ipsum cum repellendus nobis totam.', '', '', '213'),
+(4, '2021-12-07 23:02:53', '2021-12-07 23:02:53', 0, 1, 'UIU_naiko', 5, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima sequi quos debitis in aliquam, dignissimos perferendis ab iure molestiae libero incidunt possimus ratione, inventore iste explicabo pariatur provident laborum suscipit voluptate accusamus? Nostrum, sit sapiente magnam repellat ab eaque doloribus facere nobis aspernatur officiis! Perspiciatis ipsum cum repellendus nobis totam.', '', '', '213'),
+(5, '2022-01-07 11:54:39', '2022-01-07 11:54:39', 0, 0, 'UIU_nayok', 2, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima sequi quos debitis in aliquam, dignissimos perferendis ab iure molestiae libero incidunt possimus ratione, inventore iste explicabo pariatur provident laborum suscipit voluptate accusamus? Nostrum, sit sapiente magnam repellat ab eaque doloribus facere nobis aspernatur officiis! Perspiciatis ipsum cum repellendus nobis totam.', '', '', '213'),
+(8, '2022-01-07 16:53:52', '2022-01-07 16:53:52', 0, 1, 'UIU_AWESOME', 7, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima sequi quos debitis in aliquam, dignissimos perferendis ab iure molestiae libero incidunt possimus ratione, inventore iste explicabo pariatur provident laborum suscipit voluptate accusamus? Nostrum, sit sapiente magnam repellat ab eaque doloribus facere nobis aspernatur officiis! Perspiciatis ipsum cum repellendus nobis totam.', '', '', '212'),
+(9, '2022-01-07 17:04:25', '2022-01-07 17:04:25', 0, 1, 'UIU_AWESOME2', 1, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima sequi quos debitis in aliquam, dignissimos perferendis ab iure molestiae libero incidunt possimus ratione, inventore iste explicabo pariatur provident laborum suscipit voluptate accusamus? Nostrum, sit sapiente magnam repellat ab eaque doloribus facere nobis aspernatur officiis! Perspiciatis ipsum cum repellendus nobis totam.', '', '', '212'),
+(10, '2022-01-09 11:01:43', '2022-01-09 11:01:43', 0, 1, 'Animal Rescue System', 2, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima sequi quos debitis in aliquam, dignissimos perferendis ab iure molestiae libero incidunt possimus ratione, inventore iste explicabo pariatur provident laborum suscipit voluptate accusamus? Nostrum, sit sapiente magnam repellat ab eaque doloribus facere nobis aspernatur officiis! Perspiciatis ipsum cum repellendus nobis totam.', '', '', '212'),
+(11, '2022-01-09 11:05:58', '2022-01-09 11:05:58', 0, 1, 'UIU_NINJAS', 1, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima sequi quos debitis in aliquam, dignissimos perferendis ab iure molestiae libero incidunt possimus ratione, inventore iste explicabo pariatur provident laborum suscipit voluptate accusamus? Nostrum, sit sapiente magnam repellat ab eaque doloribus facere nobis aspernatur officiis! Perspiciatis ipsum cum repellendus nobis totam.', '', '', '212'),
+(12, '2022-01-09 11:06:42', '2022-01-09 11:06:42', 0, 1, 'UIU_ONE_LAST_TIME', 1, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima sequi quos debitis in aliquam, dignissimos perferendis ab iure molestiae libero incidunt possimus ratione, inventore iste explicabo pariatur provident laborum suscipit voluptate accusamus? Nostrum, sit sapiente magnam repellat ab eaque doloribus facere nobis aspernatur officiis! Perspiciatis ipsum cum repellendus nobis totam.', '', '', '212'),
+(13, '2022-01-09 11:07:27', '2022-01-09 11:07:27', 0, 1, 'UIU_NINJAS_2', 6, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima sequi quos debitis in aliquam, dignissimos perferendis ab iure molestiae libero incidunt possimus ratione, inventore iste explicabo pariatur provident laborum suscipit voluptate accusamus? Nostrum, sit sapiente magnam repellat ab eaque doloribus facere nobis aspernatur officiis! Perspiciatis ipsum cum repellendus nobis totam.', '', '', '211'),
+(14, '2022-01-09 11:08:24', '2022-01-09 11:08:24', 0, 1, 'UIU_ONE_LAST_TIME_2', 4, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima sequi quos debitis in aliquam, dignissimos perferendis ab iure molestiae libero incidunt possimus ratione, inventore iste explicabo pariatur provident laborum suscipit voluptate accusamus? Nostrum, sit sapiente magnam repellat ab eaque doloribus facere nobis aspernatur officiis! Perspiciatis ipsum cum repellendus nobis totam.', '', '', '211'),
+(15, '2022-01-09 11:08:40', '2022-01-09 11:08:40', 0, 1, 'UIU_V1', 1, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima sequi quos debitis in aliquam, dignissimos perferendis ab iure molestiae libero incidunt possimus ratione, inventore iste explicabo pariatur provident laborum suscipit voluptate accusamus? Nostrum, sit sapiente magnam repellat ab eaque doloribus facere nobis aspernatur officiis! Perspiciatis ipsum cum repellendus nobis totam.', '', '', '211'),
+(16, '2022-01-09 11:09:06', '2022-01-09 11:09:06', 0, 1, 'UIU_V3', 7, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima sequi quos debitis in aliquam, dignissimos perferendis ab iure molestiae libero incidunt possimus ratione, inventore iste explicabo pariatur provident laborum suscipit voluptate accusamus? Nostrum, sit sapiente magnam repellat ab eaque doloribus facere nobis aspernatur officiis! Perspiciatis ipsum cum repellendus nobis totam.', '', '', '211'),
+(17, '2022-01-09 11:13:05', '2022-01-09 11:13:05', 0, 1, 'UIU_V6', 1, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima sequi quos debitis in aliquam, dignissimos perferendis ab iure molestiae libero incidunt possimus ratione, inventore iste explicabo pariatur provident laborum suscipit voluptate accusamus? Nostrum, sit sapiente magnam repellat ab eaque doloribus facere nobis aspernatur officiis! Perspiciatis ipsum cum repellendus nobis totam.', '', '', '211'),
+(18, '2022-01-09 11:13:39', '2022-01-09 11:13:39', 0, 1, 'UIU_V7', 7, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima sequi quos debitis in aliquam, dignissimos perferendis ab iure molestiae libero incidunt possimus ratione, inventore iste explicabo pariatur provident laborum suscipit voluptate accusamus? Nostrum, sit sapiente magnam repellat ab eaque doloribus facere nobis aspernatur officiis! Perspiciatis ipsum cum repellendus nobis totam.', '', '', '211'),
+(19, '2022-01-09 11:16:37', '2022-01-09 11:16:37', 0, 0, 'uiu_ninja10', 4, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima sequi quos debitis in aliquam, dignissimos perferendis ab iure molestiae libero incidunt possimus ratione, inventore iste explicabo pariatur provident laborum suscipit voluptate accusamus? Nostrum, sit sapiente magnam repellat ab eaque doloribus facere nobis aspernatur officiis! Perspiciatis ipsum cum repellendus nobis totam.', '', '', '213'),
+(20, '2022-01-09 11:16:44', '2022-01-09 11:16:44', 0, 1, 'uiu_ninja12', 4, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima sequi quos debitis in aliquam, dignissimos perferendis ab iure molestiae libero incidunt possimus ratione, inventore iste explicabo pariatur provident laborum suscipit voluptate accusamus? Nostrum, sit sapiente magnam repellat ab eaque doloribus facere nobis aspernatur officiis! Perspiciatis ipsum cum repellendus nobis totam.', '', '', '212');
 
 -- --------------------------------------------------------
 
@@ -346,7 +339,8 @@ CREATE TABLE `project_videos` (
 
 INSERT INTO `project_videos` (`id`, `time_created`, `time_updated`, `trash`, `status`, `project_id`, `path`) VALUES
 (1, '2021-12-06 11:49:34', '2021-12-06 11:49:34', 0, 0, 1, 'video/app_general/1_demo_video0.mp4'),
-(2, '2021-12-06 12:52:29', '2021-12-06 12:52:29', 0, 0, 1, 'video/app_general/1_demo_video0.mp4');
+(2, '2021-12-06 12:52:29', '2021-12-06 12:52:29', 0, 0, 1, 'video/app_general/1_demo_video0.mp4'),
+(3, '2022-01-18 11:08:21', '2022-01-18 11:08:21', 0, 0, 1, 'project_videos-3-path.mp4');
 
 -- --------------------------------------------------------
 
@@ -399,6 +393,31 @@ INSERT INTO `sections` (`id`, `time_created`, `time_updated`, `trash`, `status`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `session_cache`
+--
+
+CREATE TABLE `session_cache` (
+  `cache_key` varchar(255) NOT NULL,
+  `value` longtext NOT NULL,
+  `expires` datetime(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `session_cache`
+--
+
+INSERT INTO `session_cache` (`cache_key`, `value`, `expires`) VALUES
+(':1:django.contrib.sessions.cache97zksmlj2pnxvxi4lzyohddseo5qglhn', 'gAWVHgAAAAAAAAB9lIwEdXNlcpR9lIwMbG9naW5fc3RhdHVzlIlzcy4=', '2022-01-31 17:15:16.000000'),
+(':1:django.contrib.sessions.cacheabllvw2kjsauly4hk5mdizivt5yicotw', 'gAWVWwAAAAAAAAB9lCiMBHVzZXKUfZQojAxsb2dpbl9zdGF0dXOUiIwCaWSUjAkwMTExODEyOTCUjAZkb21haW6UjAdzdHVkZW50lHWMD19zZXNzaW9uX2V4cGlyeZRKgFEBAHUu', '2022-01-19 03:31:34.000000'),
+(':1:django.contrib.sessions.cachee8a6d0m3csbaxe5zb49xtxysu0q2tq67', 'gAWVHgAAAAAAAAB9lIwEdXNlcpR9lIwMbG9naW5fc3RhdHVzlIlzcy4=', '2022-01-31 17:14:49.000000'),
+(':1:django.contrib.sessions.cacheesg7ovgxxjmndjftzb741vof92udybxa', 'gAWVHgAAAAAAAAB9lIwEdXNlcpR9lIwMbG9naW5fc3RhdHVzlIlzcy4=', '2022-01-31 17:19:28.000000'),
+(':1:django.contrib.sessions.cachegmoxy21oh0ok140y71ag35ian1cc3xif', 'gAWVNgAAAAAAAAB9lCiMD19zZXNzaW9uX2V4cGlyeZRKgFEBAIwEdXNlcpR9lIwMbG9naW5fc3RhdHVzlIlzdS4=', '2022-01-18 12:50:25.000000'),
+(':1:django.contrib.sessions.cachepf3ln8i32z0na9mvy6zqcplobe86kqaj', 'gAWVNgAAAAAAAAB9lCiMD19zZXNzaW9uX2V4cGlyeZRKgFEBAIwEdXNlcpR9lIwMbG9naW5fc3RhdHVzlIlzdS4=', '2022-01-19 05:10:56.000000'),
+(':1:django.contrib.sessions.cacheqxbntymvj2vresn607o7py83nysnudnc', 'gAWVDQAAAAAAAAB9lIwEdXNlcpR9lHMu', '2022-01-31 10:26:58.000000');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `students`
 --
 
@@ -423,12 +442,12 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `time_created`, `time_updated`, `trash`, `status`, `student_id`, `name`, `uiu_email`, `dob`, `department`, `photo`, `password_hash`, `phone_number`) VALUES
-(1, '2021-12-05 12:25:36', '2021-12-05 12:25:36', 0, 1, '011181076', 'Md. Tarek Hasan', 'mhasan181076@bscse.uiu.ac.bd', '1999-02-25', 'CSE', '', '', '01772888601'),
-(2, '2021-12-05 12:27:01', '2021-12-05 12:27:01', 0, 1, '011181290', 'H. M. Mutasim Billah', 'hbillah181290@bscse.uiu.ac.bd', '0000-00-00', 'CSE', '', '', '01772666901'),
-(3, '2021-12-05 12:27:55', '2021-12-05 12:27:55', 0, 1, '011181062', 'Mohammad Nazmush Shamael', 'mshamael181062@bscse.uiu.ac.bd', '2021-12-01', 'CSE', '', '', '01662555890'),
-(4, '2021-12-05 12:28:45', '2021-12-05 12:28:45', 0, 1, '011181123', 'Sumayra Islam', 'sislam181123@bscse.uiu.ac.bd', '1999-12-21', 'CSE', '', '', '0166255556'),
-(5, '2021-12-05 12:38:08', '2021-12-05 12:38:08', 0, 1, '011181254', 'Arifa Akter', 'aakter181254@bscse.uiu.ac.bd', '1999-08-25', 'CSE', '', '', '01772999623'),
-(7, '2021-12-05 12:39:56', '2021-12-05 12:39:56', 0, 1, '011181144', 'Al Emran', 'mhossain181144@bscse.uiu.ac.bd', '1999-08-25', 'CSE', '', '', '01772999624');
+(1, '2021-12-05 12:25:36', '2021-12-05 12:25:36', 0, 1, '011181076', 'Md. Tarek Hasan', 'mhasan181076@bscse.uiu.ac.bd', '1999-02-25', 'CSE', 'null', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', '01772888601'),
+(2, '2021-12-05 12:27:01', '2021-12-05 12:27:01', 0, 1, '011181290', 'H. M. Mutasim Billah', 'hbillah181290@bscse.uiu.ac.bd', '2022-01-16', 'CSE', 'n', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', '01772666901'),
+(3, '2021-12-05 12:27:55', '2021-12-05 12:27:55', 0, 1, '011181062', 'Mohammad Nazmush Shamael', 'mshamael181062@bscse.uiu.ac.bd', '2021-12-01', 'CSE', 'n', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', '01662555890'),
+(4, '2021-12-05 12:28:45', '2021-12-05 12:28:45', 0, 1, '011181123', 'Sumayra Islam', 'sislam181123@bscse.uiu.ac.bd', '1999-12-21', 'CSE', 'n', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', '0166255556'),
+(5, '2021-12-05 12:38:08', '2021-12-05 12:38:08', 0, 1, '011181254', 'Arifa Akter', 'aakter181254@bscse.uiu.ac.bd', '1999-08-25', 'CSE', 'n', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', '01772999623'),
+(7, '2021-12-05 12:39:56', '2021-12-05 12:39:56', 0, 1, '011181144', 'Al Emran', 'mhossain181144@bscse.uiu.ac.bd', '1999-08-25', 'CSE', 'n', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', '01772999624');
 
 -- --------------------------------------------------------
 
@@ -457,9 +476,9 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`id`, `time_created`, `time_updated`, `trash`, `status`, `name`, `employee_id`, `uiu_email`, `dob`, `department`, `photo`, `password_hash`, `phone_number`) VALUES
-(1, '2021-12-05 12:20:39', '2021-12-05 12:20:39', 0, 1, 'Md. Abir Hassan', 'MdAbH', 'ahassan@cse.uiu.ac.bd', '0000-00-00', 'CSE', '', '', '01738038712'),
-(2, '2021-12-05 12:22:20', '2021-12-05 12:22:20', 0, 1, 'Md. Saidul Hoque Anik', 'SHqA', 'anik@cse.uiu.ac.bd', '0000-00-00', 'CSE', '', '', '01713130549'),
-(3, '2021-12-05 12:23:54', '2021-12-05 12:23:54', 0, 1, 'Dr. Swakkhar Shatabda', 'SS', 'swakkhar@cse.uiu.ac.bd', '0000-00-00', 'CSE', '', '', '01552327508');
+(1, '2021-12-05 12:20:39', '2021-12-05 12:20:39', 0, 1, 'Md. Abir Hassan', 'MdAbH', 'ahassan@cse.uiu.ac.bd', '2022-01-23', 'CSE', 'n', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', '01738038712'),
+(2, '2021-12-05 12:22:20', '2021-12-05 12:22:20', 0, 1, 'Md. Saidul Hoque Anik', 'SHqA', 'anik@cse.uiu.ac.bd', '2022-01-23', 'CSE', 'n', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', '01713130549'),
+(3, '2021-12-05 12:23:54', '2021-12-05 12:23:54', 0, 1, 'Dr. Swakkhar Shatabda', 'SS', 'swakkhar@cse.uiu.ac.bd', '2022-01-30', 'CSE', 'n', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', '01552327508');
 
 --
 -- Indexes for dumped tables
@@ -562,6 +581,13 @@ ALTER TABLE `sections`
   ADD KEY `teacher_id` (`teacher_id`);
 
 --
+-- Indexes for table `session_cache`
+--
+ALTER TABLE `session_cache`
+  ADD PRIMARY KEY (`cache_key`),
+  ADD KEY `session_cache_expires` (`expires`);
+
+--
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
@@ -647,7 +673,7 @@ ALTER TABLE `project_members`
 -- AUTO_INCREMENT for table `project_videos`
 --
 ALTER TABLE `project_videos`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `recruits`
