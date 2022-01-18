@@ -14,6 +14,7 @@ urlpatterns = [
     path("logout/", views.Logout.as_view(login_required=True), name="logout"),
     path("teacher_dashboard_page/", views.TeacherDashboardPage.as_view(login_required=True), name="teacher_dashboard_page"),
     path("student_dashboard_page/", views.StudentDashboardPage.as_view(login_required=True), name="student_dashboard_page"),
+    path("project_processor_teacher/<project_status>/", views.ProjectProcessorTeacher.as_view(login_required=True), name="project_processor_teacher"),
     path("project_processor/<project_status>/", views.ProjectProcessor.as_view(login_required=True), name="project_processor"),
     path("project_details_page/<project_id>/", views.ProjectDetailsPage.as_view(), name="project_details_page"),
     path("project_approve/<project_id>/", views.ProjectApprove.as_view(), name="project_approve"),

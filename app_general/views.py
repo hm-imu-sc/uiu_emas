@@ -164,7 +164,6 @@ class Logout(DBAction):
 
 
 class TeacherDashboardPage(DBRead):
-    database = MySql.db()
 
     template_name = "app_general/teacher_dashboard_page.html"
 
@@ -177,6 +176,7 @@ class TeacherDashboardPage(DBRead):
         })
 
         section_ids = [sections[i]['id'] for i in range(len(sections))]
+
         projects = []
 
         if len(section_ids) > 0:
@@ -185,11 +185,63 @@ class TeacherDashboardPage(DBRead):
                 "status": 0
             })
 
-        context['projects'] = projects
+        context['projects'] = []
 
-        teacher_name = self.database.get('teachers', conditions={"employee_id": teacher_id})[0]["name"]
+        for project in projects:
 
-        context['teacher_name'] = teacher_name
+            project["course"] = self.database.get("sections", ["name", "course_code", "course_name"], {"id": project["section_id"]})[0]
+            project["team"] = [
+                team_member["student_id"]
+                for team_member in self.database.get("project_members", ["student_id"], conditions = {"project_id": project["id"]})
+            ]
+
+            context['projects'].append(project)
+
+        teacher = self.database.get('teachers', conditions={"employee_id": teacher_id})[0]
+
+        context["teacher"] = teacher
+
+        return context
+
+
+class ProjectProcessorTeacher(DBRead):
+    template_name = "app_general/project_processor_teacher.html"
+
+    def get_context_data(self, request,  *args, **kwargs):
+        context = {}
+
+        teacher_id = request.session["user"]["id"]
+        project_status = kwargs["project_status"]
+
+        sections = self.database.get('sections', conditions={
+            "teacher_id": teacher_id
+        })
+
+        section_ids = [sections[i]['id'] for i in range(len(sections))]
+
+        projects = []
+
+        if len(section_ids) > 0:
+            projects = self.database.get("projects", conditions={
+                "section_id": section_ids,
+                "status": project_status
+            })
+
+        context['projects'] = []
+
+        for project in projects:
+
+            project["course"] = self.database.get("sections", ["name", "course_code", "course_name"], {"id": project["section_id"]})[0]
+            project["team"] = [
+                team_member["student_id"]
+                for team_member in self.database.get("project_members", ["student_id"], conditions = {"project_id": project["id"]})
+            ]
+
+            context['projects'].append(project)
+
+        teacher = self.database.get('teachers', conditions={"employee_id": teacher_id})[0]
+
+        context["teacher"] = teacher
 
         return context
 
@@ -284,11 +336,12 @@ class ProjectDetailsPage(DBRead):
         project_id = kwargs["project_id"]
 
         # project details
-        query = f'SELECT title, short_description, section_id FROM projects WHERE id = {int(project_id)}'
+        query = f'SELECT title, short_description, section_id, status FROM projects WHERE id = {int(project_id)}'
         project_details_tuple = self.database.query(query)
         project_title = project_details_tuple[0][0]
         project_short_description = project_details_tuple[0][1]
         section_id = project_details_tuple[0][2]
+        status = project_details_tuple[0][3]
 
         # course details
         query = f'SELECT course_code, name, course_name FROM sections WHERE id = {int(section_id)}'
@@ -318,6 +371,7 @@ class ProjectDetailsPage(DBRead):
         context["description"] = project_short_description
         context["course"] = f'{course_code} ({section}): {course_name}'
         context["members"] = []
+        context["status"] = status
 
         for i in range(len(project_members_list)):
             context["members"].append({'id': project_members_list[i], 'name': project_members_name_list[i]})
