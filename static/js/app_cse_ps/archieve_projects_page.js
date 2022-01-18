@@ -89,19 +89,18 @@ $("#filter").click(function(){
 
       data = data['data'];
 
-      booth_thumbnails = ""
+      let booth_thumbnails = "";
 
       for(let i=0;i<data.length;i++)
       {
         booth_thumbnails+= `
         <div class="booth_thumbnail" course_name = "` + data[i]['course_name'] + `" trimester = "`+ data[i]['trimester'] + `" >
-            <div class="project_name">`+
-                data[i]['title'] +
-            `</div>
+            <div class="project_name">
+              <span>Project Name:</span><span>` + data[i]['title'] + `</span>
+            </div>
             <div class="project_details">
                 <div class="description">
-                    <h2>Description:</h2>
-                    <span>` + data[i]['short_description'] + `Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quas, reiciendis facilis possimus ratione, animi inventore vero numquam dolorum perferendis at quod magnam saepe? Numquam.</span>
+                    <span>Description:</span><span>` + data[i]['short_description'] + `Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quas, reiciendis facilis possimus ratione, animi inventore vero numquam dolorum perferendis at quod magnam saepe? Numquam.</span>
                 </div>
 
                 <div class="project_members">
@@ -122,7 +121,6 @@ $("#filter").click(function(){
         booth_thumbnails+= `</div>
                 </div>
             </div>
-            <a class="visit_link" href="{{project.id}}">Visit Booth</a>
         </div>
         `;
       }
