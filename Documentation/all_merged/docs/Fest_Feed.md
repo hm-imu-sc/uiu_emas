@@ -1,9 +1,5 @@
-# Welcome to EMAS 
-###### `(An Event Management and Archiving System)`
-
 
 ## Fest Feed
-
 * First go to the **EMAS** `Home` page
 * Click on `Club Forum Fest`
 ![EMAS Home Page](images_144/EMAS_Home_Page.png)
