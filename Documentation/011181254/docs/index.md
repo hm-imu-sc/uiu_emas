@@ -35,7 +35,7 @@ You will be able to view all the available `Club Forum Fest Booth`. You can use 
 ![Student Dashboard](./image/yearFilterButton.png)
 
 *  All the available booths will be shown filtered with the specific `Year` (here Year is 2022).
-![Student Dashboard](./image/10_filter_done_clubname.png)
+![Student Dashboard](./image/yearFilterDone.png)
 
 ## Club Forum Fest Booth Archive: By Club Name and Year
 
