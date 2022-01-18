@@ -16,7 +16,18 @@
         <h1 class="title">{{ project.title }}</h1>
 
         <div class="project">
-
+            <div class="description">{{ project.short_description }}</div>
+            <div class="file_section">
+                <div>Contents:</div>
+                <div class="files">
+                    {% if project.intro_video != None %}
+                        <a href="{{ MEDIA_URL }}{{ project.intro_video }}"><i class="fad fa-film"></i></a>
+                    {% endif %}
+                    {% if project.report != None %}
+                        <a href="{{ MEDIA_URL }}{{ project.report }}"><i class="fad fa-file-chart-pie"></i></i></a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
 
         <div class="comment-box">

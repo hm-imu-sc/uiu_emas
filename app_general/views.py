@@ -426,7 +426,7 @@ class BoothSetup(DBAction):
         max_project_videos_id = max_project_videos_id[0][0]
 
         for video in demo_videos:
-            max_project_videos_id+=1
+            max_project_videos_id = max_project_videos_id+1 if max_project_videos_id is not None else 0
             name=video.name
             ext=name.split('.')[-1]
             print(ext)
