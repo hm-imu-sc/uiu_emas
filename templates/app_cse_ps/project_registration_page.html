@@ -18,7 +18,7 @@
 			{% csrf_token %}
 			<div class="project_title">
 				<label for="project_title">Project Title: </label>
-				<input type="text" name="project_title" id="project_title">
+				<input type="text" name="project_title" id="project_title" required>
 			</div>
 
 			<div class="course-selection">
@@ -49,7 +49,7 @@
 
 			<div class="short_description">
 				<label for="short_description">Short Description: </label>
-				<textarea name="short_description" rows="4" cols="80"></textarea>
+				<textarea name="short_description" rows="4" cols="80" required></textarea>
 			</div>
 
 			<div class="add_project_member">
