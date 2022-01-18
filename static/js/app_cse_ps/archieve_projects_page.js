@@ -94,7 +94,7 @@ $("#filter").click(function(){
       for(let i=0;i<data.length;i++)
       {
         booth_thumbnails+= `
-        <div class="booth_thumbnail">
+        <div class="booth_thumbnail" course_name = "` + data[i]['course_name'] + `" trimester = "`+ data[i]['trimester'] + `" >
             <div class="project_name">`+
                 data[i]['title'] +
             `</div>

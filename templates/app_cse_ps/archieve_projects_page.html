@@ -31,7 +31,7 @@
 
         <div class="booth_thumbnails" id = "booth_thumbnails">
             {% for project in data %}
-                <div class="booth_thumbnail">
+                <div class="booth_thumbnail" course_name = "{{ project.course_name }}" trimester = "{{ project.trimester }}" >
                     <div class="project_name">
                         <span>Project name:</span><span>{{ project.title }}</span>
                     </div>

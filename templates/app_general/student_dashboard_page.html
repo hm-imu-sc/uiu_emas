@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load general_extras %}
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -13,28 +14,52 @@
         
         {% include "../common/navbar.html" %}
 
-        <h1 class="title">{{ name }}</h1>
-
-        <div class="project_details">
-			<h2>My Projects:</h2>
-			<table border cellspacing="0" cellpadding="0">
-				<tr>
-				<th>Project Title</th>
-				<th>Status</th>
-				</tr>
-
-				{% for p in projects %}
-				<tr>
-					<td><a href="{% url 'app_general:booth_setup_page' p.id %}">{{ p.title }}</a></td>
-					{% if p.status == 0 %}
-					<td>Not Approved</td>
-					{% else %}
-					<td>Approved</td>
-					{% endif %}
-				</tr>
-				{% endfor %}
-			</table>
-         </div>
+		<div class="dashboard-container">
+			<div class="header">
+				<div class="user-info">
+					<div class="user-name">{{ student.name|abstractify:20 }}</div>
+					<div class="vr"></div>
+					<div class="user-designation">
+						<span class="varsity">United International University</span>
+						<span class="id-dept">{{ student.id }}, Department of {{ student.department }}</span>
+					</div>
+				</div>
+				<div class="dashboard-controls">
+					<a href="{% url 'app_club_ff:fest_registration_page' %}">Fest Registration</a>
+					<a href="{% url 'app_cse_ps:project_registration_page' %}">Project Registration</a>
+					{% comment %} <a href="#">Edit Profile</a> {% endcomment %}
+				</div>				
+			</div>
+			<div class="projects-management">
+				<div class="tab-buttons">
+					<button class="active" id="appr_proj">Approved Projects</button>
+					<div class="button-devider"></div>
+					<button id="appr_pen_proj">Approval Pending Projects</button>
+				</div>
+				<div class="projects">
+					{% for project in projects %}
+						<div class="project">
+							<div class="project-header">
+								<span class="project-name">{{ project.title|abstractify:17 }}</span>
+								<span class="course-name">{{ project.course.course_name }}</span>
+								<span class="course-code-section">Course Code: {{ project.course.course_code }} | Section: {{ project.course.name }}</span>
+							</div>
+							<div class="project-team">
+								<span>Team: </span>
+								<div class="team-members">
+									{% for team_member in project.team %}
+										<span class="team-member">{{ team_member }}</span>
+									{% endfor %}
+								</div>
+							</div>
+							<a href="{% url 'app_general:booth_setup_page' project.id %}">
+								<i class="fad fa-cog"></i>
+							</a>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
 
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
         <script src="{% static 'js/app_general/student_dashboard_page.js' %}"></script>

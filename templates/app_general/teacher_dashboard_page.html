@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load general_extras %}
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -13,13 +14,51 @@
         
         {% include "../common/navbar.html" %}
         
-        <h1 class="title">{{teacher_name}}</h1>
-        
-        <div class="projects_to_check">
-            {% for project in projects %}
-                <a href="{% url 'app_general:project_details_page' project.id %}">{{ project.title }}</a>
-            {% endfor %}
-        </div>
+		<div class="dashboard-container">
+			<div class="header">
+				<div class="user-info">
+					<div class="user-name">{{ teacher.name|abstractify:25 }}</div>
+					<div class="vr"></div>
+					<div class="user-designation">
+						<span class="varsity">United International University</span>
+						<span class="id-dept">Department of {{ teacher.department }}</span>
+					</div>
+				</div>
+				<div class="dashboard-controls">
+					{% comment %} <a href="#">Edit Profile</a> {% endcomment %}
+				</div>				
+			</div>
+			<div class="projects-management">
+				<div class="tab-buttons">
+					<button id="appr_proj">Approved Projects</button>
+					<div class="button-devider"></div>
+					<button class="active" id="appr_pen_proj">Approval Pending Projects</button>
+				</div>
+				<div class="projects">
+					{% for project in projects %}
+						<div class="project">
+							<div class="project-header">
+								<span class="project-name">{{ project.title|abstractify:17 }}</span>
+								<span class="course-name">{{ project.course.course_name }}</span>
+								<span class="course-code-section">Course Code: {{ project.course.course_code }} | Section: {{ project.course.name }}</span>
+							</div>
+							<div class="project-team">
+								<span>Team: </span>
+								<div class="team-members">
+									{% for team_member in project.team %}
+										<span class="team-member">{{ team_member }}</span>
+									{% endfor %}
+								</div>
+							</div>
+							<a href="{% url 'app_general:project_details_page' project.id %}">
+								{% comment %} <i class="fad fa-cog"></i> {% endcomment %}
+                                <i class="fad fa-external-link"></i>
+							</a>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
 
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
         <script src="{% static 'js/app_general/teacher_dashboard_page.js' %}"></script>

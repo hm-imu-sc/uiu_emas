@@ -11,18 +11,18 @@ import hashlib
 class TestPage(DBRead):
     template_name = "app_general/test_page.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["test"] = "This is a Test Page"
-        return context
+    def get_context_data(self, request, *args, **kwargs):
+        return {
+            "user": "student"
+        }
 
 
 class Test(DBRead):
 
     template_name = "app_general/test.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, request, *args, **kwargs):
+        context = {}
         context["len"] = [l for l in range(int(kwargs["len"]))]
         context["data"] = {
             "info1": "290",
@@ -35,15 +35,15 @@ class Test(DBRead):
 class Index(DBRead):
     template_name = "app_general/index.html"
 
-    def get_context_data(self, *args, **kwargs):
-        return super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        return {}
 
 
 class StudentRegistrationPage(DBRead):
     template_name = "app_general/student_registration_page.html"
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        context = {}
 
         context["date"] = {
             "days": [i for i in range(32)[1:]],
@@ -81,7 +81,7 @@ class StudentRegistration(DBAction):
                 "uiu_email": email,
                 "phone_number": phone_number,
                 "department": department,
-                "password_hash": password,
+                "password_hash": hashlib.sha256(password.encode("ASCII")).hexdigest(),
                 "photo": "null",
                 "dob": f"{dob['year']}-{dob['month']}-{dob['day']}"
             }
@@ -93,16 +93,21 @@ class StudentRegistration(DBAction):
 class LoginPage(DBRead):
     template_name = "app_general/login_page.html"
 
-    def get_context_data(self, *args, **kwargs):
-        return super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        # return {}
+        return {}
 
 
 class Login(DBAction):
     
     def action(self, request, **kwargs):
 
-        user = request.POST["user"]
-        password = request.POST["password"]
+        try:
+            user = request.POST["user"]
+            password = request.POST["password"]
+        except Exception:
+            self.redirect_url = "app_general:login_page"
+            return
 
         user_domains = {
             "student": ["student_id", "uiu_email"],
@@ -126,29 +131,52 @@ class Login(DBAction):
 
         if user_data is None or not self.verify_password(user_data, password):
             self.redirect_url = "app_general:login_page"
+            return
 
         user_id = user_data[user_domains[user_domain][0]]
-        password_hash = user_data["password_hash"]
+
+        request.session["user"] = {
+            "login_status": True,
+            "id": user_id,
+            "domain": user_domain
+        }
+
+        request.session.set_expiry(24 * 3600)
+
         self.redirect_url = f"app_general:{user_domain}_dashboard_page"
 
     def verify_password(self, user, password):
+
+        if len(user) == 0:
+            return False
+
         given = hashlib.sha256(password.encode("ASCII")).hexdigest()
+        # print(given)
+        # print(user)
         return user["password_hash"] == given
 
+
+class Logout(DBAction):
+    
+    def action(self, request, **kwargs):
+        self.redirect_url = "app_general:login_page"
+        del request.session["user"]
+
+
 class TeacherDashboardPage(DBRead):
-    database = MySql.db()
 
     template_name = "app_general/teacher_dashboard_page.html"
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        context = {}
 
-        teacher_id = kwargs["employee_id"]
+        teacher_id = request.session["user"]["id"]
         sections = self.database.get('sections', conditions={
             "teacher_id": teacher_id
         })
 
         section_ids = [sections[i]['id'] for i in range(len(sections))]
+
         projects = []
 
         if len(section_ids) > 0:
@@ -157,100 +185,163 @@ class TeacherDashboardPage(DBRead):
                 "status": 0
             })
 
-        context['projects'] = projects
+        context['projects'] = []
 
-        teacher_name = self.database.get('teachers', conditions={"employee_id": teacher_id})[0]["name"]
+        for project in projects:
 
-        context['teacher_name'] = teacher_name
+            project["course"] = self.database.get("sections", ["name", "course_code", "course_name"], {"id": project["section_id"]})[0]
+            project["team"] = [
+                team_member["student_id"]
+                for team_member in self.database.get("project_members", ["student_id"], conditions = {"project_id": project["id"]})
+            ]
+
+            context['projects'].append(project)
+
+        teacher = self.database.get('teachers', conditions={"employee_id": teacher_id})[0]
+
+        context["teacher"] = teacher
+
+        return context
+
+
+class ProjectProcessorTeacher(DBRead):
+    template_name = "app_general/project_processor_teacher.html"
+
+    def get_context_data(self, request,  *args, **kwargs):
+        context = {}
+
+        teacher_id = request.session["user"]["id"]
+        project_status = kwargs["project_status"]
+
+        sections = self.database.get('sections', conditions={
+            "teacher_id": teacher_id
+        })
+
+        section_ids = [sections[i]['id'] for i in range(len(sections))]
+
+        projects = []
+
+        if len(section_ids) > 0:
+            projects = self.database.get("projects", conditions={
+                "section_id": section_ids,
+                "status": project_status
+            })
+
+        context['projects'] = []
+
+        for project in projects:
+
+            project["course"] = self.database.get("sections", ["name", "course_code", "course_name"], {"id": project["section_id"]})[0]
+            project["team"] = [
+                team_member["student_id"]
+                for team_member in self.database.get("project_members", ["student_id"], conditions = {"project_id": project["id"]})
+            ]
+
+            context['projects'].append(project)
+
+        teacher = self.database.get('teachers', conditions={"employee_id": teacher_id})[0]
+
+        context["teacher"] = teacher
 
         return context
 
 
 class StudentDashboardPage(DBRead):
-    database = MySql.db()
-
     template_name = "app_general/student_dashboard_page.html"
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        context = {}
 
-        student_id = kwargs["student_id"]
+        student_id = request.session["user"]["id"]
 
-        # project_members = self.database.get('project_members', conditions={
-        #     "student_id": student_id
-        # })
-
-        # conditions = "("
-        # for i in range(len(project_members)):
-        #     conditions += f" student_id = {project_members[i]['student_id']} "
-        #     if i + 1 < len(project_members):
-        #         conditions += "or"
-        # conditions += f") and status = 0 "
-        # project id form project_members
-        # projects = self.database.fetch_dict("projects", self.database.query(f"select * from project_members where {conditions}"))
-        # projects = self.database.fetch_dict("projects", self.database.get(f"select * from project_members where {conditions}"))
-        
         project_ids = self.database.get("project_members", ["project_id"], conditions = {"student_id": student_id})
         context['projects'] = []
 
         for project_id in project_ids:
-            projects = self.database.get("projects", conditions = {
-                "id": project_id["project_id"]
+            project = self.database.get("projects", ["id", "title", "section_id"], conditions = {
+                "id": project_id["project_id"],
+                "status": 1
             })
 
-            if len(projects) > 0:
-                context['projects'].append(projects[0])
+            if len(project) == 0:
+                continue
 
-        # for i in range(len(context['projects'])):
-        #     if projects[i]["status"] == "1":
-        #         projects[i]["status"] = True
-        #     else:
-        #         projects[i]["status"] = False
+            project = project[0]
 
-        project_id = self.database.get('project_members', conditions={"student_id": student_id})[0]["project_id"]
+            project["course"] = self.database.get("sections", ["name", "course_code", "course_name"], {"id": project["section_id"]})[0]
+            project["team"] = [
+                team_member["student_id"]
+                for team_member in self.database.get("project_members", ["student_id"], conditions = project_id)
+            ]
 
-        context['project_id'] = project_id
-        context["student_id"] = student_id
+            context['projects'].append(project)
 
-        # title and status from projects
-        query = f'SELECT title, status FROM projects WHERE id = {int(project_id)}'
-        project_details = self.database.query(query)
-
-        project_status = project_details[0][1]
-        project_title = project_details[0][0]
-
-        # if project_status == 0:
-        #     project_status = "Not approved"
-        # elif project_status == 1:
-        #     project_status = "Approved"
-
-        # name from Students table
-        query = f'SELECT name FROM students WHERE student_id = {student_id}'
-        student_details = self.database.query(query)
-        student_name = student_details[0][0]
-
-        # context["title"] = project_title
-        # context["status"] = project_status
-        context["name"] = student_name
+        context["student"] = {
+            "id": student_id,
+            **self.database.get("students", ["name", "department"], {"student_id": student_id})[0],
+        }
 
         return context
 
+
+class ProjectProcessor(DBRead):
+    template_name = "app_general/project_processor.html"
+
+    def get_context_data(self, request,  *args, **kwargs):
+
+        context = {}
+
+        student_id = request.session["user"]["id"]
+        project_status = kwargs["project_status"]
+
+        project_ids = self.database.get("project_members", ["project_id"], conditions = {"student_id": student_id})
+        context['projects'] = []
+
+        for project_id in project_ids:
+            project = self.database.get("projects", ["id", "title", "section_id"], conditions = {
+                "id": project_id["project_id"],
+                "status": project_status
+            })
+
+            if len(project) == 0:
+                continue
+            
+            project = project[0]
+
+            project["course"] = self.database.get("sections", ["name", "course_code", "course_name"], {"id": project["section_id"]})[0]
+            project["team"] = [
+                team_member["student_id"]
+                for team_member in self.database.get("project_members", ["student_id"], conditions = project_id)
+            ]
+
+            project["status"] = project_status
+
+            context['projects'].append(project)
+
+        context["student"] = {
+            "id": student_id,
+            **self.database.get("students", ["name", "department"], {"student_id": student_id})[0],
+        }
+
+        return context
+    
 
 class ProjectDetailsPage(DBRead):
     database = MySql.db()
 
     template_name = "app_general/project_details_page.html"
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        context = {}
         project_id = kwargs["project_id"]
 
         # project details
-        query = f'SELECT title, short_description, section_id FROM projects WHERE id = {int(project_id)}'
+        query = f'SELECT title, short_description, section_id, status FROM projects WHERE id = {int(project_id)}'
         project_details_tuple = self.database.query(query)
         project_title = project_details_tuple[0][0]
         project_short_description = project_details_tuple[0][1]
         section_id = project_details_tuple[0][2]
+        status = project_details_tuple[0][3]
 
         # course details
         query = f'SELECT course_code, name, course_name FROM sections WHERE id = {int(section_id)}'
@@ -280,6 +371,7 @@ class ProjectDetailsPage(DBRead):
         context["description"] = project_short_description
         context["course"] = f'{course_code} ({section}): {course_name}'
         context["members"] = []
+        context["status"] = status
 
         for i in range(len(project_members_list)):
             context["members"].append({'id': project_members_list[i], 'name': project_members_name_list[i]})
@@ -300,10 +392,10 @@ class BoothSetupPage(DBRead):
     template_name = 'app_general/booth_setup_page.html'
     database = MySql.db()
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, request,  *args, **kwargs):
         self.boothid = kwargs['project_id']
         # self.boothid = 1  # delete this line
-        context = super().get_context_data(*args, **kwargs)
+        context = {}
         booth_details = self.database.query(f'SELECT id,title,short_description FROM projects WHERE id={self.boothid}')
         context['booth_details'] = {'id': booth_details[0][0], 'title': booth_details[0][1],
                                     'short_description': booth_details[0][2]}
@@ -318,7 +410,9 @@ class BoothSetup(DBAction):
         # intro video upload
         intro_video = request.FILES['intro_video']
         fs = FileSystemStorage()
-        intro_path = f'video/app_general/{proj_id}_intro_video.mp4'
+        name = intro_video.name
+        ext = name.split('.')[-1]
+        intro_path = f'projects-{proj_id}-intro_video.{ext}'
         fs.save(intro_path, intro_video)
 
         # demo video
@@ -327,18 +421,36 @@ class BoothSetup(DBAction):
         video_paths = []
         i = 0
         print(len(demo_videos))
+
+        max_project_videos_id = self.database.query("SELECT MAX(id) AS id FROM project_videos")
+        max_project_videos_id = max_project_videos_id[0][0]
+
         for video in demo_videos:
-            video_path = f'video/app_general/{proj_id}_demo_video{i}.mp4'
+            max_project_videos_id+=1
+            name=video.name
+            ext=name.split('.')[-1]
+            print(ext)
+            video_path = f'project_videos-{max_project_videos_id}-path.{ext}'
             fs.save(video_path, video)
             video_paths.append(video_path)
             i += 1
 
+        print(type(demo_videos[0]))
+        print(demo_videos[0])
+
         # report
         report = request.FILES['report']
-        report_path = f'pdf/app_general/{proj_id}_report.pdf'
+        name = report.name
+        ext = name.split('.')[-1]
+        report_path = f'projects-{proj_id}-report.{ext}'
         fs.save(report_path, report)
+
+
+
         self.database.query(
             f'UPDATE projects SET intro_video="{intro_path}",report="{report_path}" WHERE id="{proj_id}"')
+
+
 
         for path in video_paths:
             self.database.query(f'INSERT INTO project_videos (project_id,path) VALUES ("{proj_id}","{path}")')

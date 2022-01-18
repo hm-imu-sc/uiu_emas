@@ -1,0 +1,23 @@
+
+{% load general_extras %}
+
+{% for project in projects %}
+    <div class="project">
+        <div class="project-header">
+            <span class="project-name">{{ project.title|abstractify:17 }}</span>
+            <span class="course-name">{{ project.course.course_name }}</span>
+            <span class="course-code-section">Course Code: {{ project.course.course_code }} | Section: {{ project.course.name }}</span>
+        </div>
+        <div class="project-team">
+            <span>Team: </span>
+            <div class="team-members">
+                {% for team_member in project.team %}
+                    <span class="team-member">{{ team_member }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <a href="{% url 'app_general:booth_setup_page' project.id %}">
+            <i class="fad fa-cog"></i>
+        </a>
+    </div>
+{% endfor %}

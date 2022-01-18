@@ -12,7 +12,36 @@
     <body>
         
         {% include "../common/navbar.html" %}
-        <a href="{% url "app_admin:get_course_by_trimester" 213 %}">test</a>
+        
+        <style>
+            body select {
+                color: red;
+                display: block;
+                width: 300px;
+                margin: 30px auto;
+                padding: 10px 15px;
+            }
+            body select option {
+                color: yellow;
+                border: 2px solid red;
+            }
+        </style>
+
+        <select name="dropdown" id="dropdown">
+            <option value="test_option">Test Option</option>
+            <option value="test_option">Test Option</option>
+            <option value="test_option">Test Option</option>
+            <option value="test_option">Test Option</option>
+            <option value="test_option">Test Option</option>
+        </select>
+
+        <div class="dropdown">
+            <div class="header">
+                <span>
+                    <i class="fad fa-clipboard"></i>
+                </span>
+            </div>
+        </div>
 
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
         <script src="{% static 'js/app_general/test_page.js' %}"></script>

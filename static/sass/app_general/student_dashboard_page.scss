@@ -1,45 +1,210 @@
 @import "../common/_setup";
 
-.title {
-    @include text_not_selectable;
-    font-family: satisfy;
-    font-size: 65px;
-    color: rgba(0, 255, 255, 0.8);
-    margin-top: 40px;
-    text-align: center;
-}
+.dashboard-container {
+    width: 85%;
+    margin: 0 auto;
 
-.project_details {
-    width: 40%;
-    margin: 20px auto 0;
-    h2 {
-        @include text_not_selectable;
-        color: dodgerblue;
-        font-size: 30px;
-        text-align: center;
-        margin-bottom: 10px;
-    }
-    table {
-        border: 1px solid dodgerblue;
-        border-radius: 5px;
-        width: 100%;
+    .header {
+        // border: 1px solid yellow;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        
+        .user-info {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
 
-        th {
-            font-size: 20px;
+            div {
+                // border: 1px solid yellow;
+            }
+
+            .user-name {
+                font-size: 50px;
+            }
+
+            .vr {
+                background-color: dodgerblue;
+                border-radius: 3px;
+                width: 10px;
+                margin: 0 20px;
+            }
+
+            .user-designation {
+                margin-top: 7px;
+                display: flex;
+                flex-direction: column;
+                span:nth-child(1) {
+                    font-size: 22px;
+                }
+                span:nth-child(2) {
+                    font-size: 15px;
+                }
+            }
         }
+        
+        .dashboard-controls {
+            margin-top: 18px;
 
-        th, td {
-            padding: 10px;
-        }
-
-        td {
-            font-size: 18px;
-            
             a {
+                border: 2px solid dodgerblue;
+                border-radius: 5px;
+                color: dodgerblue;
+                padding: 7px 15px;
+                text-align: center;
+                font-size: 17px;
+                cursor: pointer;
+
                 &:hover {
-                    color: lime;
+                    color: black;
+                    background-color: dodgerblue;
                 }
             }
         }
     }
+
+    .projects-management {
+        margin-top: 50px;
+        .tab-buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: left;
+
+            button {
+                border: 0;
+                // border-bottom: 2px solid dodgerblue;
+                color: dodgerblue;
+                padding: 7px 15px;
+                text-align: center;
+                font-size: 17px;
+                cursor: pointer;
+                margin: 0;
+
+                &:hover {
+                    color: black;
+                    background-color: dodgerblue;
+                }
+            }
+
+            .button-devider {
+                width: 2px;
+                height: 20px;
+                background-color: dodgerblue;
+                margin-top: 10px;
+            }
+
+            button.active {
+                border: 2px solid dodgerblue;
+                border-bottom: 0;
+                color: black;
+                background-color: dodgerblue;
+            }
+        }
+
+        .projects {
+            padding: 20px;
+            border: 2px solid dodgerblue;
+            display: flex;
+            flex-direction: row;
+            justify-content: left;
+            flex-wrap: wrap;
+            max-height: 600px;
+            overflow: auto;
+
+            .no-projects {
+                height: 70px;
+                margin: auto;
+
+                span {
+                    color: dodgerblue;
+                    font-size: 35px;
+                    vertical-align: middle;
+                }
+
+                i {
+                    font-size: 50px;
+                    color: red;
+                    margin-right: 20px;
+                    vertical-align: middle;
+                }
+            }
+
+            .project {
+                border: 2px solid rgba(255, 255, 0, 0.555);
+                border-radius: 5px;
+                width: 30%;
+                padding: 10px;
+                margin: 14px;
+                position: relative;
+
+                .project-header {
+                    display: flex;
+                    flex-direction: column;
+                    
+                    .project-name {
+                        font-size: 30px;
+                        text-transform: uppercase;
+                        color: rgba(0, 255, 0, 0.452);
+                        width: 70%;
+                        overflow: auto;
+                        max-height: 75px;
+                    }
+
+                    .course-code-section {
+                        font-size: 15px;
+                    }
+                }
+
+                .project-team {
+                    span:nth-child(1) {
+                        display: block;
+                        color: dodgerblue;
+                        margin-top: 10px;
+                    }
+
+                    .team-members {
+                        display: flex;
+                        flex-direction: row;
+                        overflow: auto;
+                        justify-content: left;
+
+                        span {
+                            border: 1px solid green;
+                            border-radius: 10px;
+                            padding: 3px 6px;
+                            color: yellow;
+                            font-size: 15px;
+                            margin: 5px;
+                        }
+                    }
+                }
+
+                a {
+                    border: 2px solid rgba(0, 255, 0, 0.452);;
+                    border-radius: 10px;
+                    position: absolute;
+                    top: 20px;
+                    right: 20px;
+                    margin: auto;
+                    height: 50px;
+                    padding: 15px;
+
+                    i {
+                        font-size: 50px;
+                        color: dodgerblue;
+                    }
+
+                    &:hover {
+                        color: black;
+                        background-color: rgba(0, 255, 0, 0.452);
+                    }
+
+                    &:hover i {
+                        color: black;
+                        background-color: transparent;
+                    }
+                }
+            }
+        }
+    }   
 }

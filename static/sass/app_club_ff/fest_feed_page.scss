@@ -85,3 +85,18 @@
         }
     }
 }
+
+#load-more {
+    cursor: pointer;
+    border: 2px solid dodgerblue;
+    border-radius: 5px;
+    color: dodgerblue;
+    padding: 10px 30px;
+    display: block;
+    margin: 20px auto;
+
+    &:hover {
+        color: black;
+        background-color: dodgerblue;
+    }
+}

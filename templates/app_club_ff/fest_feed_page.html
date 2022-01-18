@@ -38,7 +38,7 @@
             {% for feed_post in feed_posts %}
             <div class="post_card">
                 <div class="header">
-                    <h2><span>Posted by:</span><span>{{ feed_post.club_id }}</span></h2>
+                    <h2><span>Posted by:</span><span>{{ feed_post.club_name }}</span></h2>
                     <h3><span>Posted at. </span><span>{{ feed_post.time_created }}</span></h3>
                 </div>
                 <h3>
@@ -48,10 +48,10 @@
             </div>
             {% endfor %}
 
-            <span id='posts_length' length="{{ length }}"></span>
-
+            <span id="posts_length" length="{{ length }}"></span>
+                      
         </div>
-        
+        <button id="load-more">Load More</button>
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
         <script src="{% static 'js/app_club_ff/fest_feed_page.js' %}"></script>
     </body>

@@ -57,8 +57,10 @@
 				</table>
 			</div>
         </div>
-
-        <a class="approve" href="{% url 'app_general:project_approve' id%}">Approve</a>
+		
+		{% if status == 0 %}
+        	<a class="approve" href="{% url 'app_general:project_approve' id%}">Approve</a>
+		{% endif %}
 
         <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
         <script src="{% static 'js/app_general/project_details_page.js' %}"></script>

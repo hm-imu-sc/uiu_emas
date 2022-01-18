@@ -15,17 +15,15 @@ import json
 class Index(DBRead):
     template_name = "app_club_ff/index.html"
 
-    def get_context_data(self, *args, **kwargs):
-        return super().get_context_data(*args, **kwargs)
-
 
 class FestRegistrationPage(DBRead):
     template_name = "app_club_ff/fest_registration_page.html"
     database = MySql.db()
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        student_id = kwargs["student_id"]
+    def get_context_data(self, request,  *args, **kwargs):
+        context = {}
+        student_id = request.session["user"]["id"]
+        print(student_id)
         already_exist = self.database.query(f"SELECT * FROM cff_registrations WHERE student_id = '{student_id}'")
         if len(already_exist) != 0:
             self.template_name = "app_club_ff/fest_already_registered.html"
@@ -69,8 +67,8 @@ def get_club_names(request):
 class FestFeed(DBRead):
     template_name = "app_club_ff/fest_feed_page.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, request, *args, **kwargs):
+        context = {}
         context["clubs"] = self.get_club_names()
         context["sorting_criterias"] = [
             {"value": "desc", "option": "Newest"},
@@ -81,24 +79,27 @@ class FestFeed(DBRead):
         return context
 
     def get_club_names(self):
-        database = MySql.db()
-        club_name = database.get("clubs")
+        club_name = self.database.get("clubs")
         return club_name
 
     def get_feed_posts(self):
-        database = MySql.db()
-        feed_posts = database.get("feed_posts", other_clauses=[
+        feed_posts = self.database.get("feed_posts", other_clauses=[
             "order by time_created desc",
             "limit 5"
         ])
+
+        for i in range(len(feed_posts)):
+            club_name = self.database.get("clubs", ["name"], {"id": feed_posts[i]["club_id"]})[0]["name"]
+            feed_posts[i]["club_name"] = club_name
+
         return feed_posts
 
 
 class PostProcessor(DBRead):
     template_name = "app_club_ff/post_processor.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, request, *args, **kwargs):
+        context = {}
 
         offset = int(kwargs["offset"])
         club_id = kwargs["club_id"]
@@ -106,24 +107,28 @@ class PostProcessor(DBRead):
 
         context["feed_posts"] = self.get_feed_posts(offset, club_id, criteria)
         context["length"] = len(context["feed_posts"]) + offset
-        # print(context["posts"])
-        print(context["length"])
         return context
 
     def get_feed_posts(self, offset, club_id, criteria):
-        # database = MySql.db()
         conditions = None
 
         if club_id != "all":
             conditions = {
                 "club_id": club_id
             }
+
         feed_posts = self.database.get("feed_posts", conditions=conditions, other_clauses=[
             f"order by time_created {criteria}",
             "limit 5",
             f"offset {offset}" if offset != -1 else "",
         ])
+
+        for i in range(len(feed_posts)):
+            club_name = self.database.get("clubs", ["name"], {"id": feed_posts[i]["club_id"]})[0]["name"]
+            feed_posts[i]["club_name"] = club_name
+
         return feed_posts
+
 
 def get_cff_years(request):
     database = MySql.db()
@@ -136,6 +141,7 @@ def get_cff_years(request):
     print(context["data"])
     context = json.dumps(context)
     return HttpResponse(context)
+
 
 def get_filtered_cff(request, club_name, year):
     database = MySql.db()
@@ -169,12 +175,11 @@ def get_filtered_cff(request, club_name, year):
     return HttpResponse(context)
 
 
-class ArchiveCffBooths(TemplateView):
+class ArchiveCffBooths(DBRead):
     template_name = "app_club_ff/archive_cff_booths_page.html"
-    database = MySql.db()
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, request,  *args, **kwargs):
+        context = {}
         booths = self.database.query(
             "SELECT id, time_created, club_id, club_description FROM booths WHERE `status` = 1")
 

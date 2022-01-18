@@ -6,65 +6,81 @@ django.setup()
 
 from django.shortcuts import redirect, render
 from my_modules.database import MySql
-from django.views.generic import View, TemplateView
 
-
-class classonlymethod(classmethod):
-    def __get__(self, instance, cls=None):
-        if instance is not None:
-            raise AttributeError("This method is available only on the class, not on instances.")
-        return super().__get__(instance, cls)
-
-
-class DBRead(TemplateView):
+class ViewBase:
 
     database = MySql.db()
     login_required = False
+    logout_required = False
 
     def respond(self, request, *args, **kwargs):
 
-        context = self.get_context_data(*args, **kwargs)
-        response = render(request, self.template_name, context=context)
+        response = None
+        verified = True
+        user = None
 
-        if self.login_required:
+        if self.login_required or self.logout_required:
+            verified = self.__verify_user(request)
 
-            user = None
-            
-            try:
-                user = request.COOKIES["user"]
-            except KeyError:
+            if verified:
+                user = request.session["user"]
+
+        if verified:
+            if self.logout_required:
+                response = redirect(f"app_general:{user['domain']}_dashboard_page")
+            else:
+                response = self._get_requested_response(request, *args, **kwargs)
+        else:
+            if self.logout_required:
+                response = self._get_requested_response(request, *args, **kwargs)
+            else:
                 response = redirect("app_general:login_page")
-
-        # cookie_expires = datetime.now() - timedelta(hours=60)
-        # cookie_expires = cookie_expires.strftime("%a, %d-%b-%Y %H:%M:%S GMT+6")
-        # response.set_cookie("key", "value", expires=cookie_expires)
-        # print(request.COOKIES)
 
         return response
 
-    @classonlymethod
-    def as_view(cls, login_required=False):
+    def _get_requested_response(self, request, *args, **kwargs):
+        pass
+
+    def __verify_user(self, request):
+        try:
+            return request.session["user"]["login_status"]
+        except KeyError:
+            request.session["user"] = {"login_status": False}
+            return False
+
+    @classmethod
+    def as_view(cls, login_required=False, logout_required=False):
         cls.login_required = login_required
+        cls.logout_required = logout_required
         return cls().respond
 
 
-class DBAction(View):
+class DBRead(ViewBase):
 
-    database = MySql.db()
+    def _get_requested_response(self, request, *args, **kwargs):
+        context = self.get_context_data(request, *args, **kwargs)
+        
+        try:
+            context["session"] = {"user": request.session["user"]}
+        except KeyError:
+            request.session["user"] = {"login_status": False}
+            context["session"] = {"user": request.session["user"]}
 
-    def __init__(self):
+        return render(request, self.template_name, context=context)
+    
+    def get_context_data(self, request, *args, **kwargs):
+        return {}
+
+
+class DBAction(ViewBase):
+
+    def _get_requested_response(self, request, *args, **kwargs):
+        self.redirect_args = {}
         self.redirect_url = None
+
+        self.action(request, **kwargs)
+
+        return redirect(self.redirect_url, **self.redirect_args)
 
     def action(self, request, **kwargs):
         pass
-
-    def respond(request, *args, **kwargs):
-        pass
-
-    def post(self, request, **kwargs):
-        self.action(request, **kwargs)
-        return redirect(self.redirect_url)
-
-    def get(self, request, **kwargs):
-        self.action(request, **kwargs)
-        return redirect(self.redirect_url)
