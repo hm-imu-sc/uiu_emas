@@ -65,7 +65,8 @@ def get_projects_by_course_code(request,**kwargs):
     for temp in section_ids:
         ids += str(temp) + ","
     ids = ids[:-1]
-    project_ids = database.query(f'SELECT id,title FROM projects WHERE section_id IN ({ids})')
+    #project_ids = database.query(f'SELECT id,title FROM projects WHERE section_id IN ({ids})')
+    project_ids = database.query(f'SELECT id,title FROM projects WHERE EXISTS (SELECT project_id FROM prizes where projects.id!=prizes.project_id) AND section_id IN ({ids})')
 
     if len(project_ids) > 0:
         context["message"] = "OK"
@@ -91,34 +92,4 @@ class GiveAward(DBAction):
         return
 
 
-
-        # # intro video upload
-        # intro_video = request.FILES['intro_video']
-        # fs = FileSystemStorage()
-        # intro_path = f'video/app_general/{proj_id}_intro_video.mp4'
-        # fs.save(intro_path, intro_video)
-        #
-        # # demo video
-        # demo_videos = request.FILES.getlist('demo_videos')
-        # files = dict(request.FILES)
-        # video_paths = []
-        # i = 0
-        # print(len(demo_videos))
-        # for video in demo_videos:
-        #     video_path = f'video/app_general/{proj_id}_demo_video{i}.mp4'
-        #     fs.save(video_path, video)
-        #     video_paths.append(video_path)
-        #     i += 1
-        #
-        # # report
-        # report = request.FILES['report']
-        # report_path = f'pdf/app_general/{proj_id}_report.pdf'
-        # fs.save(report_path, report)
-        # self.database.query(
-        #     f'UPDATE projects SET intro_video="{intro_path}",report="{report_path}" WHERE id="{proj_id}"')
-        #
-        # for path in video_paths:
-        #     self.database.query(f'INSERT INTO project_videos (project_id,path) VALUES ("{proj_id}","{path}")')
-        #
-        # return
 
