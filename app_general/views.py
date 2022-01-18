@@ -182,7 +182,7 @@ class TeacherDashboardPage(DBRead):
         if len(section_ids) > 0:
             projects = self.database.get("projects", conditions={
                 "section_id": section_ids,
-                "status": 0
+                "status": 1
             })
 
         context['projects'] = []
