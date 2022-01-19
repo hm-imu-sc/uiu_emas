@@ -64,7 +64,7 @@ class ProjectRegistration(DBAction):
         project_members = post_data["project_members"][0]
 
         project_members = project_members.strip().split(',')
-        
+
         try:
             self.database.query(f'INSERT INTO projects(title, section_id, short_description, trimester) VALUES ("{project_title}", "{section_id}", "{short_description}", "213")')
         except:
@@ -200,6 +200,7 @@ def get_trimesters(request):
     for tup in trimesters:
         context["data"].append({list[0]:tup[0]})
     context = json.dumps(context)
+    print(context)
     return HttpResponse(context)
 
 
@@ -208,13 +209,13 @@ def get_filtered_archeive_projects(request, course_code, trimester):
     print(course_code)
     print(trimester)
     if course_code!='NULL' and trimester!='NULL':
-        projects = database.query(f"SELECT projects.id, projects.title, projects.short_description, sections.course_name, sections.trimester FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1 and projects.trimester = '{trimester}' and sections.course_code = '{course_code}'")
+        projects = database.query(f"SELECT projects.id, projects.title, projects.short_description, sections.course_name, projects.trimester FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1 and projects.trimester = '{trimester}' and sections.course_code = '{course_code}'")
     elif course_code!='NULL':
-        projects = database.query(f"SELECT projects.id, projects.title, projects.short_description, sections.course_name, sections.trimester FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1 and sections.course_code = '{course_code}'")
+        projects = database.query(f"SELECT projects.id, projects.title, projects.short_description, sections.course_name, projects.trimester FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1 and sections.course_code = '{course_code}'")
     elif trimester!='NULL':
-        projects = database.query(f"SELECT projects.id, projects.title, projects.short_description, sections.course_name, sections.trimester FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1 and projects.trimester = '{trimester}'")
+        projects = database.query(f"SELECT projects.id, projects.title, projects.short_description, sections.course_name, projects.trimester FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1 and projects.trimester = '{trimester}'")
     else:
-        projects = database.query(f"SELECT projects.id, projects.title, projects.short_description, sections.course_name, sections.trimester FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1")
+        projects = database.query(f"SELECT projects.id, projects.title, projects.short_description, sections.course_name, projects.trimester FROM projects JOIN sections ON projects.section_id = sections.id WHERE projects.status = 1")
 
     context = {}
     context["data"] = []
@@ -235,6 +236,7 @@ def get_filtered_archeive_projects(request, course_code, trimester):
 
         context["data"].append({list[0]:tup[0],list[1]:tup[1],list[2]:tup[2], list[3]: members_info, list[4]: tup[3], list[5]: tup[4]})
     context = json.dumps(context)
+    print(context)
     return HttpResponse(context)
 
 
