@@ -1,1 +1,3 @@
 site_name: UIU EMAS
+theme:
+  name: material
