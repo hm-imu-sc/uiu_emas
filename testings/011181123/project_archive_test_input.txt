@@ -1,0 +1,15 @@
+NULL,211-NULL,211
+NULL,212-NULL,212
+NULL,213-NULL,213
+EEE_2123,NULL-Electronics,NULL
+EEE_2123,211-Electronics,211
+EEE_2123,212-Electronics,212
+EEE_2123,213-Electronics,213
+CSE_3421,NULL-Software Engineering,NULL
+CSE_3421,211-Software Engineering,211
+CSE_3421,212-Software Engineering,212
+CSE_3421,213-Software Engineering,213
+CSE_1115,NULL-Object Oriented Programming,NULL
+CSE_1115,211-Object Oriented Programming,211
+CSE_1115,212-Object Oriented Programming,212
+CSE_1115,213-Object Oriented Programming,213
