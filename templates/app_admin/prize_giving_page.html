@@ -32,7 +32,7 @@
             </div>
 
             <div>
-                <label>Project:</label>
+                <label>Team Name:</label>
                 <select id="projects" name="projects" required>
                 </select>
             </div>
@@ -40,21 +40,21 @@
             <div>
                 <label>Prize:</label>
                 <div class="prizes">
-                    <div class="prize" id="gold">
+                    <div class="prize" id="silver">
                         <label for="s_prize"><i class="fad fa-medal prize-silver"></i></label>
                         <input type="radio" id="s_prize" name="prize" value="2">
                     </div>
-                    <div class="prize">
+                    <div class="prize" id="gold">
                         <label for="f_prize"><i class="fad fa-medal prize-gold"></i></label>
                         <input type="radio" id="f_prize" name="prize" value="1">
                     </div>
-                    <div class="prize">
+                    <div class="prize" id="bronze">
                         <label for="t_prize"><i class="fad fa-medal prize-bronze"></i></label>
                         <input type="radio" id="t_prize" name="prize"  value="3">
                     </div>
                 </div>
             </div>
-            <input type="button" id="submit" value="Award">
+            <input type="button" id="submit" value="Give Award">
         </form>
 
         <div id="error"></div>
