@@ -4,6 +4,7 @@ import time
 
 driver = webdriver.Chrome(ChromeDriverManager().install())
 driver.get("http://127.0.0.1:8000/prize_giving_page/")
+driver.maximize_window()
 
 trimester = driver.find_element_by_xpath('//*[@id="trimester"]')
 course = driver.find_element_by_xpath('//*[@id="courses"]')
@@ -61,7 +62,19 @@ if flag:
 else:
     print("test case 3 - spam give award button : Fail. Prize was added again")
 
-#test case 4 - setting invalid trimester value
+#test case 4 - trying to give the team who already won a prize a second prize
+gold.click()
+submit.click()
+
+time.sleep(0.5)
+msg=driver.find_element_by_xpath('//*[@id="error"]/p')
+msg=msg.text
+if msg == "Team already won a prize":
+    print("test case 4 - give same team who won before another prize : Success. User was notified that the team had already won a prize")
+else:
+    print("test case 4 - give same team who won before another prize : Fail. Gave the team another prize.")
+
+#test case 5 - setting invalid trimester value
 trimester.click()
 select_trimester=driver.find_element_by_xpath('//*[@id="trimester"]/option[1]')#0th trimester in the list(select)
 select_trimester.click()
@@ -71,11 +84,11 @@ msg = driver.find_element_by_xpath('//*[@id="error"]/p')
 msg = msg.text
 
 if msg == "Please select a valid trimester":
-    print("test case 4 - submit invalid trimester value : Success. User was asked to provide valid trimester")
+    print("test case 5 - submit invalid trimester value : Success. User was asked to provide valid trimester")
 else:
-    print("test case 4 - submit invalid trimester value : Fail. Prize was added with invalid trimester")
+    print("test case 5 - submit invalid trimester value : Fail. Prize was added with invalid trimester")
 
-#test case 5 - submit invalid course value
+#test case 6 - submit invalid course value
 trimester.click()
 select_trimester=driver.find_element_by_xpath('//*[@id="trimester"]/option[2]')
 select_trimester.click()
@@ -89,11 +102,11 @@ msg = driver.find_element_by_xpath('//*[@id="error"]/p')
 msg = msg.text
 
 if msg == "Please select a valid course":
-    print("test case 5 - submit invalid course value : Success. User was asked to provide valid course")
+    print("test case 6 - submit invalid course value : Success. User was asked to provide valid course")
 else:
-    print("test case 5 - submit invalid course value : Fail. Prize was added with invalid course")
+    print("test case 6 - submit invalid course value : Fail. Prize was added with invalid course")
 
-#test case 6 - submit invalid team name
+#test case 7 - submit invalid team name
 trimester.click()
 select_trimester=driver.find_element_by_xpath('//*[@id="trimester"]/option[2]')
 select_trimester.click()
@@ -110,11 +123,11 @@ msg = driver.find_element_by_xpath('//*[@id="error"]/p')
 msg = msg.text
 
 if msg == "Please select a valid team name":
-    print("test case 6 - submit invalid team name : Success. User was asked to provide valid team name")
+    print("test case 7 - submit invalid team name : Success. User was asked to provide valid team name")
 else:
-    print("test case 6 - submit invalid team name : Fail. Prize was added with invalid team name")
+    print("test case 7 - submit invalid team name : Fail. Prize was added with invalid team name")
 
-#test case 7 - trying to give the team who already won a prize a second prize
+#test case 8 - trying to select the team who already won a prize
 trimester.click()
 select_trimester=driver.find_element_by_xpath('//*[@id="trimester"]/option[2]')#1st trimester in the list
 select_trimester.click()
@@ -125,7 +138,7 @@ project.click()
 select_project=driver.find_element_by_xpath('//*[@id="projects"]/option[2]')#1st course in the list
 
 if select_course.text != prized_team:
-    print("test case 7 - give same team who won before another prize : Success. Team name not in team name list")
+    print("test case 8 - select team with previous prize : Success. Team name not in team name list")
 else:
-    print("test case 7 - give same team who won before another prize : Fail. Selected team who won before")
+    print("test case 8 - select team with previous prize : Fail. Selected team was prized before")
 

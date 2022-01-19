@@ -33,12 +33,12 @@ class PrizeGivingPage(DBRead):
         context = {}
         trimesters = self.database.query(f'SELECT DISTINCT trimester FROM sections')
         context['trimesters'] = list(trimesters[0])
-        print(context)
+        #print(context)
         return context
 
 def get_course_by_trimester(request,**kwargs):
 
-    print(kwargs)
+    #print(kwargs)
     database = MySql.db()
     context = {}
     courses = database.query(f'SELECT DISTINCT course_code,course_name FROM sections WHERE trimester={kwargs["trimester"]}')
@@ -99,6 +99,17 @@ def give_award(request, **kwargs):
     database=MySql.db()
 
     #cheking if the prize is already given - if given, error message will be shown in page
+    all_prized_proj_ids = database.query(f'SELECT project_id FROM prizes')
+    all_prized_proj_ids = [p[0] for p in all_prized_proj_ids]
+    #print(f'{all_prized_proj_ids} {project_id}')
+    for i in all_prized_proj_ids:
+        #print(f'{type(i)} : {i},{type(project_id)} : {project_id}, {project_id==i}')
+
+        if int(project_id)==i:
+            context["message"] = "Team already won a prize"
+            context = json.dumps(context)
+            return HttpResponse(context)
+
     section_ids = database.query(f'SELECT id FROM sections WHERE course_code="{course_code}" AND trimester = {trimester}')
     section_ids = [s[0] for s in section_ids]
 
@@ -108,6 +119,7 @@ def give_award(request, **kwargs):
     for temp in prized_proj_ids:
         pids += str(temp) + ","
     pids = pids[:-1] #project id of prize wining projects
+
     if len(prized_proj_ids)!=0:
         prized_section_ids = database.query(f'SELECT section_id FROM projects WHERE id IN ({pids})')
         prized_section_ids = [p[0] for p in prized_section_ids]
@@ -118,6 +130,7 @@ def give_award(request, **kwargs):
                     context["message"] = "Prize already given"
                     context = json.dumps(context)
                     return HttpResponse(context)
+
 
     #insering to database
     context["message"] = "Prize successfully added"
