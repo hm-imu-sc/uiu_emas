@@ -65,8 +65,16 @@ def get_projects_by_course_code(request,**kwargs):
     for temp in section_ids:
         ids += str(temp) + ","
     ids = ids[:-1]
-    #project_ids = database.query(f'SELECT id,title FROM projects WHERE section_id IN ({ids})')
-    project_ids = database.query(f'SELECT id,title FROM projects WHERE EXISTS (SELECT project_id FROM prizes where projects.id!=prizes.project_id) AND section_id IN ({ids})')
+    prized_proj_ids=database.query(f'SELECT project_id FROM prizes')
+    prized_proj_ids = [p[0] for p in prized_proj_ids]
+    pids = ""
+    for temp in prized_proj_ids:
+        pids += str(temp) + ","
+    pids = pids[:-1]
+    if len(prized_proj_ids)==0:
+        project_ids = database.query(f'SELECT id,title FROM projects WHERE section_id IN ({ids})')
+    else:
+        project_ids = database.query(f'SELECT id,title FROM projects WHERE section_id IN ({ids}) AND id NOT IN ({pids})')
 
     if len(project_ids) > 0:
         context["message"] = "OK"
