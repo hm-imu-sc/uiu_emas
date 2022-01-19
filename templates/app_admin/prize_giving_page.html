@@ -13,9 +13,8 @@
         {% include "../common/navbar.html" %}
         <h1 class="title">Give prize</h1>
 
-        <form action="{% url 'app_admin:give_award' %}" method="POST" enctype="multipart/form-data">
+        <form>
             {% csrf_token %}
-
             <div>
                 <label>Trimester::</label>
                 <select id="trimester" name="trimester" required>
@@ -38,10 +37,10 @@
                 </select>
             </div>
 
-            <div>python manage
+            <div>
                 <label>Prize:</label>
                 <div class="prizes">
-                    <div class="prize">
+                    <div class="prize" id="gold">
                         <label for="s_prize"><i class="fad fa-medal prize-silver"></i></label>
                         <input type="radio" id="s_prize" name="prize" value="2">
                     </div>
@@ -53,12 +52,12 @@
                         <label for="t_prize"><i class="fad fa-medal prize-bronze"></i></label>
                         <input type="radio" id="t_prize" name="prize"  value="3">
                     </div>
-                </div>                
+                </div>
             </div>
-
-            <input type="submit" value="Award">
+            <input type="button" id="submit" value="Award">
         </form>
 
+        <div id="error"></div>
 
     </body>
     <script src="{% static 'js/common/jquery-3.6.0.min.js' %}"></script>
