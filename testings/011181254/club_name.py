@@ -29,7 +29,7 @@ elementDiv = driver.find_element_by_xpath('/html/body/div[5]/div/div[1]')
 if (elementDiv.text == selectedVal1):
 	print('========= OK FOR Dropdown: Received ' +  elementDiv.text + ', Expected ' + selectedVal1 )
 else:
-	print('========= OK FOR Dropdown: Received ' +  elementDiv.text + ', Expected ' + selectedVa1 )
+	print('========= Fail FOR Dropdown: Received ' +  elementDiv.text + ', Expected ' + selectedVa1 )
 time.sleep(2)
     
 #select null value  
