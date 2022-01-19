@@ -1,9 +1,9 @@
 # Project Registration
 
-For registering your project for the CSE project show, you must have to be an **authenticated student**. Let's go step by step.
+For registering your project for the CSE project show, you have to be an **authenticated student**. Let's go step by step.
 
 ## Student Dashboard
-* By clicking the `button` in the top right corner shown in the picture, you'll be able to reach the *Project Registration Page*
+* By clicking the `Project Registration` button in the top right corner shown in the picture, you'll be able to reach the *Project Registration Page*
 ![Button to take Student Dashboard to Project Registration Page](images/student_dashboard_to_project_registration.png)
 
 ## Project Registration Page
@@ -29,24 +29,5 @@ For registering your project for the CSE project show, you must have to be an **
 * Finally, you need to submit the form by using the `Submit` button shown in the picture.
 ![Submit Project](images/submit_project.png)
 
-* Now, you'll be redirected to the homepage of *CSE project show*.
+* Now, you'll be redirected to the homepage of ***CSE project show***.
 ![CSE PS Homepage](images/cse_ps_homepage.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files. -->
