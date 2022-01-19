@@ -87,14 +87,15 @@ def give_award(request, **kwargs):
     course_code = request.POST["course_code"]
     prize = request.POST["prize"]
     database=MySql.db()
+    #cheking if the prize is already given - if given, the older prize will be replaced
 
 
-
+    #insering to database
     student_ids = database.query(f'SELECT student_id FROM project_members WHERE project_id = {project_id}')
     student_ids = [s[0] for s in student_ids]
     for id in student_ids:
         database.query(f'INSERT INTO prizes (project_id,student_id,prize) VALUES ("{project_id}","{id}","{prize}")')
-    return
+    return HttpResponse()
 
 
 
