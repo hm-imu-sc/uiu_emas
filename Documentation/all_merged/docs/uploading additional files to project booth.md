@@ -1,7 +1,7 @@
 #Uploading additional files to project booth
 To upload additional files to your project booth, the project must be first be approved by a ***Teacher***. Here are the steps of adding additional files to your project booth.
 
-1. Visit the [student dashbaoard pgae]() and go to the** `Approved Projects`** section
+1. Visit the [student dashbaoard pgae]() and go to the** `Approved Projects`** section and click the **`cog`** icon next to project name
 ![Approved course](011181062\6.png)
 2. Click **`Choose file`** button under **Intro video** to upload your intro video.
 ![Approved course](011181062\7.png)

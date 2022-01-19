@@ -405,7 +405,7 @@ class BoothSetupPage(DBRead):
 class BoothSetup(DBAction):
     def action(self, request, **kwargs):
         proj_id = request.POST['proj_id']
-        self.redirect_url = f"app_general:index"
+        self.redirect_url = f"app_general:student_dashboard_page"
 
         # intro video upload
         intro_video = request.FILES['intro_video']

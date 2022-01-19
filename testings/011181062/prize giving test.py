@@ -3,7 +3,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 import time
 
 driver = webdriver.Chrome(ChromeDriverManager().install())
-driver.get("http://127.0.0.1:8000/prize_giving_page/")
+driver.get("http://127.0.0.1:8001/prize_giving_page/")
 driver.maximize_window()
 
 trimester = driver.find_element_by_xpath('//*[@id="trimester"]')
@@ -14,7 +14,7 @@ silver = driver.find_element_by_xpath('//*[@id="silver"]/label/i')
 bronze = driver.find_element_by_xpath('//*[@id="bronze"]/label/i')
 submit = driver.find_element_by_xpath('//*[@id="submit"]')
 
-#test case 2 - adding prize without selecting a prize
+#test case 1 - adding prize without selecting a prize
 trimester.click()
 select_trimester=driver.find_element_by_xpath('//*[@id="trimester"]/option[2]')#1st trimester in the list
 select_trimester.click()

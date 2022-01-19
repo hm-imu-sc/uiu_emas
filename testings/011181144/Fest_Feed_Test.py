@@ -35,7 +35,13 @@ else:
 
 time.sleep(1) 
 # Scroll Down till the end of that page
-driver.find_element_by_tag_name('html').send_keys(Keys.END)
+# driver.find_element_by_tag_name('html').send_keys(Keys.END)
+
+total_height = int(driver.execute_script("return document.body.scrollHeight"))
+
+for i in range(1, total_height, 5):
+    driver.execute_script("window.scrollTo(0, {});".format(i))
+
 # driver.execute_script("window.scrollBy(0, document.body.scrollHeight)")
 
 time.sleep(1)
@@ -47,8 +53,12 @@ load_more_btn.click()
 time.sleep(1) 
 
 # Again Scroll Down till the end of that page
-driver.find_element_by_tag_name('html').send_keys(Keys.END)
-time.sleep(1) 
+# driver.find_element_by_tag_name('html').send_keys(Keys.END)
+total_height2 = int(driver.execute_script("return document.body.scrollHeight"))
+
+for i in range(total_height+1, total_height2, 5):
+    driver.execute_script("window.scrollTo(0, {});".format(i))
+time.sleep(2) 
 
 post_len_span_2 = driver.find_element_by_xpath('//*[@id="posts_length"]') 
 post_len_2 = post_len_span_2.get_attribute('length')
@@ -60,12 +70,20 @@ else:
     print("Test case 1 fails...!!!")
     print(f"Expected Length: 10 but found: {post_len_2}\n")
 
+# time.sleep(1) 
 # Scroll up[top] of the page
-driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.HOME)
+# driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.HOME)
+
+for i in range(total_height2, 1, -5):
+    driver.execute_script("window.scrollTo(0, {});".format(i))
+# time.sleep(2)
+
+time.sleep(2)
 
 # Test case [3]: (Filtering) Posted by: "All" & Sort by: "Oldest"
 # Expected Output: First Post will be "UIU Robotics Club" and Time will be: "Jan. 10, 2022, 9:03 p.m."
 
+time.sleep(1) 
 all_oldest = driver.find_element_by_xpath('//*[@id="sort_by"]/option[2]')
 all_oldest.click()
 
@@ -81,9 +99,18 @@ else:
     print("Expected Output--> Club Name: 'UIU Robotics Club' and Posted Time: 'Jan. 10, 2022, 9:03 p.m.'")
     print(f"But Found--> Club Name: {posted_by_name.text} and Posted Time: {posted_by_time.text}\n")
 
+total_height = int(driver.execute_script("return document.body.scrollHeight"))
+
+for i in range(1, total_height, 5):
+    driver.execute_script("window.scrollTo(0, {});".format(i))
+time.sleep(1)
+# Scrolling UP in APP Forum Page
+for i in range(total_height, 1, -5):
+    driver.execute_script("window.scrollTo(0, {});".format(i))
+
 # Test case [4]: (Filtering) Posted by: "UIU APP Forum" & Sort by: "Oldest"
 # Expected Output: First Post will be "UIU App Forum" and Time will be: "Jan. 10, 2022, 9:03 p.m."
-
+time.sleep(1)
 app_oldest = driver.find_element_by_xpath('//*[@id="club_name"]/option[3]')
 app_oldest.click()
 
@@ -99,6 +126,15 @@ else:
     print("Expected Output--> Club Name: 'UIU App Forum' and Posted Time: 'Jan. 10, 2022, 9:03 p.m.'")
     print(f"But Found--> Club Name: {posted_by_app.text} and Posted Time: {posted_by_app_time.text}\n")
 
+# Scrolling down in APP Forum Page
+total_height = int(driver.execute_script("return document.body.scrollHeight"))
+
+for i in range(1, total_height, 5):
+    driver.execute_script("window.scrollTo(0, {});".format(i))
+
+# Scrolling UP in APP Forum Page
+for i in range(total_height, 1, -5):
+    driver.execute_script("window.scrollTo(0, {});".format(i))
 
 time.sleep(1)       
 
