@@ -108,8 +108,10 @@ $("#submit").click(function (){
 			url: ("/give_award/"),
 			type: 'POST',
 			data: { trimester : trimester, course_code: course_code, project: project, prize: prize ,csrfmiddlewaretoken: csrf,},  // data to submit
-			success: function () {
-				let code="<p>Prize successfully added</p>";
+			success: function (data) {
+				data = JSON.parse(data);
+				let msg = data["message"]
+				let code="<p>"+ msg +"</p>";
 				$("#error").html(code)
 			}
 		});

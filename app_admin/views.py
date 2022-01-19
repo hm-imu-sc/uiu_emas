@@ -90,20 +90,43 @@ def get_projects_by_course_code(request,**kwargs):
 
 
 def give_award(request, **kwargs):
+    context = {}
+
     trimester = request.POST["trimester"]
     project_id = request.POST["project"]
     course_code = request.POST["course_code"]
     prize = request.POST["prize"]
     database=MySql.db()
-    #cheking if the prize is already given - if given, the older prize will be replaced
 
+    #cheking if the prize is already given - if given, error message will be shown in page
+    section_ids = database.query(f'SELECT id FROM sections WHERE course_code="{course_code}" AND trimester = {trimester}')
+    section_ids = [s[0] for s in section_ids]
+
+    prized_proj_ids = database.query(f'SELECT project_id FROM prizes WHERE prize = {prize}')
+    prized_proj_ids = [p[0] for p in prized_proj_ids]
+    pids = ""
+    for temp in prized_proj_ids:
+        pids += str(temp) + ","
+    pids = pids[:-1] #project id of prize wining projects
+    if len(prized_proj_ids)!=0:
+        prized_section_ids = database.query(f'SELECT section_id FROM projects WHERE id IN ({pids})')
+        prized_section_ids = [p[0] for p in prized_section_ids]
+
+        for x in prized_section_ids:
+            for y in section_ids:
+                if x==y:
+                    context["message"] = "Prize already given"
+                    context = json.dumps(context)
+                    return HttpResponse(context)
 
     #insering to database
+    context["message"] = "Prize successfully added"
     student_ids = database.query(f'SELECT student_id FROM project_members WHERE project_id = {project_id}')
     student_ids = [s[0] for s in student_ids]
     for id in student_ids:
         database.query(f'INSERT INTO prizes (project_id,student_id,prize) VALUES ("{project_id}","{id}","{prize}")')
-    return HttpResponse()
+    context = json.dumps(context)
+    return HttpResponse(context)
 
 
 
