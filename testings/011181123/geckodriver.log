@@ -50,7 +50,7 @@ console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message f
 JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
 JavaScript error: resource://gre/modules/AsyncShutdown.jsm, line 575: NotFoundError: No such JSWindowActor 'DevToolsFrame'
 1642528059855	Marionette	INFO	Stopped listening on port 65346
-console.error: services.settings: 
+console.error: services.settings:
   main/query-stripping Signature failed  TypeError: NetworkError: Network request failed
 [Parent 7372, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
 console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
@@ -174,3 +174,19 @@ console.warn: SearchSettings: "get: No settings file exists, new profile?" (new 
 DevTools listening on ws://localhost:58530/devtools/browser/73074103-b431-4dde-86dc-f9299a8abc03
 1642570238919	Marionette	INFO	Listening on port 58535
 1642570239351	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1642571418843	geckodriver	INFO	Listening on 127.0.0.1:60110
+1642571420905	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "60111" "-no-remote" "-profile" "C:\\Users\\Orni\\AppData\\Local\\Temp\\rust_mozprofileuE8GQp"
+1642571422653	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\Orni\\AppData\\Local\\Temp\\rust_mozprofileuE8GQp\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:60111/devtools/browser/8fcc1fb6-ddb1-4051-8156-f697f870813f
+1642571428889	Marionette	INFO	Listening on port 60116
+1642571429477	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1642571802759	Marionette	INFO	Stopped listening on port 60116
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1642578328168	geckodriver	INFO	Listening on 127.0.0.1:60310
+1642578330162	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "60311" "-no-remote" "-profile" "C:\\Users\\Orni\\AppData\\Local\\Temp\\rust_mozprofileTytAJB"
+1642578331547	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\Orni\\AppData\\Local\\Temp\\rust_mozprofileTytAJB\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:60311/devtools/browser/5831c030-334c-4ac7-8070-82f2f3910638
+1642578335594	Marionette	INFO	Listening on port 60316
+1642578336165	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
