@@ -61,7 +61,7 @@ for input in inputs:
         for project in projects:
             if expected_output[0] != 'NULL':
                 if expected_output[0] == project.get_attribute("course_name"):
-                    continue
+                    pass
                 else:
                     correct = False
                     break
