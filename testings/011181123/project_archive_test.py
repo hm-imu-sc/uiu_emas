@@ -39,7 +39,7 @@ for input in inputs:
         course_btn.click()
 
     if input[1]!='NULL':
-        print(len(input[1]))
+        # print(len(input[1]))
         # trimester selection
         trimester_btn = driver.find_element_by_xpath('//*[@id="trimester_filter"]')
         trimester_btn.click()
